@@ -1,48 +1,49 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+    <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                <div class="brand-logo">
+                    <img src="{{ asset('assets') }}/images/logo.svg" alt="logo" />
+                </div>
+                @if (session('status'))
+                    <div class="mb-4 fs-5 fw-bold text-success">
+                        {{ session('status') }}
+                    </div>
                 @endif
+                <h4>Hello! let's get started</h4>
+                <h6 class="fw-light">Sign in to continue.</h6>
+                <form class="pt-3" method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="form-group">
+                        <input type="email" class="form-control form-control-lg" id="email" name="email"
+                            value="{{ old('email') }}" placeholder="Email" required autofocus />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg" id="password" name="password"
+                            placeholder="Password" required autocomplete="current-password" />
+                    </div>
+                    <div class="my-2 d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                            <label class="form-check-label text-muted">
+                                <input type="checkbox" class="form-check-input" id="remember_me" name="remember" />
+                                Keep me signed in
+                            </label>
+                        </div>
+                        @if (Route::has('password.request'))
+                            <a href="#" class="auth-link text-black">Forgot password?</a>
+                        @endif
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit"
+                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                    </div>
 
-                <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
-                </x-jet-button>
+                    <div class="text-center mt-4 fw-light">
+                        Don't have an account?
+                        <a href="{{ route('register') }}" class="text-primary">Create</a>
+                    </div>
+                </form>
             </div>
-        </form>
-    </x-jet-authentication-card>
+        </div>
+    </div>
 </x-guest-layout>
