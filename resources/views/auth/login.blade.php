@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-default-layout>
     <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
@@ -15,12 +15,24 @@
                 <form class="pt-3" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-group">
-                        <input type="email" class="form-control form-control-lg" id="email" name="email"
-                            value="{{ old('email') }}" placeholder="Email" required autofocus />
+                        <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
+                            id="email" name="email" value="{{ old('email') }}" placeholder="Email" required
+                            autofocus />
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control form-control-lg" id="password" name="password"
-                            placeholder="Password" required autocomplete="current-password" />
+                        <input type="password"
+                            class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
+                            name="password" placeholder="Password" required autocomplete="current-password" />
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">
                         <div class="form-check">
@@ -46,4 +58,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-default-layout>

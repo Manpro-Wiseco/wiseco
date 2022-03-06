@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -57,4 +57,68 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+<x-default-layout>
+    <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                <div class="brand-logo">
+                    <img src="{{ asset('assets') }}/images/logo.svg" alt="logo" />
+                </div>
+                @if (session('status'))
+                    <div class="mb-4 fs-5 fw-bold text-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                <h4>Register</h4>
+                <h6 class="fw-light">Register your account to continue.</h6>
+                <form class="pt-3" method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg  @error('name') is-invalid @enderror"
+                            id="name" name="name" value="{{ old('name') }}" placeholder="Name" required autofocus />
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
+                            id="email" name="email" value="{{ old('email') }}" placeholder="Email" required />
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input type="password"
+                            class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
+                            name="password" placeholder="Password" required autocomplete="current-password" />
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg" id="password_confirmation"
+                            name="password_confirmation" placeholder="Password Confirmation" required
+                            autocomplete="new-password" />
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit"
+                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+                    </div>
+
+                    <div class="text-center mt-4 fw-light">
+                        Have an account?
+                        <a href="{{ route('login') }}" class="text-primary">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-default-layout>
