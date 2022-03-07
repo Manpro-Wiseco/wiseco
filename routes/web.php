@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,10 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth', 'role:user'])->get('/list-company', function (Request $request) {
+    // dd($request->session()->all());
+    $companies = App\Models\Company::where('user_id', auth()->user()->id)->get();
+    return view('list-company', compact('companies'));
+})->name('list-company');
+Route::middleware(['auth', 'role:user'])->post('/create-company', [\App\Http\Controllers\User\CompanyController::class, 'store'])->name('company.store');

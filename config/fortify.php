@@ -61,7 +61,15 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => function () {
+
+        //or if you have a bunch of redirection options
+        if (auth()->user()->role_id === 1) {
+            return route('dashboard');
+        } else {
+            return route('list-company');
+        }
+    },
 
     /*
     |--------------------------------------------------------------------------
