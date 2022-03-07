@@ -309,11 +309,14 @@
                                                             class="text-secondary text-xs font-weight-bold">{{ $company->country }}</span>
                                                     </td>
                                                     <td class="align-middle">
-                                                        <a href="javascript:;"
-                                                            class="btn btn-sm btn-secondary fw-bold text-sm"
-                                                            data-toggle="tooltip">
-                                                            Open
-                                                        </a>
+                                                        <form action="{{ route('company.session', $company->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-secondary fw-bold text-sm">
+                                                                Open
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -16,7 +16,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::where('user_id', auth()->user()->id)->get();
+        return view('list-company', compact('companies'));
     }
 
     /**
@@ -24,9 +25,11 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function session(Company $company, Request $request)
     {
-        //
+        $data = Company::with(['user'])->findOrFail($company->id);
+        $request->session()->put('company', $data);
+        return redirect()->route('dashboard');
     }
 
     /**
