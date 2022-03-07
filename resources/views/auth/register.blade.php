@@ -1,124 +1,78 @@
-{{-- <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-jet-label for="terms">
-                        <div class="flex items-center">
-                            <x-jet-checkbox name="terms" id="terms"/>
-
-                            <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-jet-label>
-                </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout> --}}
-
 <x-default-layout>
-    <div class="row w-100 mx-0">
-        <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                <div class="brand-logo">
-                    <img src="{{ asset('assets') }}/images/logo.svg" alt="logo" />
+    <section class="min-vh-100 mb-8">
+        <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+            style="background-image: url('../assets/img/curved-images/curved14.jpg');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 text-center mx-auto">
+                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+                        <p class="text-lead text-white">Register your account to continue.</p>
+                    </div>
                 </div>
-                @if (session('status'))
-                    <div class="mb-4 fs-5 fw-bold text-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <h4>Register</h4>
-                <h6 class="fw-light">Register your account to continue.</h6>
-                <form class="pt-3" method="POST" action="{{ route('register') }}">
-                    @csrf
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-lg  @error('name') is-invalid @enderror"
-                            id="name" name="name" value="{{ old('name') }}" placeholder="Name" required autofocus />
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
-                            id="email" name="email" value="{{ old('email') }}" placeholder="Email" required />
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="password"
-                            class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
-                            name="password" placeholder="Password" required autocomplete="current-password" />
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control form-control-lg" id="password_confirmation"
-                            name="password_confirmation" placeholder="Password Confirmation" required
-                            autocomplete="new-password" />
-                    </div>
-                    <div class="mt-3">
-                        <button type="submit"
-                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
-                    </div>
-
-                    <div class="text-center mt-4 fw-light">
-                        Have an account?
-                        <a href="{{ route('login') }}" class="text-primary">Login</a>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
+        <div class="container">
+            <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+                <div class="col-xl-6 col-lg-7 col-md-9 mx-auto">
+                    <div class="card z-index-0">
+                        <div class="card-header text-center pt-4">
+                            <h5>Register Account</h5>
+                        </div>
+                        <div class="card-body">
+                            <form role="form text-left" action="{{ route('register') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ old('name') }}" placeholder="Name" required
+                                        autofocus>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                                        required>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Password" id="password" name="password" required>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" placeholder="Password Confirmation"
+                                        id="password_confirmation" name="password_confirmation" required>
+                                </div>
+                                <div class="form-check form-check-info text-left">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                                        required>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms
+                                            and Conditions</a>
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                                </div>
+                                <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}"
+                                        class="text-dark font-weight-bolder">Sign in</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </x-default-layout>

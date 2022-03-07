@@ -1,61 +1,69 @@
 <x-default-layout>
-    <div class="row w-100 mx-0">
-        <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                <div class="brand-logo">
-                    <img src="{{ asset('assets') }}/images/logo.svg" alt="logo" />
-                </div>
-                @if (session('status'))
-                    <div class="mb-4 fs-5 fw-bold text-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <h4>Hello! let's get started</h4>
-                <h6 class="fw-light">Sign in to continue.</h6>
-                <form class="pt-3" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="form-group">
-                        <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
-                            id="email" name="email" value="{{ old('email') }}" placeholder="Email" required
-                            autofocus />
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="password"
-                            class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
-                            name="password" placeholder="Password" required autocomplete="current-password" />
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="my-2 d-flex justify-content-between align-items-center">
-                        <div class="form-check">
-                            <label class="form-check-label text-muted">
-                                <input type="checkbox" class="form-check-input" id="remember_me" name="remember" />
-                                Keep me signed in
-                            </label>
+    <section>
+        <div class="page-header min-vh-75">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
+                        <div class="card card-plain mt-8">
+                            <div class="card-header pb-0 text-left bg-transparent">
+                                <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
+                                <p class="mb-0">Enter your email and password to sign in</p>
+                            </div>
+                            <div class="card-body">
+                                <form role="form" action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <label>Email</label>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                            id="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                                            required autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <label>Password</label>
+                                    <div class="mb-3">
+                                        <input type="password"
+                                            class="form-control @error('password') is-invalid @enderror" id="password"
+                                            name="password" placeholder="Password" required
+                                            autocomplete="current-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="remember_me"
+                                            name="remember">
+                                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign
+                                            in</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                <p class="mb-4 text-sm mx-auto">
+                                    Don't have an account?
+                                    <a href="{{ route('register') }}"
+                                        class="text-info text-gradient font-weight-bold">Sign up</a>
+                                </p>
+                            </div>
                         </div>
-                        @if (Route::has('password.request'))
-                            <a href="#" class="auth-link text-black">Forgot password?</a>
-                        @endif
                     </div>
-                    <div class="mt-3">
-                        <button type="submit"
-                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                    <div class="col-md-6">
+                        <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
+                            <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
+                                style="background-image:url('{{ asset('assets') }}/img/curved-images/curved6.jpg')">
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="text-center mt-4 fw-light">
-                        Don't have an account?
-                        <a href="{{ route('register') }}" class="text-primary">Create</a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </x-default-layout>
