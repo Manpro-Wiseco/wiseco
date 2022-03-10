@@ -37,10 +37,10 @@ composer install
 php artisan key:generate
 ```
 
-5. Make migrations
+5. Make migrations and seeds
 
 ```shell
-php artisan migrate:fresh
+php artisan migrate:fresh --seed
 ```
 
 6. Install & compile node modules
