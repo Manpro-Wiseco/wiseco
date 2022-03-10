@@ -30,5 +30,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
 });
 Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/penjualan', [\App\Http\Controllers\User\PenjualanController::class, 'index'])->name('penjualan');
+});
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
 });
