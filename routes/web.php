@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -28,4 +28,7 @@ Route::middleware(['auth', 'role:user'])->post('/session-company/{company}', [\A
 
 Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+});
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
 });

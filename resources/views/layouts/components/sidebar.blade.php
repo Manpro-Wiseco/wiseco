@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link  active" href="#">
+                <a class="nav-link  active" href="{{route('dashboard')}}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -90,7 +90,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  " href="#">
+                <a class="nav-link  " href="{{ route('inventory') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
@@ -117,6 +117,52 @@
                     </div>
                     <span class="nav-link-text ms-1">Persediaan</span>
                 </a>
+                <div class="collapse show" id="InvMenu" style="">
+                    <ul class="nav ms-4 ps-3">
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Data Produk </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Penyesuaian Barang </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Stok Opname </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Pindah Gudang </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Produksi </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Formula Produksi </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Konsinyasi Barang Keluar </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link  " href="#">
