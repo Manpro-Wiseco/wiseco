@@ -50,51 +50,82 @@
             </div> --}}
             
 {{-- --------------------------------------- --}}
+
             <div class="row">
-                <div class="col-md-4 mt-4">
-                    <div class="card text-center" style="background-color:rgb(121, 155, 219)">
-                        <div class="card-body py-7">
-                          <h3 class="text-Black">Pesanan Penjualan</h3>
+                <a class="link  " href="#">
+                    <div class="col-md-6 mt-6">
+                        <div class="card text-center" style="background-color:rgb(196, 121, 219)">
+                            <div class="card-body py-4">
+                            <h3 class="text-Black">Penawaran Penjualan</h3>
+                            <img class="w-100 position-relative z-index-2 pt-4"
+                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                alt="rocket">
+                            <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                            </div>
+                        </div>
+                </a> 
+            </div>
+            
+            <div class="col-md-6 mt-6">
+                <a class="link  " href="#"> 
+                    <div class="card bg-cover text-center" style="background-color: #5e57c2">
+                        <div class="card-body py-4">
+                          <h3 class="text-black">Pesanan Penjualan</h3>
+                          <img class="w-100 position-relative z-index-2 pt-4"
+                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                            alt="rocket">
                           <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
                         </div>
                       </div>
-                      
-                      
-                </div>
-            
-                <div class="col-md-4 mt-4">
+                </a>                        
+            </div>
+
+            <div class="col-md-6 mt-6">
+                <a class="link  " href="#"> 
                     <div class="card bg-cover text-center" style="background-color: #E6BD9F">
-                        <div class="card-body py-7">
+                        <div class="card-body py-4">
                           <h3 class="text-black">Pengiriman Barang</h3>
+                          <img class="w-100 position-relative z-index-2 pt-4"
+                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                            alt="rocket">
                           <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
                         </div>
                       </div>
-                      
-                      
-                </div>
+                </a>                        
+            </div>
             
-                <div class="col-md-4 mt-4">
-                    <div class="card bg-cover text-center" style="background-color: #E69D93">
-                        <div class="card-body py-7">
-                          <h3 class="text-black">Faktur Penjualan</h3>
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+            
+            
+                <div class="col-md-6 mt-6">
+                    <a class="link  " href="#">
+                        <div class="card bg-cover text-center" style="background-color: #E69D93">
+                            <div class="card-body py-4">
+                                <h3 class="text-black">Faktur Penjualan</h3>
+                                <img class="w-100 position-relative z-index-2 pt-4"
+                                                    src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                    alt="rocket">
+                                <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                            </div>
                         </div>
-                      </div>
-                      
-                      
+                    </a>  
                 </div>
+             
+
             
-                <div class="col-md-4 mt-4">
-                    <div class="card bg-cover text-center" style="background-color: #ADDBC6">
-                        <div class="card-body py-7">
-                          <h3 class="text-black">Retur Penjualan</h3>
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                <div class="col-md-6 mt-6">
+                    <a class="link  " href="#">
+                        <div class="card bg-cover text-center" style="background-color: #ADDBC6">
+                            <div class="card-body py-4">
+                            <h3 class="text-black">Retur Penjualan</h3>
+                            <img class="w-100 position-relative z-index-2 pt-4"
+                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                alt="rocket">
+                            <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                            </div>
                         </div>
-                      </div>
-                      
-                      
+                    </a>  
                 </div>
-            
+             
         </div>
     </section>
 </x-template-layout>

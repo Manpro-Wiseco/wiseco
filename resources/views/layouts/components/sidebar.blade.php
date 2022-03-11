@@ -67,6 +67,12 @@
                         <li class="nav-item ">
                             <a class="nav-link " href="#">
                                 <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Penawaran Harga </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                <span class="sidenav-mini-icon"> O </span>
                                 <span class="sidenav-normal"> Pesanan Penjualan </span>
                             </a>
                         </li>
