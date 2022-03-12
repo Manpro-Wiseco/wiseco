@@ -27,11 +27,16 @@ Route::middleware(['auth', 'role:user'])->post('/create-company', [\App\Http\Con
 Route::middleware(['auth', 'role:user'])->post('/session-company/{company}', [\App\Http\Controllers\User\CompanyController::class, 'session'])->name('company.session');
 
 Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
-});
-Route::middleware(['auth', 'role:user'])->group(function () {
+
+    // Penjualan
     Route::get('/penjualan', [\App\Http\Controllers\User\PenjualanController::class, 'index'])->name('penjualan');
-});
-Route::middleware(['auth', 'role:user'])->group(function () {
+
+    // Inventory
     Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
+
+    // Data Lainnya - Data Bank 
+    Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
+    Route::resource('/data-bank', \App\Http\Controllers\User\DataBankController::class);
 });
