@@ -52,7 +52,7 @@
 {{-- --------------------------------------- --}}
 
             <div class="row">
-                <a class="link  " href="#">
+                <a class="link  " href="{{route('penawaran-penjualan')}}">
                     <div class="col-md-6 mt-6">
                         <div class="card text-center" style="background-color:rgb(196, 121, 219)">
                             <div class="card-body py-4">
@@ -67,8 +67,8 @@
             </div>
             
             <div class="col-md-6 mt-6">
-                <a class="link  " href="#"> 
-                    <div class="card bg-cover text-center" style="background-color: #5e57c2">
+                <a class="link  " href="{{route('pesanan-penjualan')}}"> 
+                    <div class="card bg-cover text-center" style="background-color: #4b3eff">
                         <div class="card-body py-4">
                           <h3 class="text-black">Pesanan Penjualan</h3>
                           <img class="w-100 position-relative z-index-2 pt-4"
@@ -81,7 +81,7 @@
             </div>
 
             <div class="col-md-6 mt-6">
-                <a class="link  " href="#"> 
+                <a class="link  " href="{{route('pengiriman-barang')}}"> 
                     <div class="card bg-cover text-center" style="background-color: #E6BD9F">
                         <div class="card-body py-4">
                           <h3 class="text-black">Pengiriman Barang</h3>
@@ -97,7 +97,7 @@
             
             
                 <div class="col-md-6 mt-6">
-                    <a class="link  " href="#">
+                    <a class="link  " href="{{route('faktur-penjualan')}}">
                         <div class="card bg-cover text-center" style="background-color: #E69D93">
                             <div class="card-body py-4">
                                 <h3 class="text-black">Faktur Penjualan</h3>
@@ -113,7 +113,7 @@
 
             
                 <div class="col-md-6 mt-6">
-                    <a class="link  " href="#">
+                    <a class="link  " href="{{route('retur-penjualan')}}">
                         <div class="card bg-cover text-center" style="background-color: #ADDBC6">
                             <div class="card-body py-4">
                             <h3 class="text-black">Retur Penjualan</h3>

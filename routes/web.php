@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -32,6 +33,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
     // Penjualan
     Route::get('/penjualan', [\App\Http\Controllers\User\PenjualanController::class, 'index'])->name('penjualan');
+    Route::get('/penawaran-penjualan', [\App\Http\Controllers\User\PenawaranController::class, 'index'])->name('penawaran-penjualan');
+    Route::get('/pesanan-penjualan', [\App\Http\Controllers\User\PesananController::class, 'index'])->name('pesanan-penjualan');
+    Route::get('/pengiriman-barang', [\App\Http\Controllers\User\PengirimanController::class, 'index'])->name('pengiriman-barang');
+    Route::get('/faktur-penjualan', [\App\Http\Controllers\User\FakturController::class, 'index'])->name('faktur-penjualan');
+    Route::get('/retur-penjualan', [\App\Http\Controllers\User\ReturController::class, 'index'])->name('retur-penjualan');
+
 
     // Inventory
     Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
@@ -39,4 +46,5 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Data Lainnya - Data Bank 
     Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
     Route::resource('/data-bank', \App\Http\Controllers\User\DataBankController::class);
+
 });
