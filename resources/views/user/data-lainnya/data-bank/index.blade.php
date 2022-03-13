@@ -8,6 +8,8 @@
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
+                processing: true,
+                serverSide: true,
                 language: {
                     paginate: {
                         previous: "<",
@@ -26,14 +28,7 @@
                     {
                         data: 'code',
                         name: 'code'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        className: 'align-middle text-center'
-                    },
+                    }
                 ]
             });
         })
@@ -42,38 +37,34 @@
 
 <x-template-layout>
     <section class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between pb-0">
-                            <h3>Data Bank</h3>
-                            <a href="{{ route('data-bank.create') }}" class="btn bg-gradient-primary">
-                                <i class="fas fa-plus-square"></i>
-                            </a>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-3">
-                                <table class="table align-items-center mb-0" id="data-bank-table">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nomor</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Nama Bank</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Code</th>
-                                            <th class="text-secondary opacity-7"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h3>Data Bank</h3>
+                        <a href="{{ route('data-bank.create') }}" class="btn bg-gradient-primary">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-3">
+                            <table class="table align-items-center mb-0" id="data-bank-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Nomor</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Nama Bank</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
