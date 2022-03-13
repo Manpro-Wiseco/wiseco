@@ -39,4 +39,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Data Lainnya - Data Bank 
     Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
     Route::resource('/data-bank', \App\Http\Controllers\User\DataBankController::class);
+    // Data Lainnya - Data Contact 
+    Route::get('/data-contact/list', [\App\Http\Controllers\User\DataContactController::class, 'list'])->name('data-contact.list');
+    Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
 });

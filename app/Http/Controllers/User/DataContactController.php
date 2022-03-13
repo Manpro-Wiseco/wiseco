@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataBank;
+use App\Models\DataContact;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class DataBankController extends Controller
+class DataContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,31 @@ class DataBankController extends Controller
      */
     public function index()
     {
-        return view('user.data-lainnya.data-bank.index');
+        return view('user.data-lainnya.data-kontak.index');
     }
 
     public function list(Request $request)
     {
-        $data = DataBank::latest()->get();
+        $data = DataContact::with(['company'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->editColumn('email', function ($row) {
+                return ($row->email ? $row->email : "-");
+            })
+            ->editColumn('phone', function ($row) {
+                return ($row->phone ? $row->phone : "-");
+            })
+            ->addColumn('action', function ($row) {
+                $urlEdit = route('data-contact.edit', $row->id);
+                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+        <i class="fas fa-edit"></i>
+    </a>
+    <button class="btn bg-gradient-danger btn-small" type="button">
+        <i class="fas fa-trash"></i>
+    </button>';
+                return $actionBtn;
+            })
+            ->rawColumns(['action'])
             ->make(true);
     }
 
