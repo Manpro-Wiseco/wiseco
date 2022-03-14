@@ -2,7 +2,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-4 mb-5">
-                <a href="#">
+                <a href="{{ route('pengelolaan-kas.expense.index') }}">
                     <div class="card bg-gradient-success">
                         <div class="card-body p-3">
                             <div class="text-center">

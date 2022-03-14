@@ -47,6 +47,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Pengelolaan Kas
     Route::prefix('pengelolaan-kas')->name('pengelolaan-kas.')->group(function () {
         Route::get('/', [\App\Http\Controllers\User\PengelolaanKas\HomeController::class, 'index'])->name('index');
+
+        // Pengelolaan Kas - Expense 
+        Route::get('/expense/list', [\App\Http\Controllers\User\PengelolaanKas\ExpenseController::class, 'list'])->name('expense.list');
+        Route::resource('/expense', \App\Http\Controllers\User\PengelolaanKas\ExpenseController::class);
     });
 
     // Data Lainnya - Data Bank 
