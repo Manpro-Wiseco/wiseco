@@ -62,39 +62,6 @@
                     </div>
                     <span class="nav-link-text ms-1">Penjualan</span>
                 </a>
-                <div class="collapse show" id="InvMenu" style="">
-                    <ul class="nav ms-4 ps-3">
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Penawaran Harga </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Pesanan Penjualan </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Pengiriman Barang </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Faktur Penjualan </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Retur Penjualan </span>
-                            </a>
-                        </li>
-                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link  " href="#">
@@ -150,52 +117,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Persediaan</span>
                 </a>
-                <div class="collapse show" id="InvMenu" style="">
-                    <ul class="nav ms-4 ps-3">
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Data Produk </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Penyesuaian Barang </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Stok Opname </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Pindah Gudang </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Produksi </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Formula Produksi </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Konsinyasi Barang Keluar </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link  " href="#">
@@ -267,7 +189,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link " href="#">
+                            <a class="nav-link " href="{{ route('data-contact.index') }}">
                                 <span class="sidenav-mini-icon"> O </span>
                                 <span class="sidenav-normal"> Data Kontak </span>
                             </a>
