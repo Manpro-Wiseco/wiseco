@@ -42,7 +42,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
 
     // Inventory
-    Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
+    Route::prefix('inventory')->name('inventory.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\Inventory\HomeController::class, 'index'])->name('index');
+    });
+    // Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
 
     // Pengelolaan Kas
     Route::prefix('pengelolaan-kas')->name('pengelolaan-kas.')->group(function () {
