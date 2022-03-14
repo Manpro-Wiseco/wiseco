@@ -40,6 +40,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/faktur-penjualan', [\App\Http\Controllers\User\FakturController::class, 'index'])->name('faktur-penjualan');
     Route::get('/retur-penjualan', [\App\Http\Controllers\User\ReturController::class, 'index'])->name('retur-penjualan');
 
+     // Pembelian
+     Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
+     Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
+     Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
+     Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
+     Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
+     Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
 
     // Inventory
     Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
