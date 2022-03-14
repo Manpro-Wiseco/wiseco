@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Yajra\DataTables\DataTables;
 
 class DataContactController extends Controller
@@ -35,7 +36,7 @@ class DataContactController extends Controller
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
         <i class="fas fa-edit"></i>
     </a>
-    <button class="btn bg-gradient-danger btn-small" type="button">
+    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
         <i class="fas fa-trash"></i>
     </button>';
                 return $actionBtn;
@@ -51,7 +52,7 @@ class DataContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.data-lainnya.data-kontak.create');
     }
 
     /**
@@ -62,7 +63,20 @@ class DataContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|string|email',
+            'phone' => 'required|string|max:16',
+            'address' => 'required|string',
+            'status' => 'required|string'
+        ]);
+
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+
+        DataContact::create($data);
+
+        return redirect()->route('data-contact.index')->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -82,9 +96,9 @@ class DataContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(DataContact $dataContact)
     {
-        //
+        return view('user.data-lainnya.data-kontak.edit', compact('dataContact'));
     }
 
     /**
@@ -94,9 +108,21 @@ class DataContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, DataContact $dataContact)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|string|email',
+            'phone' => 'required|string|max:16',
+            'address' => 'required|string',
+            'status' => 'required|string'
+        ]);
+
+        $data = Arr::except($request->all(), '_token');
+
+        $dataContact->update($data);
+
+        return redirect()->route('data-contact.index')->with('success', 'Berhasil Mengubah Data!');
     }
 
     /**
@@ -105,8 +131,9 @@ class DataContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DataContact $dataContact)
     {
-        //
+        $dataContact->delete();
+        return response()->json(['status' => TRUE]);
     }
 }

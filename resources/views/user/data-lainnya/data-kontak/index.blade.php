@@ -4,6 +4,24 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            let flashdatasukses = $('.success-session').data('flashdata');
+            if (flashdatasukses) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: flashdatasukses,
+                    type: 'success'
+                })
+            }
+            let flashdatadanger = $('.danger-session').data('flashdata');
+            if (flashdatadanger) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: flashdatadanger,
+                    type: 'error'
+                })
+            }
             let table = $('#data-contact-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
@@ -55,6 +73,54 @@
 
                 ]
             });
+
+            function reload_table(callback, resetPage = false) {
+                table.ajax.reload(callback, resetPage); //reload datatable ajax 
+            }
+
+            $('#data-contact-table').on('click', '.btn-delete', function(e) {
+                let id = $(this).data('id')
+                let nama = $(this).data('name')
+                e.preventDefault()
+                Swal.fire({
+                    title: 'Apakah Yakin?',
+                    text: `Apakah Anda yakin ingin menghapus data kontak dengan nama ${nama}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                        $.ajax({
+                            url: "{{ url('data-contact') }}/" + id,
+                            type: 'POST',
+                            data: {
+                                _token: CSRF_TOKEN,
+                                _method: "delete",
+                            },
+                            dataType: 'JSON',
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    `Data kontak dengan nama ${nama} berhasil terhapus.`,
+                                    'success'
+                                )
+                                reload_table(null, true)
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    type: 'error',
+                                    title: 'Error saat delete data',
+                                    showConfirmButton: true
+                                })
+                            }
+                        })
+                    }
+                })
+            })
         })
     </script>
 @endpush
@@ -64,6 +130,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
+                    @if (session('success'))
+                        <div class="success-session" data-flashdata="{{ session('success') }}"></div>
+                    @elseif(session('danger'))
+                        <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
+                    @endif
                     <div class="card-header d-flex justify-content-between pb-0">
                         <h3>Data Kontak</h3>
                         <a href="{{ route('data-contact.create') }}" class="btn bg-gradient-primary">
