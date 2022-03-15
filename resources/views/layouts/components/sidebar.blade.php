@@ -66,7 +66,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+            <a @if (url()->current() == route('pembelian')) class="nav-link active" @else class="nav-link" @endif
+                    href="{{ route('pembelian') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
