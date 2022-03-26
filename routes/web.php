@@ -74,6 +74,28 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'delete'])->name('delete');
             Route::get('/export', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'export'])->name('export');
         });
+
+        // Stok Opname
+        Route::prefix('stok-opname')->name('stok-opname.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'export'])->name('export');
+        });
+
+        // Pindah Gudang
+        Route::prefix('pindah-gudang')->name('pindah-gudang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'export'])->name('export');
+        });
     });
 
     // Pengelolaan Kas
