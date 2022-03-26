@@ -49,7 +49,32 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
      Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
 
     // Inventory
-    Route::get('/inventory', [\App\Http\Controllers\User\InventoryController::class, 'index'])->name('inventory');
+    Route::prefix('inventory')->name('inventory.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\Inventory\HomeController::class, 'index'])->name('index');
+
+        // Data Produk
+        Route::prefix('data-produk')->name('data-produk.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'delete'])->name('delete');
+            Route::get('/list', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'list'])->name('list');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+        });
+
+        // Penyesuaian Barang
+        Route::prefix('penyesuaian-barang')->name('penyesuaian-barang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'export'])->name('export');
+        });
+    });
 
     // Pengelolaan Kas
     Route::prefix('pengelolaan-kas')->name('pengelolaan-kas.')->group(function () {
