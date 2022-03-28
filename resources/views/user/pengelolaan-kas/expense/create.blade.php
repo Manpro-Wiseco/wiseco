@@ -63,7 +63,7 @@
                                         <input type="text"
                                             class="form-control @error('description') is-invalid @enderror"
                                             id="description" name="description" value="{{ old('description') }}"
-                                            placeholder="Invoice" required>
+                                            placeholder="Deskripsi" required>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -71,46 +71,15 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-12 mt-5">
-                                        <table class="table align-items-center mb-0" id="expense-table">
-                                            <thead>
-                                                <tr>
-                                                    <th
-                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Dari Akun Bank</th>
-                                                    <th
-                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                        Jumlah</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        #</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select name="bank_account_id[]" class="form-control"
-                                                            required>
-                                                            <option>- Pilih Salah Satu -</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" name="amount[]"
-                                                            placeholder="Rp" required>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <button class="btn bg-gradient-danger btn-small btn-delete"
-                                                            type="button" data-row="1">
-                                                            Delete
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div id="cont"></div> <!-- the container to add the TABLE -->
                                         <div class="d-grid gap-2">
-                                            <button class="btn btn-primary" type="button" id="add-row">
+                                            <button class="btn btn-primary" type="button" id="addRow">
                                                 <i class="fas fa-plus"></i> Add New Row
                                             </button>
                                         </div>
+                                        <input type="button" id="bt" value="Submit Data" />
+
+
                                     </div>
                                 </div>
                                 <div class="mt-4">

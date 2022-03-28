@@ -27,6 +27,17 @@ class DataBankController extends Controller
             ->make(true);
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = DataBank::all();
+        } else {
+            $data = DataBank::where('name', 'like', '%' . $search . '%')->orWhere('code', 'like', '%' . $search . '%')->get();
+        }
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
