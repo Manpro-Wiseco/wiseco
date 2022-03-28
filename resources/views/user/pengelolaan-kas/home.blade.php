@@ -50,15 +50,15 @@
                 </a>
             </div>
             <div class="col-md-4 mb-5">
-                <a href="#">
+                <a href="{{ route('pengelolaan-kas.bank-account.index') }}">
                     <div class="card bg-gradient-warning">
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <h4 class="text-white text-capitalize font-weight-bold">
-                                    Pengelolaan Uang Bisnis & Pribadi</h4>
+                                    Pengelolaan Akun Bank</h4>
                                 <i class="text-white fas fa-briefcase fa-5x my-3"></i>
                                 <p class="text-white">
-                                    Anda dapat melakukan pengelolaan pengeluaran uang bisnis dan pribadi.
+                                    Anda dapat melakukan pengelolaan pengeluaran akun bank.
                                 </p>
                             </div>
                         </div>
