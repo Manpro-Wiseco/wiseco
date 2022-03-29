@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="#">
+                    <a class="link" href="{{route('inventory.stok-opname.index')}}">
                         <div class="card bg-gradient-secondary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="#">
+                    <a class="link" href="{{route('inventory.pindah-gudang.index')}}">
                         <div class="card bg-gradient-warning">
                             <div class="card-body pt-3">
                                 <div class="text-center">

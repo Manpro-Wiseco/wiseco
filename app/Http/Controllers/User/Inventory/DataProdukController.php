@@ -50,7 +50,7 @@ class DataProdukController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.inventory.data-produk.create');
     }
 
     /**

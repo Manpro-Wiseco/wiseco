@@ -34,6 +34,7 @@ function removeRow(oButton) {
 
 const addRowBtn = document.getElementById("addRow");
 const submitBtn = document.getElementById("bt");
+
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let myTab = document.getElementById("empTable");
@@ -58,11 +59,33 @@ submitBtn.addEventListener("click", function (e) {
         arrValues.push(arrValues2);
     }
 
-    console.log(arrValues);
-
-    // The final output.
-    document.getElementById("output").innerHTML = arrValues;
+    // $.ajax({
+    //     url: window.location.href + id,
+    //     type: "POST",
+    //     data: {
+    //         _token: CSRF_TOKEN,
+    //         _method: "delete",
+    //     },
+    //     dataType: "JSON",
+    //     success: function (response) {
+    //         Swal.fire(
+    //             "Deleted!",
+    //             `Data kontak dengan nama ${nama} berhasil terhapus.`,
+    //             "success"
+    //         );
+    //         reload_table(null, true);
+    //     },
+    //     error: function (jqXHR, textStatus, errorThrown) {
+    //         Swal.fire({
+    //             icon: "error",
+    //             type: "error",
+    //             title: "Error saat delete data",
+    //             showConfirmButton: true,
+    //         });
+    //     },
+    // });
 });
+
 addRowBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let rowCnt = tbody.rows.length; // table row count.

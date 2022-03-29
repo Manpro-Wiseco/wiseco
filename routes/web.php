@@ -40,13 +40,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/faktur-penjualan', [\App\Http\Controllers\User\FakturController::class, 'index'])->name('faktur-penjualan');
     Route::get('/retur-penjualan', [\App\Http\Controllers\User\ReturController::class, 'index'])->name('retur-penjualan');
 
-     // Pembelian
-     Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
-     Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
-     Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
-     Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
-     Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
-     Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+    // Pembelian
+    Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
+    Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
+    Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
+    Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
+    Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
+    Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
@@ -74,6 +74,28 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'delete'])->name('delete');
             Route::get('/export', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'export'])->name('export');
         });
+
+        // Stok Opname
+        Route::prefix('stok-opname')->name('stok-opname.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'export'])->name('export');
+        });
+
+        // Pindah Gudang
+        Route::prefix('pindah-gudang')->name('pindah-gudang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'export'])->name('export');
+        });
     });
 
     // Pengelolaan Kas
@@ -83,12 +105,19 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         // Pengelolaan Kas - Expense 
         Route::get('/expense/list', [\App\Http\Controllers\User\PengelolaanKas\ExpenseController::class, 'list'])->name('expense.list');
         Route::resource('/expense', \App\Http\Controllers\User\PengelolaanKas\ExpenseController::class);
+
+        // Pengelolaan Kas - Bank Account
+        Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
+        Route::resource('/bank-account', App\Http\Controllers\User\PengelolaanKas\BankAccountController::class);
     });
 
     // Data Lainnya - Data Bank 
     Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
+    Route::get('/data-bank/data', [\App\Http\Controllers\User\DataBankController::class, 'data'])->name('data-bank.data');
     Route::resource('/data-bank', \App\Http\Controllers\User\DataBankController::class);
     // Data Lainnya - Data Contact 
     Route::get('/data-contact/list', [\App\Http\Controllers\User\DataContactController::class, 'list'])->name('data-contact.list');
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
+    // Data Lainnya - Subclassification
+    Route::get('/subclassification/data', [App\Http\Controllers\User\SubclassificationController::class, 'data'])->name('subclassification.data');
 });

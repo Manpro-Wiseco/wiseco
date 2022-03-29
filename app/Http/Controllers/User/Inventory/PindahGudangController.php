@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataBank;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 
-class DataBankController extends Controller
+class PindahGudangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,26 +14,7 @@ class DataBankController extends Controller
      */
     public function index()
     {
-        return view('user.data-lainnya.data-bank.index');
-    }
-
-    public function list(Request $request)
-    {
-        $data = DataBank::latest()->get();
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->make(true);
-    }
-
-    public function data(Request $request)
-    {
-        $search = $request->search;
-        if ($search == '') {
-            $data = DataBank::all();
-        } else {
-            $data = DataBank::where('name', 'like', '%' . $search . '%')->orWhere('code', 'like', '%' . $search . '%')->get();
-        }
-        return response()->json($data);
+        return view('user.inventory.pindah-gudang.index');
     }
 
     /**

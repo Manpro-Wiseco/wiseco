@@ -136,8 +136,8 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Penyesuaian Barang</h3>
-                        <a href="{{ route('inventory.penyesuaian-barang.create') }}" class="btn bg-gradient-primary">
+                        <h3>Pindah Gudang</h3>
+                        <a href="{{ route('inventory.stok-opname.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>

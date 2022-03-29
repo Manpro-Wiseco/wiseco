@@ -77,11 +77,8 @@
                                                 <i class="fas fa-plus"></i> Add New Row
                                             </button>
                                         </div>
-                                        <p>
-                                            <input type="button" id="bt" value="Submit Data" />
-                                        </p>
+                                        <input type="button" id="bt" value="Submit Data" />
 
-                                        <p id='output'></p>
 
                                     </div>
                                 </div>
