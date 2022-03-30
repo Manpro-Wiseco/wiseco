@@ -52,13 +52,13 @@
 {{-- --------------------------------------- --}}
 
             <div class="row">
-                <a class="link  " href="{{ route('index') }}">
+                <a class="link  " href="{{ route('penawaran-harga.index') }}">
                     <div class="col-md-4 mt-4">
                         <div class="card text-center" style="background-color:rgb(196, 121, 219)">
                             <div class="card-body py-4">
                             <h4 class="text-Black">Penawaran Harga</h4>
                             <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                src="{{ asset('assets') }}/img/penjualan/Order.png"
                                                 alt="rocket">
                             <p class="text-white">Membuat Penawaran Harga Untuk Pelanggan.</p>
                             </div>
@@ -67,12 +67,12 @@
             </div>
             
             <div class="col-md-4 mt-4">
-                <a class="link  " href="{{ route('index') }}"> 
+                <a class="link  " href="#"> 
                     <div class="card bg-cover text-center" style="background-color: #c7d63d">
                         <div class="card-body py-4">
                           <h4 class="text-black">Pesanan Penjualan</h4>
                           <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                            src="{{ asset('assets') }}/img/penjualan/Order.png"
                                             alt="rocket">
                           <p class="text-white">Membuat Pesanan Penjualan Untuk Pelanggan.</p>
                         </div>
@@ -81,12 +81,12 @@
             </div>
 
             <div class="col-md-4 mt-4">
-                <a class="link  " href="{{ route('index') }}"> 
+                <a class="link  " href="#"> 
                     <div class="card bg-cover text-center" style="background-color: #E6BD9F">
                         <div class="card-body py-4">
                           <h4 class="text-black">Pengiriman Barang</h4>
                           <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                            src="{{ asset('assets') }}/img/penjualan/Deliver.png"
                                             alt="rocket">
                           <p class="text-white">Membuat pesanan penjualan untuk pelanggan.</p>
                         </div>
@@ -97,12 +97,12 @@
             
             
                 <div class="col-md-4 mt-4">
-                    <a class="link  " href="{{ route('index') }}">
+                    <a class="link  " href="#">
                         <div class="card bg-cover text-center" style="background-color: #d44f4f">
                             <div class="card-body py-4">
                                 <h4 class="text-black">Faktur Penjualan</h4>
                                 <img class="w-100 position-relative z-index-2 pt-4"
-                                                    src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                    src="{{ asset('assets') }}/img/penjualan/Invoice.png"
                                                     alt="rocket">
                                 <p class="text-white">Mencatat faktur penjualan untuk pelanggan.</p>
                             </div>
@@ -113,12 +113,12 @@
 
             
                 <div class="col-md-4 mt-4">
-                    <a class="link  " href="{{ route('index') }}">
+                    <a class="link  " href="#">
                         <div class="card bg-cover text-center" style="background-color: #ADDBC6">
                             <div class="card-body py-4">
                             <h4 class="text-black">Retur Penjualan</h4>
                             <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
+                                                src="{{ asset('assets') }}/img/penjualan/Retur.png"
                                                 alt="rocket">
                             <p class="text-white">Mencatat retur penjualan untuk pelanggan.</p>
                             </div>

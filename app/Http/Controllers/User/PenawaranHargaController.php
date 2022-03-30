@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-//use App\Models\DataBank;
+use App\Models\PenawaranHarga;
 use Illuminate\Http\Request;
-//use Yajra\DataTables\DataTables;
+use Yajra\DataTables\DataTables;
 
 class PenawaranHargaController extends Controller
 {
@@ -16,7 +16,22 @@ class PenawaranHargaController extends Controller
 
     public function list(Request $request)
     {
-
+        $data = PenawaranHarga::latest()->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                $urlEdit = route('penawaran-harga.edit', $row->id);
+                $urlDelete = route('penawaran-harga.destroy', $row->id);
+                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+        <i class="fas fa-edit"></i>
+    </a>
+    <button class="btn bg-gradient-danger btn-small" type="button">
+        <i class="fas fa-trash"></i>
+    </button>';
+                return $actionBtn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);   
     }
 
     
