@@ -34,11 +34,11 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
     // Penjualan
     Route::get('/penjualan', [\App\Http\Controllers\User\PenjualanController::class, 'index'])->name('penjualan');
-    Route::get('/penawaran-penjualan', [\App\Http\Controllers\User\PenawaranController::class, 'index'])->name('penawaran-penjualan');
-    Route::get('/pesanan-penjualan', [\App\Http\Controllers\User\PesananController::class, 'index'])->name('pesanan-penjualan');
-    Route::get('/pengiriman-barang', [\App\Http\Controllers\User\PengirimanController::class, 'index'])->name('pengiriman-barang');
-    Route::get('/faktur-penjualan', [\App\Http\Controllers\User\FakturController::class, 'index'])->name('faktur-penjualan');
-    Route::get('/retur-penjualan', [\App\Http\Controllers\User\ReturController::class, 'index'])->name('retur-penjualan');
+    Route::get('/index', [\App\Http\Controllers\User\PenawaranHargaController::class, 'index'])->name('index');
+    //Route::get('/index', [\App\Http\Controllers\User\PesananPenjualanController::class, 'index'])->name('index');
+    //Route::get('/index', [\App\Http\Controllers\User\FakturPenjualanController::class, 'index'])->name('index');
+    //Route::get('/index', [\App\Http\Controllers\User\PengirimanBarangController::class, 'index'])->name('index');
+    //Route::get('/index', [\App\Http\Controllers\User\ReturPenjualanController::class, 'index'])->name('index');
 
     // Pembelian
     Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
