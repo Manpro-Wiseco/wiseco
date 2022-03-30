@@ -44,6 +44,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="card">
                     <form id="comment" action="{{ route('ticket_response.store')}}" method="post">
                         @csrf
                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
@@ -62,14 +64,13 @@
                     </form>
                 </div>
 
-
-                <div class="card-body pt-0 mt-4">
+                <div class="card-body pt-0 mt-2">
                     <div class="col-md-12">
                         <label class="form-label mt-4 h6">Respon</label>
                     </div>
                     @foreach($ticket_responses as $response)
-                    <div class="row mt-5">
-                        <div class="card p-3 border">
+                    <div class="row mt-3">
+                        <div class="card border">
                             <div class="card-header pb-0" style="font-size:12px">
                                 <small>{{Carbon\Carbon::parse($response->updated_at)->format("d/m/Y")}}</small>
                                 <br>
@@ -95,7 +96,7 @@
         </div>
     </section>
 </x-template-layout>
-<script src="http://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+<script src="http://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('response');
     CKEDITOR.config.allowedContent = true;
