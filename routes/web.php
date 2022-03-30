@@ -120,4 +120,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
     // Data Lainnya - Subclassification
     Route::get('/subclassification/data', [App\Http\Controllers\User\SubclassificationController::class, 'data'])->name('subclassification.data');
+    // Data Lainnya - Ticket
+    Route::get('/ticket/list', [\App\Http\Controllers\User\TicketController::class, 'list'])->name('ticket.list');
+    Route::get('/ticket/view/{id}', [\App\Http\Controllers\User\TicketController::class, 'view'])->name('ticket.view');
+    Route::get('/ticket/update', [\App\Http\Controllers\User\TicketController::class, 'update'])->name('ticket.update');
+    Route::resource('/ticket', \App\Http\Controllers\User\TicketController::class);
+
+    Route::get('/ticket_response/store', [\App\Http\Controllers\User\TicketResponseController::class, 'store'])->name('ticket_response.store');
+    Route::resource('/ticket_response', \App\Http\Controllers\User\TicketResponseController::class);
 });
