@@ -1,0 +1,179 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use App\Http\Controllers\Controller;
+use App\Models\Ticket;
+use App\Models\TicketCategory;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
+
+class TicketController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('user.data-lainnya.tiket.index');
+    }
+
+    public function list(Request $request)
+    {
+        // $data = Ticket::with(['company'])->currentCompany()->latest()->get();
+        // $data  = Ticket::all();
+        $data = Ticket::join('ticket_categories', 'tickets.ticket_category_id', '=', 'ticket_categories.id')->join('users', 'tickets.user_id', '=', 'users.id')->get(['tickets.*', 'ticket_categories.category','users.name']);
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('category', function ($row) {
+                return ($row->category ? $row->category : "-");
+            })
+            ->addColumn('time', function ($row) {
+                $time = $row->updated_at;
+                $time_ = Carbon::parse($time)->format("d/m/Y");
+                return ($time_);
+            })
+            ->addColumn('status', function ($row) {
+                if ($row->status == 'close') {
+                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1"></i>close</h5>';
+                  }elseif ($row->status == 'open') {
+                    $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-1">open</h5>';
+                  }
+                return ($actionBtn);
+            })
+            ->editColumn('name', function ($row) {
+                return ($row->name ? $row->name : "-");
+            })
+            ->addColumn('action', function ($row) {
+                $urlView = route('ticket.view', $row->id);
+                $urlEdit = route('ticket.edit', $row->id);
+                $userId  = auth()->user()->id;
+                if ($row->user_id == $userId ) {
+                    $actionBtn = '
+                    <a href="' . $urlView . '" class="btn bg-gradient-success btn-small">
+                    <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                    <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" type="button">
+                    <i class="fas fa-trash"></i>
+                    </button>';
+                }else{
+                    $actionBtn = '<a href="' . $urlView . '" class="btn bg-gradient-success btn-small">
+                    <i class="fas fa-eye"></i></a>';
+            }
+                return $actionBtn;
+            })
+            ->rawColumns(['action','status','category','time'])
+            ->make(true);
+            
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $categories = TicketCategory::all();
+        return view('user.data-lainnya.tiket.create',compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // @dd($request);
+        $request->validate([
+            'status' => 'required',
+            'body' => 'required'
+        ]);
+
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::add($data, 'ticket_category_id', $request->ticket_category);
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $data = Arr::add($data, 'user_id', auth()->user()->id);
+        $data = Arr::add($data, 'created_at',  Carbon::now()->timestamp);
+        $data = Arr::add($data, 'updated_at',  Carbon::now()->timestamp);
+
+        Ticket::create($data);
+
+        return redirect()->route('ticket.index')->with('success', 'Berhasil Menambahkan Data!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Ticket $ticket)
+    {
+        return view('user.data-lainnya.tiket.view', compact('ticket'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Ticket $ticket)
+    {
+        $data    = Ticket::join('users', 'tickets.user_id', '=', 'users.id')->get(['tickets.*','users.name']);
+        $userId  = auth()->user()->id;
+        if ($ticket->user_id == $userId ) {
+            return view('user.data-lainnya.tiket.edit', compact('ticket'));
+        }else{
+        abort(403);
+    }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Ticket $ticket)
+    {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|string|email',
+        //     'phone' => 'required|string|max:16',
+        //     'address' => 'required|string',
+        //     'status' => 'required|string'
+        // ]);
+
+        // $data = Arr::except($request->all(), '_token');
+
+        // $ticket->update($data);
+
+        // return redirect()->route('ticket.index')->with('success', 'Berhasil Mengubah Data!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Ticket $ticket)
+    {
+        $ticket->delete();
+        return response()->json(['status' => TRUE]);
+    }
+}
