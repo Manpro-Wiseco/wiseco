@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\PengelolaanKas;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataBank;
+use App\Models\DataContact;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class DataBankController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,26 +17,35 @@ class DataBankController extends Controller
      */
     public function index()
     {
-        return view('user.data-lainnya.data-bank.index');
+        return view('user.pengelolaan-kas.expense.index');
     }
 
     public function list(Request $request)
     {
-        $data = DataBank::latest()->get();
+        $data = Expense::with(['bankAccounts', 'dataContact'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('penerima', function ($row) {
+                return $row->dataContact->name;
+            })
+            ->addColumn('action', function ($row) {
+                $urlEdit = route('pengelolaan-kas.expense.edit', $row->id);
+                $urlShow = route('pengelolaan-kas.expense.show', $row->id);
+                $actionBtn = '
+                <a href="' . $urlShow . '" class="btn bg-gradient-success btn-small">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                    <i class="fas fa-edit"></i>
+                </a>
+                
+    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
+        <i class="fas fa-trash"></i>
+    </button>';
+                return $actionBtn;
+            })
+            ->rawColumns(['action'])
             ->make(true);
-    }
-
-    public function data(Request $request)
-    {
-        $search = $request->search;
-        if ($search == '') {
-            $data = DataBank::all();
-        } else {
-            $data = DataBank::where('name', 'like', '%' . $search . '%')->orWhere('code', 'like', '%' . $search . '%')->get();
-        }
-        return response()->json($data);
     }
 
     /**
@@ -45,7 +55,8 @@ class DataBankController extends Controller
      */
     public function create()
     {
-        //
+        $dataContacts = DataContact::currentCompany()->get();
+        return view('user.pengelolaan-kas.expense.create', compact('dataContacts'));
     }
 
     /**

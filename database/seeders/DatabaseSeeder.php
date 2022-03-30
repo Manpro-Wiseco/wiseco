@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CompanySeeder::class,
-            DataBankSeeder::class
+            DataBankSeeder::class,
+            SubClassificationSeeder::class,
+            BankAccountSeeder::class,
+            ExpenseSeeder::class,
         ]);
     }
 }

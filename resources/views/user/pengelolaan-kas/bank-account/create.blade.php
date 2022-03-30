@@ -1,15 +1,72 @@
+@push('scripts')
+    <script>
+        $('#subclassification_id').select2({
+            placeholder: "- Pilih Salah Satu -",
+            ajax: {
+                url: "{{ route('subclassification.data') }}",
+                dataType: 'json',
+                theme: "bootstrap-5",
+                data: function(params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function(response) {
+                    let results = [];
+                    response.forEach(data => {
+                        results.push({
+                            "id": data.id,
+                            "text": data.name
+                        })
+                    })
+                    return {
+                        results
+                    };
+                },
+                cache: true
+            }
+        });
+        $('#data_bank_id').select2({
+            placeholder: "- Pilih Salah Satu -",
+            ajax: {
+                url: "{{ route('data-bank.data') }}",
+                dataType: 'json',
+                theme: "bootstrap-5",
+                data: function(params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function(response) {
+                    let results = [];
+                    response.forEach(data => {
+                        results.push({
+                            "id": data.id,
+                            "text": `${data.name} - ${data.code}`
+                        })
+                    })
+                    return {
+                        results
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
+@endpush
+
 <x-template-layout>
     <section class="content">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('data-contact.index') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('pengelolaan-kas.bank-account.index') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-angle-left" style="font-size: 20px"></i>
                         </a>
-                        <h3>Buat Data Kontak</h3>
+                        <h3>Buat Data Akun Bank</h3>
                         <div class="card-body pt-0">
-                            <form action="{{ route('data-contact.store') }}" method="post">
+                            <form action="{{ route('pengelolaan-kas.bank-account.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -24,23 +81,24 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                                        <label class="form-label">Klasifikasi</label>
+                                        <select name="subclassification_id" id="subclassification_id"
+                                            class="form-control @error('subclassification_id') is-invalid @enderror"
                                             required>
-                                        @error('email')
+                                            <option></option>
+                                        </select>
+                                        @error('subclassification_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-
                                     <div class="col-md-6">
-                                        <label class="form-label mt-4">Nomor Telepon</label>
-                                        <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                            id="phone" name="phone" value="{{ old('phone') }}"
-                                            placeholder="Nomor Telepon" required>
-                                        @error('phone')
+                                        <label class="form-label">Vendor</label>
+                                        <select name="data_bank_id" id="data_bank_id"
+                                            class="form-control @error('data_bank_id') is-invalid @enderror" required>
+                                        </select>
+                                        @error('data_bank_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -51,22 +109,10 @@
                                         <select name="status" id="status"
                                             class="form-control @error('status') is-invalid @enderror" required>
                                             <option>- Pilih Salah Satu -</option>
-                                            <option value="Customer">Customer</option>
-                                            <option value="Supplier">Supplier</option>
-                                            <option value="Sales">Sales</option>
-                                            <option value="Employee">Employee</option>
+                                            <option value="1">Aktif</option>
+                                            <option value="0">Tidak Aktif</option>
                                         </select>
                                         @error('phone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label mt-4">Alamat</label>
-                                        <textarea name="address" id="address" cols="30" rows="7" class="form-control @error('address') is-invalid @enderror"
-                                            placeholder="Alamat" required>{{ old('address') }}</textarea>
-                                        @error('address')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

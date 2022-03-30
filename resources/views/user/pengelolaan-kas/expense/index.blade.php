@@ -22,7 +22,7 @@
                     type: 'error'
                 })
             }
-            let table = $('#data-contact-table').DataTable({
+            let table = $('#expense-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 processing: true,
@@ -37,30 +37,30 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('data-contact.list') }}",
+                ajax: "{{ route('pengelolaan-kas.expense.list') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'invoice',
+                        name: 'invoice',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'penerima',
+                        name: 'penerima',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'email',
-                        name: 'email',
+                        data: 'description',
+                        name: 'description',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'phone',
-                        name: 'phone',
+                        data: 'total',
+                        name: 'total',
                         className: 'align-middle text-center'
                     },
                     {
@@ -78,7 +78,7 @@
                 table.ajax.reload(callback, resetPage); //reload datatable ajax 
             }
 
-            $('#data-contact-table').on('click', '.btn-delete', function(e) {
+            $('#expense-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
                 let nama = $(this).data('name')
                 e.preventDefault()
@@ -94,7 +94,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('data-contact') }}/" + id,
+                            url: "{{ url('expense') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -136,30 +136,30 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Kontak</h3>
-                        <a href="{{ route('data-contact.create') }}" class="btn bg-gradient-primary">
+                        <h3>Data Pengeluaran</h3>
+                        <a href="{{ route('pengelolaan-kas.expense.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">
-                            <table class="table align-items-center mb-0" id="data-contact-table">
+                            <table class="table align-items-center mb-0" id="expense-table">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nomor</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Nama</th>
+                                            Invoice</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Status</th>
+                                            Penerima</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Email</th>
+                                            Deskripsi</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            No. Telpon</th>
+                                            Total</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
