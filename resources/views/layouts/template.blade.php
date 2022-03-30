@@ -17,6 +17,7 @@
     <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Library -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/js/plugins/datatables/datatables.min.css') }}" />
@@ -35,7 +36,7 @@
 
 <body class="g-sidenav-show  bg-gray-100">
     @include('layouts.components.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    <main class="content-main position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <!-- Navbar -->
         @include('layouts.components.navbar')
         <!-- End Navbar -->
@@ -166,8 +167,8 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <script type="text/javascript" src="{{ asset('assets/js/plugins/datatables/datatables.js') }}"></script>
+
 
 
     @stack('scripts')

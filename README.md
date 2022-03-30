@@ -29,7 +29,7 @@ and you can jump to step 4
 composer install
 ```
 
-3. Make .env files from .env.example and configuration .env file with your configuration
+3. Make .env files and copy the content from .env.example and configuration .env file with your configuration. And create new database "wiseco", based on your .env configuration.
 
 4. Run this command
 

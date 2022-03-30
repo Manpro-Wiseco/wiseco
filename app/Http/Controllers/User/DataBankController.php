@@ -24,19 +24,18 @@ class DataBankController extends Controller
         $data = DataBank::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('action', function ($row) {
-                $urlEdit = route('data-bank.edit', $row->id);
-                $urlDelete = route('data-bank.destroy', $row->id);
-                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-        <i class="fas fa-edit"></i>
-    </a>
-    <button class="btn bg-gradient-danger btn-small" type="button">
-        <i class="fas fa-trash"></i>
-    </button>';
-                return $actionBtn;
-            })
-            ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = DataBank::all();
+        } else {
+            $data = DataBank::where('name', 'like', '%' . $search . '%')->orWhere('code', 'like', '%' . $search . '%')->get();
+        }
+        return response()->json($data);
     }
 
     /**
