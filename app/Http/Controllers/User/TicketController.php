@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\TicketCategory;
 use App\Models\User;
+use App\Models\TicketResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Yajra\DataTables\DataTables;
@@ -41,7 +42,7 @@ class TicketController extends Controller
             })
             ->addColumn('status', function ($row) {
                 if ($row->status == 'close') {
-                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1"></i>close</h5>';
+                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1">close</h5>';
                   }elseif ($row->status == 'open') {
                     $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-1">open</h5>';
                   }
@@ -114,17 +115,6 @@ class TicketController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Ticket $ticket)
-    {
-        return view('user.data-lainnya.tiket.view', compact('ticket'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -134,8 +124,9 @@ class TicketController extends Controller
     {
         $data    = Ticket::join('users', 'tickets.user_id', '=', 'users.id')->get(['tickets.*','users.name']);
         $userId  = auth()->user()->id;
+        $categories = TicketCategory::all();
         if ($ticket->user_id == $userId ) {
-            return view('user.data-lainnya.tiket.edit', compact('ticket'));
+            return view('user.data-lainnya.tiket.edit', compact('ticket','categories'));
         }else{
         abort(403);
     }
@@ -150,19 +141,18 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|string|email',
-        //     'phone' => 'required|string|max:16',
-        //     'address' => 'required|string',
-        //     'status' => 'required|string'
-        // ]);
+        $request->validate([
+            'status' => 'required',
+            'body' => 'required'
+        ]);
 
-        // $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::add($data, 'ticket_category_id', $request->ticket_category);
+        $data = Arr::add($data, 'updated_at',  Carbon::now()->timestamp);
 
-        // $ticket->update($data);
+        $ticket->update($data);
 
-        // return redirect()->route('ticket.index')->with('success', 'Berhasil Mengubah Data!');
+        return redirect()->route('ticket.index')->with('success', 'Berhasil Mengubah Data!');
     }
 
     /**
@@ -176,4 +166,20 @@ class TicketController extends Controller
         $ticket->delete();
         return response()->json(['status' => TRUE]);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function view($id)
+    {
+        $data = Ticket::join('ticket_categories', 'tickets.ticket_category_id', '=', 'ticket_categories.id')->join('users', 'tickets.user_id', '=', 'users.id')->get(['tickets.*', 'ticket_categories.category','users.name']);
+        $ticket = $data->find($id);
+        $ticket_responses_ = TicketResponse::join('tickets', 'ticket_responses.ticket_id', '=', 'tickets.id')->join('users', 'ticket_responses.user_id', '=', 'users.id')->get(['ticket_responses.*', 'tickets.body','users.name']);
+        $ticket_responses = $ticket_responses_->where('ticket_id',$id);
+        return view('user.data-lainnya.tiket.view', compact('ticket','ticket_responses'));
+    }
+
 }

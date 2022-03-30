@@ -13,4 +13,5 @@ class TicketCategory extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
 }

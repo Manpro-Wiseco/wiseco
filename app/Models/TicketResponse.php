@@ -11,13 +11,27 @@ class TicketResponse extends Model
     protected $guarded = [];
     protected $table = 'ticket_responses';
 
-    public function company()
+    protected $fillable = [
+        'response','ticket_id','user_id','created_at','updated_at'
+    ];
+
+    // public function company()
+    // {
+    //     return $this->belongsTo(Company::class);
+    // }
+
+    // public function scopeCurrentCompany($query)
+    // {
+    //     return $query->where('company_id', '=', session()->get('company')->id);
+    // }
+
+    public function ticket()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Ticket::class);
     }
 
-    public function scopeCurrentCompany($query)
+    public function user()
     {
-        return $query->where('company_id', '=', session()->get('company')->id);
+        return $this->belongsTo(User::class);
     }
 }
