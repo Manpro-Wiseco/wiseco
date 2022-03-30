@@ -52,7 +52,7 @@
 {{-- --------------------------------------- --}}
 
             <div class="row">
-                <a class="link  " href="{{route('penawaran-penjualan')}}">
+                <a class="link  " href="{{route('penawaran-pembelian')}}">
                     <div class="col-md-6 mt-6">
                         <div class="card text-center" style="background-color:rgb(196, 121, 219)">
                             <div class="card-body py-4">
@@ -67,7 +67,7 @@
             </div>
             
             <div class="col-md-6 mt-6">
-                <a class="link  " href="{{route('pesanan-penjualan')}}"> 
+                <a class="link  " href="{{route('pesanan-pembelian')}}"> 
                     <div class="card bg-cover text-center" style="background-color: #4b3eff">
                         <div class="card-body py-4">
                           <h3 class="text-black">Pesanan Pembelian</h3>
@@ -97,7 +97,7 @@
             
             
                 <div class="col-md-6 mt-6">
-                    <a class="link  " href="{{route('faktur-penjualan')}}">
+                    <a class="link  " href="{{route('faktur-pembelian')}}">
                         <div class="card bg-cover text-center" style="background-color: #E69D93">
                             <div class="card-body py-4">
                                 <h3 class="text-black">Faktur Pembelian</h3>
@@ -113,7 +113,7 @@
 
             
                 <div class="col-md-6 mt-6">
-                    <a class="link  " href="{{route('retur-penjualan')}}">
+                    <a class="link  " href="{{route('retur-pembelian')}}">
                         <div class="card bg-cover text-center" style="background-color: #ADDBC6">
                             <div class="card-body py-4">
                             <h3 class="text-black">Retur Pembelian</h3>
