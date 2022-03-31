@@ -8,9 +8,9 @@
                         <div class="card bg-gradient-success">
                             <div class="card-body pt-3">
                                 <div class="text-center">
-                                    <h4 class="text-white text-capitalize font-weight-bold">Permintaan Penawaran Barang</h4>
+                                    <h4 class="text-white text-capitalize font-weight-bold">Permintaan Penawaran </h4>
                                     <i class="text-white fas fa-envelope-open-text fa-5x my-3"></i> 
-                                    <p class="text-white">Membuat Penawaran Harga Untuk Pemasok</p>
+                                    <p class="text-white">Membuat Penawaran Harga Barang Untuk Pemasok</p>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Faktur Pembelian</h4>
                                     <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
-                                    <p class="text-white">Mencatat Faktur Pembelian Dari Pemasok</p>
+                                    <p class="text-white">Menampilkan dan Mencatat Faktur Pembelian Dari Pemasok</p>
                                 </div>
                             </div>
                         </div>
@@ -66,21 +66,7 @@
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Retur Pembelian</h4>
                                     <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
-                                    <p class="text-white">Mencatat Retur Pembelian</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('Daftar-Pembayaran-Utang')}}">
-                        <div class="card bg-gradient-danger">
-                            <div class="card-body pt-3">
-                                <div class="text-center">
-                                    <h4 class="text-white text-capitalize font-weight-bold">Daftar Pembayaran Utang Usaha</h4>
-                                    <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
-                                    <p class="text-white">Menampilkan Daftar Utang Usaha dan Mencatat Utang Usaha kepada Pemasok</p>
+                                    <p class="text-white">Menampilkan dan Mencatat Retur Pembelian dari Pemasok</p>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +78,23 @@
                         <div class="card bg-gradient-dark">
                             <div class="card-body pt-3">
                                 <div class="text-center">
-                                    <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Lebih Bayar (Debit)</h4>
-                                    <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
-                                    <p class="text-white">Menerima kembali nilai Pembayaran yang berlebih </p>
+                                    <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Lebih Bayar</h4>
+                                    <i class="text-white fas fa-hand-holding-heart fa-5x my-3"></i>
+                                    <p class="text-white">Menerima kembali nilai Pembayaran yang berlebih (debit)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('Daftar-Pembayaran-Utang')}}">
+                        <div class="card bg-gradient-danger">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Daftar Pembayaran Utang</h4>
+                                    <i class="text-white fas fa-address-book fa-5x my-3"></i>
+                                    <p class="text-white">Menampilkan Daftar Utang Usaha dan Mencatat Utang Usaha kepada Pemasok</p>
                                 </div>
                             </div>
                         </div>
