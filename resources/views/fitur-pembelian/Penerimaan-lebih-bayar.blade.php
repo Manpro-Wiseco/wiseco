@@ -6,13 +6,15 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-lg-6 col-7">
-                                <h5>Pesanan Pembelian</h5>
+                                <h5>Penerimaan Lebih Bayar (Debit)</h5>
                             </div>
 
                             <div class="col-lg-6 col-5 my-auto text-end">
 
                                 <button type="button" class="btn btn-dark">Buat Baru</button>
                             </div>
+
+                            
                         </div>
                     </div>
                     <div class="card-body">
@@ -23,13 +25,13 @@
                                         <th
                                             class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                                         <th
-                                            class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">No.Pesanan</th>
+                                            class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">No.Referensi</th>
                                         <th
                                             class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">Nama Pemasok</th>
                                         <th
                                             class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">Deskripsi</th>
                                         <th
-                                            class="text-right text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nilai</th>
+                                            class="text-right text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumalah</th>
                                         <th
                                             class="text-right text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     </tr>

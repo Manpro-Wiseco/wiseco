@@ -47,6 +47,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
     Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
     Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+    Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
+    Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
