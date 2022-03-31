@@ -51,7 +51,7 @@
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Faktur Pembelian</h4>
-                                    <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
+                                    <i class="text-white fas fa-file-import fa-5x my-3"></i>
                                     <p class="text-white">Menampilkan dan Mencatat Faktur Pembelian Dari Pemasok</p>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Retur Pembelian</h4>
-                                    <i class="text-white fas fa-file-invoice fa-5x my-3"></i>
+                                    <i class="text-white fas fa-file-export fa-5x my-3"></i>
                                     <p class="text-white">Menampilkan dan Mencatat Retur Pembelian dari Pemasok</p>
                                 </div>
                             </div>
