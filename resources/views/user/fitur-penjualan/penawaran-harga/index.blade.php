@@ -3,41 +3,41 @@
 
 @push('scripts')
     <script>
-    //    $(document).ready(function() {
-      //      let table = $('#data-bank-table').DataTable({
-        //        fixedHeader: true,
-          //      pageLength: 25,
-            //    responsive: true,
-              //   language: {
-                //   paginate: {
-                  //      previous: "<",
-                    //    next: ">"
-                   // }
-                //},
-                //ajax: "{{ route('data-bank.list') }}",
-                //columns: [{
-                  //      data: 'DT_RowIndex',
-                  //      name: 'DT_RowIndex'
-                   // },
-                   // {
-                   //     data: 'name',
-                   //     name: 'name'
-                   // },
-                   // {
-                   //     data: 'code',
-                   //    name: 'code'
-                   // },
-                   // {
-                   //     data: 'action',
-                   //     name: 'action',
-                   //     orderable: false,
-                   //     searchable: false,
-                   //     className: 'align-middle text-center'
-                   // },
-               // ]
-          //  });
-      //  })
-   // </script>
+        $(document).ready(function() {
+            let table = $('#penawaran-harga-table').DataTable({
+                fixedHeader: true,
+                pageLength: 25,
+                responsive: true,
+                 language: {
+                   paginate: {
+                        previous: "<",
+                        next: ">"
+                    }
+                },
+                ajax: "{{ route('penawaran-harga.list') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'code',
+                        name: 'code'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        className: 'align-middle text-center'
+                    },
+                ]
+            });
+        })
+    </script>
 @endpush
 
 <x-template-layout>
