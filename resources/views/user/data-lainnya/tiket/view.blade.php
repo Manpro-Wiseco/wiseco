@@ -18,8 +18,8 @@
                                 <label class="form-label mt-4" style="font-size: 14px">status</label>
                             </div>
                             <div class="col-md-1">
-                                <?php if ($ticket->status ==  "close") echo '<h5 class="btn bg-gradient-secondary btn-small mt-3">close</h5>'; ?>
-                                <?php if ($ticket->status ==  "open") echo '<h5 class="btn bg-gradient-success btn-small mt-3">open</h5>'; ?>
+                                <?php if ($ticket->status ==  "close") echo '<h5 class="btn bg-gradient-secondary btn-small mt-3 disabled">close</h5>'; ?>
+                                <?php if ($ticket->status ==  "open") echo '<h5 class="btn bg-gradient-success btn-small mt-3 disabled">open</h5>'; ?>
                             </div>
                         </div>
                         <div class="row mt-2">
