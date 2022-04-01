@@ -1,70 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-{{-- Toggle Style --}}
-<style>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 30px;
-        height: 15px;
-        text-align: center;
-        margin-left: 25px;
-    }
-
-    .switch input {
-        display: none;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 15px;
-        width: 13px;
-        left: -5px;
-        bottom: 0px;
-        background-color: darkgray;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked+.slider {
-        background-color: darkmagenta;
-    }
-
-    input:focus+.slider {
-        box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked+.slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-
-    .slider.round {
-        border-radius: 5px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-</style>
-
 {{-- Content Body --}}
 <x-template-layout>
     <section class="content">
@@ -161,15 +96,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 text-end mt-1">
+                                <div class="col-2 text-end mt-1">
                                     <div class="text-center border-radius-md">
-                                        <label class="switch">
-                                            <input type="checkbox" id="myCheckbox" onchange="toggleCheck()" checked>
-                                            <span class="slider round"></span>
-                                        </label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-3 text-end">
+                                <div class="col-4 text-end">
                                     <div class="icon shadow text-center border-radius-md">
                                         <form action="/notification" method="GET">
                                             <button style="padding: 0; border: none; background: none;">
@@ -208,16 +142,16 @@
 
             {{-- Balance Sheet --}}
             <div class="col-lg-4 mb-lg-0 mb-4">
-                <div class="card z-index-2">
+                <div class="card z-index-2 ">
                     <div class="card-header pb-0">
                         <h6>Balance Sheet</h6>
                     </div>
                     <div class="card-body p-3">
 
                         {{-- Asset --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 bg-gradient-primary">
                             <div class="card border border-primary">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color:#E9D5F1">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -227,7 +161,7 @@
                                                 </h5>
                                             </div>
                                         </div>
-                                        <div class="col-4 text-end">
+                                        <div class="col-4 text-end ">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                                                 <i class="fa-solid fa-box-open fa-lg opacity-10" aria-hidden="true"></i>
                                             </div>
@@ -238,9 +172,9 @@
                         </div>
 
                         {{-- Liabilities --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
                             <div class="card border border-secondary">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color: #EAEAEA">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -261,9 +195,9 @@
                         </div>
 
                         {{-- Equity --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
                             <div class="card border border-info mb-3">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color: #C8E9FF">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -325,9 +259,9 @@
                     <div class="card-body p-3">
 
                         {{-- Overal Ballance --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 bg-gradient-primary">
                             <div class="card border border-primary">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color: #E9D5F1">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -348,9 +282,9 @@
                         </div>
 
                         {{-- Income --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
                             <div class="card border border-secondary">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color: #EAEAEA">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -371,9 +305,9 @@
                         </div>
 
                         {{-- Expense --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
                             <div class="card border border-info mb-3">
-                                <div class="card-body p-3">
+                                <div class="card-body p-3" style="background-color: #C8E9FF">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
@@ -419,25 +353,25 @@
             <div class="col-lg-6 mb-lg-0 mb-4 text-center">
                 <div class="card z-index-2">
                     <div class="card">
-                        <div class="card-body p-3 m-2 border border-secondary rounded-3">
+                        <div class="card-body p-3 m-2 border border-secondary rounded-3" style="background-color: #FAFAFA">
                             <h6>Sales Amount</h6>
                             <h5 class="text-info">Rp.0</h5>
                         </div>
                         <div class="row m-2">
-                            <div class="col-lg-6 mb-lg-0 mb-4 border">
+                            <div class="col-lg-6 mb-lg-0 mb-4 border" style="background-color: #FAFAFA">
                                 <div class="card-body p-3">
                                     <h6>Total Transactions</h6>
                                     <h6>0</h6>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-lg-0 mb-4 border">
+                            <div class="col-lg-6 mb-lg-0 mb-4 border" style="background-color: #FAFAFA">
                                 <div class="card-body p-3">
                                     <h6>Total Customer</h6>
                                     <h6>0</h6>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-3 m-2 border border-secondary rounded-3">
+                        <div class="card-body p-3 m-2 border border-secondary rounded-3" style="background-color: #FAFAFA">
                             <h6>Product Sold</h6>
                             <h4 class="text-info">0</h4>
                         </div>
@@ -448,25 +382,25 @@
             {{-- Purchase --}}
             <div class="col-lg-6 mb-lg-0 mb-4 text-center">
                 <div class="card z-index-2">
-                    <div class="card-body p-3 m-2 border border-secondary rounded-3">
+                    <div class="card-body p-3 m-2 border border-secondary rounded-3" style="background-color: #FAFAFA">
                         <h6>Purchase Amount</h6>
                         <h5 class="text-success">Rp.0</h5>
                     </div>
                     <div class="row m-2">
-                        <div class="col-lg-6 mb-lg-0 mb-4 border">
+                        <div class="col-lg-6 mb-lg-0 mb-4 border" style="background-color: #FAFAFA">
                             <div class="card-body p-3">
                                 <h6>Total Transactions</h6>
                                 <h6>0</h6>
                             </div>
                         </div>
-                        <div class="col-lg-6 mb-lg-0 mb-4 border">
+                        <div class="col-lg-6 mb-lg-0 mb-4 border" style="background-color: #FAFAFA">
                             <div class="card-body p-3">
-                                <h6>Total Customer</h6>
+                                <h6>Total Supplier</h6>
                                 <h6>0</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-3 m-2 border border-secondary rounded-3">
+                    <div class="card-body p-3 m-2 border border-secondary rounded-3" style="background-color: #FAFAFA">
                         <h6>Product Purchased</h6>
                         <h4 class="text-success">0</h4>
                     </div>

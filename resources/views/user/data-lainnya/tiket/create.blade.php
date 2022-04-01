@@ -47,7 +47,7 @@
                                     <textarea name="body" id="body" cols="30" rows="7" class="form-control @error('body') is-invalid @enderror" placeholder="Deskripsi" required>{{ old('body') }}</textarea>
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $body }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
                                 </div>
@@ -64,7 +64,7 @@
     </section>
 </x-template-layout>
 
-<script src="http://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+<script src="http://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('body');
     CKEDITOR.config.allowedContent = true;

@@ -42,9 +42,9 @@ class TicketController extends Controller
             })
             ->addColumn('status', function ($row) {
                 if ($row->status == 'close') {
-                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1">close</h5>';
+                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1 disabled">close</h5>';
                   }elseif ($row->status == 'open') {
-                    $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-1">open</h5>';
+                    $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-1 disabled">open</h5>';
                   }
                 return ($actionBtn);
             })
