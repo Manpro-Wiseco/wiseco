@@ -99,6 +99,18 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'delete'])->name('delete');
             Route::get('/export', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'export'])->name('export');
         });
+
+        // Gudang
+        Route::prefix('gudang')->name('gudang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\GudangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\GudangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\GudangController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\GudangController::class, 'export'])->name('export');
+            Route::get('/list', [\App\Http\Controllers\User\Inventory\GudangController::class, 'list'])->name('list');
+        });
     });
 
     // Pengelolaan Kas
