@@ -22,7 +22,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="fa-solid fa-sack-dollar fa-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-sack-dollar fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="fa-solid fa-arrow-trend-up text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-arrow-trend-up text-lg opacity-10 mt-1" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="fa-solid fa-arrow-trend-down text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-arrow-trend-down text-lg opacity-10 mt-1" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -149,8 +149,8 @@
                     <div class="card-body p-3">
 
                         {{-- Asset --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 bg-gradient-primary">
-                            <div class="card border border-primary">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+                            <div class="card border border-primary" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color:#E9D5F1">
                                     <div class="row">
                                         <div class="col-8">
@@ -163,7 +163,7 @@
                                         </div>
                                         <div class="col-4 text-end ">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-box-open fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-box-open fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -172,8 +172,8 @@
                         </div>
 
                         {{-- Liabilities --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
-                            <div class="card border border-secondary">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                            <div class="card border border-secondary" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color: #EAEAEA">
                                     <div class="row">
                                         <div class="col-8">
@@ -186,7 +186,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-clipboard fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-clipboard fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -195,8 +195,8 @@
                         </div>
 
                         {{-- Equity --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
-                            <div class="card border border-info mb-3">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                            <div class="card border border-info mb-3" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color: #C8E9FF">
                                     <div class="row">
                                         <div class="col-8">
@@ -209,7 +209,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-chart-simple fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-chart-simple fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -259,8 +259,8 @@
                     <div class="card-body p-3">
 
                         {{-- Overal Ballance --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 bg-gradient-primary">
-                            <div class="card border border-primary">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+                            <div class="card border border-primary" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color: #E9D5F1">
                                     <div class="row">
                                         <div class="col-8">
@@ -282,8 +282,8 @@
                         </div>
 
                         {{-- Income --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
-                            <div class="card border border-secondary">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                            <div class="card border border-secondary" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color: #EAEAEA">
                                     <div class="row">
                                         <div class="col-8">
@@ -305,8 +305,8 @@
                         </div>
 
                         {{-- Expense --}}
-                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4 bg-gradient-primary">
-                            <div class="card border border-info mb-3">
+                        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-4">
+                            <div class="card border border-info mb-3" style="overflow: hidden">
                                 <div class="card-body p-3" style="background-color: #C8E9FF">
                                     <div class="row">
                                         <div class="col-8">
