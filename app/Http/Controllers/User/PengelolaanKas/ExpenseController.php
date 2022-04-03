@@ -42,7 +42,7 @@ class ExpenseController extends Controller
                     <i class="fas fa-edit"></i>
                 </a>
                 
-    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
+    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-invoice="' . $row->invoice . '" type="button">
         <i class="fas fa-trash"></i>
     </button>';
                 return $actionBtn;
@@ -138,8 +138,10 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Expense $expense)
     {
-        //
+        $expense->bankAccounts()->detach();
+        $expense->delete();
+        return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pengeluaran!']);
     }
 }
