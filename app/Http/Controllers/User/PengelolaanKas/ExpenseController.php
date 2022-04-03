@@ -5,7 +5,10 @@ namespace App\Http\Controllers\User\PengelolaanKas;
 use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\Expense;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class ExpenseController extends Controller
@@ -39,7 +42,7 @@ class ExpenseController extends Controller
                     <i class="fas fa-edit"></i>
                 </a>
                 
-    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
+    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-invoice="' . $row->invoice . '" type="button">
         <i class="fas fa-trash"></i>
     </button>';
                 return $actionBtn;
@@ -67,7 +70,32 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.bank_account_id' => 'required|numeric'
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        DB::transaction(function () use ($data, $detail) {
+            $expense = Expense::create($data);
+            foreach ($detail as $key => $value) {
+                DB::table('detail_expenses')->insert([
+                    "expense_id" => $expense->id,
+                    "bank_account_id" => $value["bank_account_id"],
+                    "amount" => $value["amount"],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
+                ]);
+            }
+        });
+        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -110,8 +138,10 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Expense $expense)
     {
-        //
+        $expense->bankAccounts()->detach();
+        $expense->delete();
+        return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pengeluaran!']);
     }
 }
