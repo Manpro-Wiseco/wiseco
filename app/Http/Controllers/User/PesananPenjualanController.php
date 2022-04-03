@@ -3,41 +3,23 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataBank;
+//use App\Models\DataBank;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+//use Yajra\DataTables\DataTables;
 
-class DataBankController extends Controller
+class PesananPenjualanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.data-lainnya.data-bank.index');
+        return view('user.fitur-penjualan.pesanan-penjualan.index');
     }
 
     public function list(Request $request)
     {
-        $data = DataBank::latest()->get();
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->make(true);
+
     }
 
-    public function data(Request $request)
-    {
-        $search = $request->search;
-        if ($search == '') {
-            $data = DataBank::all();
-        } else {
-            $data = DataBank::where('name', 'like', '%' . $search . '%')->orWhere('code', 'like', '%' . $search . '%')->get();
-        }
-        return response()->json($data);
-    }
-
+    
     /**
      * Show the form for creating a new resource.
      *

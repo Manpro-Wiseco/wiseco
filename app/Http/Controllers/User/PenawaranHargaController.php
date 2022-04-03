@@ -1,48 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\User\Inventory;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataProduk;
-use App\Models\Expense;
+use App\Models\PenawaranHarga;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-
-class DataProdukController extends Controller
+class PenawaranHargaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.inventory.data-produk.index');
+        return view('user.fitur-penjualan.penawaran-harga.index');
     }
 
     public function list(Request $request)
     {
-        $data = Expense::with(['bankAccounts', 'dataContact'])->currentCompany()->latest()->get();
+        $data = PenawaranHarga::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('penerima', function ($row) {
-                return $row->dataContact->name;
-            })
             ->addColumn('action', function ($row) {
-                $urlEdit = route('inventory.data-produk.edit', $row->id);
+                $urlEdit = route('penawaran-harga.edit', $row->id);
+                $urlDelete = route('penawaran-harga.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
         <i class="fas fa-edit"></i>
     </a>
-    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
+    <button class="btn bg-gradient-danger btn-small" type="button">
         <i class="fas fa-trash"></i>
     </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
-            ->make(true);
+            ->make(true);   
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -50,7 +42,7 @@ class DataProdukController extends Controller
      */
     public function create()
     {
-        return view('user.inventory.data-produk.create');
+        //
     }
 
     /**
@@ -67,10 +59,10 @@ class DataProdukController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DataProduk  $dataProduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DataProduk $dataProduk)
+    public function show($id)
     {
         //
     }
@@ -78,10 +70,10 @@ class DataProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DataProduk  $dataProduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataProduk $dataProduk)
+    public function edit($id)
     {
         //
     }
@@ -90,10 +82,10 @@ class DataProdukController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DataProduk  $dataProduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataProduk $dataProduk)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -101,10 +93,10 @@ class DataProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DataProduk  $dataProduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DataProduk $dataProduk)
+    public function destroy($id)
     {
         //
     }

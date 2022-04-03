@@ -22,12 +22,7 @@
                     type: 'error'
                 })
             }
-
-            /**
-             * * Fungsi untuk Exporting Data tabel ke Excel
-             * TODO: Refactor untuk menyesuaikan dengan tabel yang akan ditampilkan
-            */
-            let table = $('#product-table').DataTable({
+            let table = $('#bank-account-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 processing: true,
@@ -42,25 +37,30 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('pengelolaan-kas.expense.list') }}", //Fix Export Data di DataProdukController
+                ajax: "{{ route('pengelolaan-kas.bank-account.list') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'invoice',
-                        name: 'invoice',
+                        data: 'name',
+                        name: 'name',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'penerima',
-                        name: 'penerima',
+                        data: 'bank',
+                        name: 'bank',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'description',
-                        name: 'description',
+                        data: 'subclassification',
+                        name: 'subclassification',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
                         className: 'align-middle text-center'
                     },
                     {
@@ -78,13 +78,14 @@
                 table.ajax.reload(callback, resetPage); //reload datatable ajax 
             }
 
-            $('#product-table').on('click', '.btn-delete', function(e) {
+            $('#bank-account-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
                 let nama = $(this).data('name')
                 e.preventDefault()
+                console.log(id)
                 Swal.fire({
                     title: 'Apakah Yakin?',
-                    text: `Apakah Anda yakin ingin menghapus data kontak dengan nama ${nama}`,
+                    text: `Apakah Anda yakin ingin menghapus data akun bank dengan nama ${nama}`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -94,7 +95,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('expense') }}/" + id,
+                            url: "{{ url('pengelolaan-kas/bank-account') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -104,7 +105,7 @@
                             success: function(response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    `Data produk dengan nama ${nama} berhasil terhapus.`,
+                                    `Data akun bank dengan nama ${nama} berhasil terhapus.`,
                                     'success'
                                 )
                                 reload_table(null, true)
@@ -136,28 +137,30 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Penyesuaian Barang</h3>
-                        <a href="{{ route('inventory.penyesuaian-barang.create') }}" class="btn bg-gradient-primary">
+                        <h3>Data Akun Bank</h3>
+                        <a href="{{ route('pengelolaan-kas.bank-account.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">
-                            <table class="table align-items-center mb-0" id="product-table">
+                            <table class="table align-items-center mb-0" id="bank-account-table">
                                 <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Nomor</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Tanggal</th>
+                                            Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kode Referensi</th>
+                                            Bank</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Departemen</th>
+                                            Klasifikasi</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Deskripsi</th>
+                                            Status</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
