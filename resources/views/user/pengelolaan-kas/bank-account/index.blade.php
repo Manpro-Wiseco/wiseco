@@ -85,7 +85,7 @@
                 console.log(id)
                 Swal.fire({
                     title: 'Apakah Yakin?',
-                    text: `Apakah Anda yakin ingin menghapus data akun bank dengan nama ${nama}`,
+                    text: `Apakah Anda yakin ingin menghapus data akun bank dengan nama ${nama}? Jika menghapus akun bank maka data transaksi dan pengeluaran akan terhapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

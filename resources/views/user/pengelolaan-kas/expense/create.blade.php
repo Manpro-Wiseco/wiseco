@@ -77,13 +77,13 @@
                                                 <i class="fas fa-plus"></i> Add New Row
                                             </button>
                                         </div>
-                                        <input type="button" id="bt" value="Submit Data" />
 
 
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                                    <input type="button" id="bt" value="Submit Data" class="btn bg-gradient-primary" />
+                                    {{-- <button type="submit" class="btn bg-gradient-primary">Submit</button> --}}
                                 </div>
                             </form>
                         </div>
