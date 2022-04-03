@@ -32,11 +32,14 @@
 
     </style>
     @stack('styles')
+    <script>
+        window.url = "{{ url('/') }}"
+    </script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
     @include('layouts.components.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    <main class="content-main position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <!-- Navbar -->
         @include('layouts.components.navbar')
         <!-- End Navbar -->

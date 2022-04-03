@@ -117,6 +117,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
     Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
     Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+    Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
+    Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
@@ -178,8 +180,14 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
         // Pengelolaan Kas - Bank Account
         Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
+        Route::get('/bank-account/data', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'data'])->name('bank-account.data');
         Route::resource('/bank-account', App\Http\Controllers\User\PengelolaanKas\BankAccountController::class);
     });
+
+    // Report
+    Route::get('/pelaporan', [\App\Http\Controllers\User\PelaporanController::class, 'index'])->name('pelaporan');
+    Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
+    Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
 
     // Data Lainnya - Data Bank 
     Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
@@ -190,4 +198,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
     // Data Lainnya - Subclassification
     Route::get('/subclassification/data', [App\Http\Controllers\User\SubclassificationController::class, 'data'])->name('subclassification.data');
+    // Data Lainnya - Ticket
+    Route::get('/ticket/list', [\App\Http\Controllers\User\TicketController::class, 'list'])->name('ticket.list');
+    Route::get('/ticket/view/{id}', [\App\Http\Controllers\User\TicketController::class, 'view'])->name('ticket.view');
+    Route::get('/ticket/update', [\App\Http\Controllers\User\TicketController::class, 'update'])->name('ticket.update');
+    Route::resource('/ticket', \App\Http\Controllers\User\TicketController::class);
+
+    Route::get('/ticket_response/store', [\App\Http\Controllers\User\TicketResponseController::class, 'store'])->name('ticket_response.store');
+    Route::resource('/ticket_response', \App\Http\Controllers\User\TicketResponseController::class);
 });

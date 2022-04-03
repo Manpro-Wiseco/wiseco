@@ -109,10 +109,10 @@
                                         <select name="status" id="status"
                                             class="form-control @error('status') is-invalid @enderror" required>
                                             <option>- Pilih Salah Satu -</option>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
+                                            <option value="1">Bisnis</option>
+                                            <option value="0">Pribadi</option>
                                         </select>
-                                        @error('phone')
+                                        @error('status')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

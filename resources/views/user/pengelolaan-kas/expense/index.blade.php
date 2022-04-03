@@ -80,11 +80,11 @@
 
             $('#expense-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
-                let nama = $(this).data('name')
+                let invoice = $(this).data('invoice')
                 e.preventDefault()
                 Swal.fire({
                     title: 'Apakah Yakin?',
-                    text: `Apakah Anda yakin ingin menghapus data kontak dengan nama ${nama}`,
+                    text: `Apakah Anda yakin ingin menghapus data pengeluaran dengan invoice ${invoice}`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -94,7 +94,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('expense') }}/" + id,
+                            url: "{{ url('pengelolaan-kas/expense') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -104,7 +104,7 @@
                             success: function(response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    `Data kontak dengan nama ${nama} berhasil terhapus.`,
+                                    `Berhasil menghapus data pengeluaran!`,
                                     'success'
                                 )
                                 reload_table(null, true)
