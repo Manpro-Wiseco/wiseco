@@ -9,6 +9,7 @@ class PenjualanController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.penjualan');
+        $sessionCompany = $request->session()->get('company');
+        return view('user.penjualan', compact('sessionCompany'));
     }
 }
