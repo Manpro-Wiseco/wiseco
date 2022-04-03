@@ -79,7 +79,7 @@
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Lebih Bayar</h4>
-                                    <i class="text-white fas fa-hand-holding-heart fa-5x my-3"></i>
+                                    <i class="text-white fas fa-dollar-sign fa-5x my-3"></i>
                                     <p class="text-white">Menerima kembali nilai Pembayaran yang berlebih (debit)</p>
                                 </div>
                             </div>
