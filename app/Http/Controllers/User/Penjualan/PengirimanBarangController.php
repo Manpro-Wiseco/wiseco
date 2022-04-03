@@ -1,22 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
-//use App\Models\DataBank;
+use App\Models\PengirimanBarang;
 use Illuminate\Http\Request;
-//use Yajra\DataTables\DataTables;
+use Yajra\DataTables\DataTables;
 
-class ReturPenjualanController extends Controller
+class PengirimanBarangController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.fitur-penjualan.retur-penjualan.index');
+        return view('user.penjualan.pengiriman-barang.index');
     }
 
     public function list(Request $request)
     {
-
+        $data = PengirimanBarang::latest()->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                $urlEdit = route('penjualan.pengiriman-barang.edit', $row->id);
+                $urlDelete = route('penjualan.pengiriman-barang.destroy', $row->id);
+                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn bg-gradient-danger btn-small" type="button">
+                        <i class="fas fa-trash"></i>
+                    </button>';
+                return $actionBtn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);   
     }
 
     

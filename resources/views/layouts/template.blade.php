@@ -33,6 +33,9 @@
 
     </style>
     @stack('styles')
+    <script>
+        window.url = "{{ url('/') }}"
+    </script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

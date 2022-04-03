@@ -39,8 +39,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a @if (url()->current() == route('penjualan')) class="nav-link active" @else class="nav-link" @endif
-                    href="{{ route('penjualan') }}">
+                <a class="nav-link @if (request()->routeIs('penjualan.*')) active @endif"
+                    href="{{ route('penjualan.index') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
@@ -155,7 +155,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  " href="{{ route('pelaporan') }}">
+                <a class="nav-link" href="{{ route('pelaporan') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
@@ -179,39 +179,6 @@
                     </div>
                     <span class="nav-link-text ms-1">Pelaporan</span>
                 </a>
-                <div class="collapse show" id="InvMenu" style="">
-                    <ul class="nav ms-4 ps-3">
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Laporan Keuangan </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Laporan Penjualan dan Piutang </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Laporan Pembelian dan Piutang </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Laporan Produk </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="#">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Laporan Lainnya </span>
-                            </a>
-                        </li>
-                </div>
             </li>
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#data-lainnya-dropdown" class="nav-link collapsed"
