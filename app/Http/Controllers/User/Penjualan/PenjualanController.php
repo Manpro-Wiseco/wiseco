@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
-use App\Models\PenawaranHarga;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class PenawaranHargaController extends Controller
+class PenjualanController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.fitur-penjualan.penawaran-harga.index');
+        return view('user.penjualan.penjualan.index');
     }
 
     public function list(Request $request)
     {
-        $data = PenawaranHarga::latest()->get();
+        $data = Penjualan::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $urlEdit = route('penawaran-harga.edit', $row->id);
-                $urlDelete = route('penawaran-harga.destroy', $row->id);
+                $urlEdit = route('penjualan.penjualan.edit', $row->id);
+                $urlDelete = route('penjualan.penjualan.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-        <i class="fas fa-edit"></i>
-    </a>
-    <button class="btn bg-gradient-danger btn-small" type="button">
-        <i class="fas fa-trash"></i>
-    </button>';
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn bg-gradient-danger btn-small" type="button">
+                        <i class="fas fa-trash"></i>
+                    </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])

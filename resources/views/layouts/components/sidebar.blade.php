@@ -39,8 +39,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a @if (url()->current() == route('penjualan')) class="nav-link active" @else class="nav-link" @endif
-                    href="{{ route('penjualan') }}">
+                <a class="nav-link @if (request()->routeIs('penjualan.*')) active @endif"
+                    href="{{ route('penjualan.index') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 44" version="1.1" 

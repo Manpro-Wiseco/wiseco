@@ -4,7 +4,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            let table = $('#penawaran-harga-table').DataTable({
+            let table = $('#pengiriman-barang-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
@@ -14,18 +14,37 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('penawaran-harga.list') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+                ajax: "{{ route('penjualan.pengiriman-barang.list') }}",
+                columns: [
+                    {
+                        data: 'tanggal',
+                        name: 'tanggal',
+                        className: 'align-middle text-center'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'no_pengiriman',
+                        name: 'no_pengiriman',
+                        className: 'align-middle text-center'
                     },
                     {
-                        data: 'code',
-                        name: 'code'
+                        data: 'nama_pelanggan',
+                        name: 'nama_pelanggan',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'deskripsi',
+                        name: 'deskripsi',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'nilai',
+                        name: 'nilai',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        className: 'align-middle text-center'
                     },
                     {
                         data: 'action',
@@ -34,6 +53,7 @@
                         searchable: false,
                         className: 'align-middle text-center'
                     },
+
                 ]
             });
         })
@@ -47,14 +67,14 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                            <h3>Penawaran Harga</h3>
-                            <a href="#" class="btn bg-gradient-primary">
+                            <h3>Pengiriman Barang</h3>
+                            <a href="{{ route('penjualan.pengiriman-barang.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-3">
-                                <table class="table align-items-center mb-0" id="data-bank-table">
+                                <table class="table align-items-center mb-0" id="pengiriman-barang-table">
                                     <thead>
                                         <tr>
                                             <th
@@ -62,16 +82,19 @@
                                                 Tanggal</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">
-                                                No. Penawaran</th>
+                                                Nomor</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Nama Customer</th>
+                                                Nama Pelanggan</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Deskripsi</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Value</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Nilai</th>    
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Status</th>
