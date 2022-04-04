@@ -107,7 +107,6 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
-    
     });
 
     // Pembelian
@@ -209,6 +208,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
         Route::get('/bank-account/data', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'data'])->name('bank-account.data');
         Route::resource('/bank-account', App\Http\Controllers\User\PengelolaanKas\BankAccountController::class);
+
+        // Pengelolaan Kas - Fund Transfer
+        Route::get('/fund-transfer/list', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'list'])->name('fund-transfer.list');
+        Route::get('/fund-transfer/fromBank', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'fromBank'])->name('fund-transfer.fromBank');
+        Route::get('/fund-transfer/toBank', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'toBank'])->name('fund-transfer.toBank');
+        Route::resource('/fund-transfer', App\Http\Controllers\User\PengelolaanKas\FundTransferController::class);
     });
 
     // Report
