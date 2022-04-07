@@ -111,26 +111,26 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
     // Pembelian
     Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
-    
-    
+
+
     //Penawaran pembelian
     Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\Pembelian\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
-    
+
     //pesanan pembelian
     Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
-   
+
     //penerimaan barang
     Route::get('/penerimaan-barang', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('penerimaan-barang');
-    
+
     //faktur pembelian
     Route::get('/faktur-pembelian', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
-    
+
     //retur pembelian
     Route::get('/retur-pembelian', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('retur-pembelian');
-    
+
     //daftar pembayaran utang
     Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
-    
+
     //penerimaan lebih bayar
     Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\Pembelian\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
 
@@ -220,6 +220,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/pelaporan', [\App\Http\Controllers\User\PelaporanController::class, 'index'])->name('pelaporan');
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
     Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
+    Route::get('/laporan-pembelian', [\App\Http\Controllers\User\LaporanPembelian::class, 'index'])->name('laporan-pembelian');
+
 
     // Data Lainnya - Data Bank 
     Route::get('/data-bank/list', [\App\Http\Controllers\User\DataBankController::class, 'list'])->name('data-bank.list');
