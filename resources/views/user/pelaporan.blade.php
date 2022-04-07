@@ -79,7 +79,7 @@
             </div>
 
             <div class="col-md-6 mt-6">
-                <a class="link  " href="#"> 
+                <a class="link  " href="{{route('laporan-pembelian')}}"> 
                     <div class="card bg-cover text-center" style="background-color: #E6BD9F">
                         <div class="card-body py-4">
                           <h4 class="text-black">Laporan Pembelian dan Piutang</h4>
