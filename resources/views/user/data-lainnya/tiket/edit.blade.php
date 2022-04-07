@@ -65,7 +65,7 @@
     </section>
 </x-template-layout>
 
-<script src="http://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('body');
     CKEDITOR.config.allowedContent = true;
