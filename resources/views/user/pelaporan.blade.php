@@ -56,11 +56,10 @@
                     <div class="col-md-6 mt-6">
                         <div class="card text-center" style="background-color:rgb(196, 121, 219)">
                             <div class="card-body py-4">
-                            <h3 class="text-Black">Laporan Keuangan</h3>
-                            <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                alt="rocket">
-                            <p class="text-white">Laporan Keuangan</p>
+                            <h4 class="text-Black">Laporan Keuangan</h4>
+                            <img class="w-20 position-relative z-index-2 pt-1"
+                                                src="{{ asset('assets') }}/img/finance-report.png">
+                            
                             </div>
                         </div>
                 </a> 
@@ -70,25 +69,22 @@
                 <a class="link  " href="{{route('laporan-penjualan')}}"> 
                     <div class="card bg-cover text-center" style="background-color: #4b3eff">
                         <div class="card-body py-4">
-                          <h3 class="text-black">Laporan Penjualan dan Piutang</h3>
-                          <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                            alt="rocket">
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                          <h4 class="text-black">Laporan Penjualan dan Piutang</h4>
+                          <img class="w-20 position-relative z-index-2 pt-2"
+                                                src="{{ asset('assets') }}/img/sales-report.png">
+                         
                         </div>
                       </div>
                 </a>                        
             </div>
 
             <div class="col-md-6 mt-6">
-                <a class="link  " href="#"> 
+                <a class="link  " href="{{route('laporan-pembelian')}}"> 
                     <div class="card bg-cover text-center" style="background-color: #E6BD9F">
                         <div class="card-body py-4">
-                          <h3 class="text-black">Laporan Pembelian dan Piutang</h3>
-                          <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                            alt="rocket">
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                          <h4 class="text-black">Laporan Pembelian dan Piutang</h4>
+                          <img class="w-20 position-relative z-index-2 pt-2"
+                                                src="{{ asset('assets') }}/img/sales-report.png">
                         </div>
                       </div>
                 </a>                        
@@ -100,11 +96,9 @@
                     <a class="link  " href="#">
                         <div class="card bg-cover text-center" style="background-color: #E69D93">
                             <div class="card-body py-4">
-                                <h3 class="text-black">Laporan Produk</h3>
-                                <img class="w-100 position-relative z-index-2 pt-4"
-                                                    src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                    alt="rocket">
-                                <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                                <h4 class="text-black">Laporan Produk</h4>
+                                <img class="w-20 position-relative z-index-2 pt-2"
+                                                src="{{ asset('assets') }}/img/other-report.png">
                             </div>
                         </div>
                     </a>  
@@ -116,11 +110,9 @@
                     <a class="link  " href="#">
                         <div class="card bg-cover text-center" style="background-color: #ADDBC6">
                             <div class="card-body py-4">
-                            <h3 class="text-black">Laporan Lainnya</h3>
-                            <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                alt="rocket">
-                            <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                            <h4 class="text-black">Laporan Lainnya</h4>
+                            <img class="w-20 position-relative z-index-2 pt-2"
+                                                src="{{ asset('assets') }}/img/other-report.png">
                             </div>
                         </div>
                     </a>  
