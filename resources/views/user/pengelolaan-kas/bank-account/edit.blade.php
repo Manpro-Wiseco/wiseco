@@ -115,12 +115,12 @@
                                         <select name="status" id="status"
                                             class="form-control @error('status') is-invalid @enderror" required>
                                             <option>- Pilih Salah Satu -</option>
-                                            <option value="1" @if ($bankAccount->status == 1) selected @endif>Aktif
+                                            <option value="1" @if ($bankAccount->status == 1) selected @endif>Bisnis
                                             </option>
-                                            <option value="0" @if ($bankAccount->status == 0) selected @endif>Tidak
-                                                Aktif</option>
+                                            <option value="0" @if ($bankAccount->status == 0) selected @endif>Pribadi
+                                            </option>
                                         </select>
-                                        @error('phone')
+                                        @error('status')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

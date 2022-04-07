@@ -32,7 +32,7 @@ class BankAccountController extends Controller
                 return $row->subclassification->name;
             })
             ->editColumn('status', function ($row) {
-                return $row->status == 1 ? "Aktif" : "Tidak Aktif";
+                return $row->status == 1 ? "Bisnis" : "Pribadi";
             })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('pengelolaan-kas.bank-account.edit', $row->id);
@@ -52,6 +52,24 @@ class BankAccountController extends Controller
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = BankAccount::currentCompany()->get();
+        } else {
+            $data = BankAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->name,
+            );
+        }
+        return response()->json($response);
     }
 
     /**
@@ -136,6 +154,7 @@ class BankAccountController extends Controller
      */
     public function destroy(BankAccount $bankAccount)
     {
+        $bankAccount->expenses->delete();
         $bankAccount->delete();
         return response()->json(['status' => TRUE]);
     }

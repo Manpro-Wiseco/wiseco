@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SubClassificationSeeder::class,
             BankAccountSeeder::class,
             ExpenseSeeder::class,
+            TicketCategorySeeder::class,
         ]);
     }
 }

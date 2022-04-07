@@ -1,131 +1,107 @@
 <x-template-layout>
-    <section class="content">
-        
-        <div class="container">
-            {{-- <div class="row justify-content-md-center">
-                <div class="col">
-                    <div class="col-md-6">
-                        <div class="card bg-cover text-center" style="background-image: url('https://images.unsplash.com/photo-1541451378359-acdede43fdf4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80')">
-                        <div class="card-body z-index-2 py-7">
-                            <h3 class="text-white">Social Analytics</h3>
-                            <p class="text-white">
-                            Insight to help you create, connect.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col-md-6">
-                        <div class="card bg-cover text-center" style="background-image: url('https://images.unsplash.com/photo-1541451378359-acdede43fdf4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80')">
-                        <div class="card-body z-index-2 py-7">
-                            <h3 class="text-white">Social Analytics</h3>
-                            <p class="text-white">
-                            Insight to help you create, connect.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col-md-6">
-                        <div class="card bg-cover text-center" style="background-image: url('https://images.unsplash.com/photo-1541451378359-acdede43fdf4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80')">
-                        <div class="card-body z-index-2 py-7">
-                            <h3 class="text-white">Social Analytics</h3>
-                            <p class="text-white">
-                            Insight to help you create, connect.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col-md-6">
-                        <div class="card bg-cover text-center" style="background-image: url('https://images.unsplash.com/photo-1541451378359-acdede43fdf4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80')">
-                        <div class="card-body z-index-2 py-7">
-                            <h3 class="text-white">Social Analytics</h3>
-                            <p class="text-white">
-                            Insight to help you create, connect.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            
-{{-- --------------------------------------- --}}
-
-            <div class="row">
-                <a class="link  " href="{{route('penawaran-pembelian')}}">
-                    <div class="col-md-6 mt-6">
-                        <div class="card text-center" style="background-color:rgb(196, 121, 219)">
-                            <div class="card-body py-4">
-                            <h3 class="text-Black">Permintaan Penawaran Barang</h3>
-                            <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                alt="rocket">
-                            <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+    <section class="content"> 
+    <div class="container">
+        <div class="row">
+       
+            <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('penawaran-pembelian')}}">
+                        <div class="card bg-gradient-success">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Permintaan Penawaran </h4>
+                                    <i class="text-white fas fa-envelope-open-text fa-5x my-3"></i> 
+                                    <p class="text-white">Membuat Penawaran Harga Barang Untuk Pemasok</p>
+                                </div>
                             </div>
                         </div>
-                </a> 
-            </div>
+                    </a>
+                </div>
             
-            <div class="col-md-6 mt-6">
-                <a class="link  " href="{{route('pesanan-pembelian')}}"> 
-                    <div class="card bg-cover text-center" style="background-color: #4b3eff">
-                        <div class="card-body py-4">
-                          <h3 class="text-black">Pesanan Pembelian</h3>
-                          <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                            alt="rocket">
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
-                        </div>
-                      </div>
-                </a>                        
-            </div>
-
-            <div class="col-md-6 mt-6">
-                <a class="link  " href="{{route('pengiriman-barang')}}"> 
-                    <div class="card bg-cover text-center" style="background-color: #E6BD9F">
-                        <div class="card-body py-4">
-                          <h3 class="text-black">Penerimaan Barang</h3>
-                          <img class="w-100 position-relative z-index-2 pt-4"
-                                            src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                            alt="rocket">
-                          <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
-                        </div>
-                      </div>
-                </a>                        
-            </div>
-            
-            
-            
-                <div class="col-md-6 mt-6">
-                    <a class="link  " href="{{route('faktur-pembelian')}}">
-                        <div class="card bg-cover text-center" style="background-color: #E69D93">
-                            <div class="card-body py-4">
-                                <h3 class="text-black">Faktur Pembelian</h3>
-                                <img class="w-100 position-relative z-index-2 pt-4"
-                                                    src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                    alt="rocket">
-                                <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('pesanan-pembelian')}}">
+                        <div class="card bg-gradient-info">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Pesanan Pembelian</h4>
+                                    <i class="text-white fas fa-file-invoice-dollar fa-5x my-3"></i> 
+                                    <p class="text-white">Membuat Pemesanan Pembelian Untuk Pemasok</p>
+                                </div>
                             </div>
                         </div>
-                    </a>  
+                    </a>
                 </div>
-             
 
-            
-                <div class="col-md-6 mt-6">
-                    <a class="link  " href="{{route('retur-pembelian')}}">
-                        <div class="card bg-cover text-center" style="background-color: #ADDBC6">
-                            <div class="card-body py-4">
-                            <h3 class="text-black">Retur Pembelian</h3>
-                            <img class="w-100 position-relative z-index-2 pt-4"
-                                                src="{{ asset('assets') }}/img/illustrations/rocket-white.png"
-                                                alt="rocket">
-                            <p class="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut facilis mollitia, aperiam voluptate temporibus adipisci dolorem repellendus blanditiis voluptates assumenda rem</p>
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('penawaran-pembelian')}}">
+                        <div class="card bg-gradient-secondary">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Barang</h4>
+                                    <i class="text-white fas fa-people-carry fa-5x my-3"></i>
+                                    <p class="text-white">Membuat Transaksi Penerimaan Barang Untuk Pemasok</p>
+                                </div>
                             </div>
                         </div>
-                    </a>  
+                    </a>
                 </div>
-             
+            
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('faktur-pembelian')}}">
+                        <div class="card bg-gradient-warning">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Faktur Pembelian</h4>
+                                    <i class="text-white fas fa-file-import fa-5x my-3"></i>
+                                    <p class="text-white">Menampilkan dan Mencatat Faktur Pembelian Dari Pemasok</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('retur-pembelian')}}">
+                        <div class="card bg-gradient-primary">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Retur Pembelian</h4>
+                                    <i class="text-white fas fa-file-export fa-5x my-3"></i>
+                                    <p class="text-white">Menampilkan dan Mencatat Retur Pembelian dari Pemasok</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('Penerimaan-lebih-bayar')}}">
+                        <div class="card bg-gradient-dark">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Lebih Bayar</h4>
+                                    <i class="text-white fas fa-dollar-sign fa-5x my-3"></i>
+                                    <p class="text-white">Menerima kembali nilai Pembayaran yang berlebih (debit)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('Daftar-Pembayaran-Utang')}}">
+                        <div class="card bg-gradient-danger">
+                            <div class="card-body pt-3">
+                                <div class="text-center">
+                                    <h4 class="text-white text-capitalize font-weight-bold">Daftar Pembayaran Utang</h4>
+                                    <i class="text-white fas fa-address-book fa-5x my-3"></i>
+                                    <p class="text-white">Menampilkan Daftar Utang Usaha dan Mencatat Utang Usaha kepada Pemasok</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+       
         </div>
+    </div>
     </section>
 </x-template-layout>
