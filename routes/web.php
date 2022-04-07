@@ -107,18 +107,32 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
-    
     });
 
     // Pembelian
     Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
-    Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
-    Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
-    Route::get('/penerimaan-barang', [\App\Http\Controllers\User\PenerimaanBarangController::class, 'index'])->name('pengiriman-barang');
-    Route::get('/faktur-pembelian', [\App\Http\Controllers\User\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
-    Route::get('/retur-pembelian', [\App\Http\Controllers\User\ReturPembelianController::class, 'index'])->name('retur-pembelian');
-    Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
-    Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
+
+
+    //Penawaran pembelian
+    Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\Pembelian\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
+
+    //pesanan pembelian
+    Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
+
+    //penerimaan barang
+    Route::get('/penerimaan-barang', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('penerimaan-barang');
+
+    //faktur pembelian
+    Route::get('/faktur-pembelian', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
+
+    //retur pembelian
+    Route::get('/retur-pembelian', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+
+    //daftar pembayaran utang
+    Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
+
+    //penerimaan lebih bayar
+    Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\Pembelian\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
@@ -190,10 +204,20 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/expense/list', [\App\Http\Controllers\User\PengelolaanKas\ExpenseController::class, 'list'])->name('expense.list');
         Route::resource('/expense', \App\Http\Controllers\User\PengelolaanKas\ExpenseController::class);
 
+        // Pengelolaan Kas - Income 
+        Route::get('/income/list', [\App\Http\Controllers\User\PengelolaanKas\IncomeController::class, 'list'])->name('income.list');
+        Route::resource('/income', \App\Http\Controllers\User\PengelolaanKas\IncomeController::class);
+
         // Pengelolaan Kas - Bank Account
         Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
         Route::get('/bank-account/data', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'data'])->name('bank-account.data');
         Route::resource('/bank-account', App\Http\Controllers\User\PengelolaanKas\BankAccountController::class);
+
+        // Pengelolaan Kas - Fund Transfer
+        Route::get('/fund-transfer/list', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'list'])->name('fund-transfer.list');
+        Route::get('/fund-transfer/fromBank', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'fromBank'])->name('fund-transfer.fromBank');
+        Route::get('/fund-transfer/toBank', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'toBank'])->name('fund-transfer.toBank');
+        Route::resource('/fund-transfer', App\Http\Controllers\User\PengelolaanKas\FundTransferController::class);
     });
 
     // Report
