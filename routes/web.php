@@ -204,6 +204,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/expense/list', [\App\Http\Controllers\User\PengelolaanKas\ExpenseController::class, 'list'])->name('expense.list');
         Route::resource('/expense', \App\Http\Controllers\User\PengelolaanKas\ExpenseController::class);
 
+        // Pengelolaan Kas - Income 
+        Route::get('/income/list', [\App\Http\Controllers\User\PengelolaanKas\IncomeController::class, 'list'])->name('income.list');
+        Route::resource('/income', \App\Http\Controllers\User\PengelolaanKas\IncomeController::class);
+
         // Pengelolaan Kas - Bank Account
         Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
         Route::get('/bank-account/data', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'data'])->name('bank-account.data');
