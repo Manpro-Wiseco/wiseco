@@ -10,6 +10,6 @@ class PenerimaanBarangController extends Controller
     public function index(Request $request)
     {
         $sessionCompany = $request->session()->get('company');
-        return view('fitur-pembelian.Penerimaan-barang', compact('sessionCompany'));
+        return view('user.fitur-pembelian.Penerimaan-barang', compact('sessionCompany'));
     }
 }

@@ -10,6 +10,6 @@ class DaftardanPembayaranUtangController extends Controller
     public function index(Request $request)
     {
         $sessionCompany = $request->session()->get('company');
-        return view('fitur-pembelian.Daftar-Pembayaran-Utang', compact('sessionCompany'));
+        return view('user.fitur-pembelian.Daftar-Pembayaran-Utang', compact('sessionCompany'));
     }
 }

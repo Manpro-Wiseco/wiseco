@@ -10,6 +10,6 @@ class PesananPembelianController extends Controller
     public function index(Request $request)
     {
         $sessionCompany = $request->session()->get('company');
-        return view('fitur-pembelian.pesanan-pembelian', compact('sessionCompany'));
+        return view('user.fitur-pembelian.pesanan-pembelian', compact('sessionCompany'));
     }
 }

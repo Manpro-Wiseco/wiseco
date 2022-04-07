@@ -10,6 +10,6 @@ class ReturPembelianController extends Controller
     public function index(Request $request)
     {
         $sessionCompany = $request->session()->get('company');
-        return view('fitur-pembelian.retur-pembelian', compact('sessionCompany'));
+        return view('user.fitur-pembelian.retur-pembelian', compact('sessionCompany'));
     }
 }
