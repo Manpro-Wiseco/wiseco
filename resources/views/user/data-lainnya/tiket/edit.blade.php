@@ -52,7 +52,6 @@
                                     </span>
                                     @enderror
                                 </div>
-
                                 <div class="mt-4">
                                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>

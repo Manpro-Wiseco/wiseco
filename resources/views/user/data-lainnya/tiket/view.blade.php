@@ -55,7 +55,6 @@
                             <label class="form-label mt-4 h6">Masukkan Respon</label>
                             <textarea name="response" id="response" cols="30" rows="7" class="form-control" placeholder="Answer" required></textarea>
                         </div>
-
                         <div class="mt-4">
                             <button type="submit" class="btn bg-gradient-primary">Submit</button>
                         </div>
