@@ -30,7 +30,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Kategori</label>
                                         <select class="form-control @error('ticket_category_id') is-invalid @enderror" name=" ticket_category" required id="ticket_category_id">
-                                            <option value="" disabled selected>Kategori</option>
+                                            <option value="" disabled selected>Kategori Tiket</option>
                                             @foreach($categories as $category_)
                                             <option value="{{ $category_->id }}">{{ $category_->category}}</option>
                                             @endforeach
@@ -64,7 +64,7 @@
     </section>
 </x-template-layout>
 
-<script src="http://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('body');
     CKEDITOR.config.allowedContent = true;

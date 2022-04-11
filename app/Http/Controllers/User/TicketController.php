@@ -163,7 +163,11 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        $id_ticket = $ticket->id;
+
+        TicketResponse::where('ticket_id', $id_ticket)->delete();
         $ticket->delete();
+        
         return response()->json(['status' => TRUE]);
     }
 

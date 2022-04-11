@@ -15,7 +15,7 @@
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="col-md-1">
-                                <label class="form-label mt-4" style="font-size: 14px">status</label>
+                                <label class="form-label mt-4" style="font-size: 14px">Status</label>
                             </div>
                             <div class="col-md-1">
                                 <?php if ($ticket->status ==  "close") echo '<h5 class="btn bg-gradient-secondary btn-small mt-3 disabled">close</h5>'; ?>
@@ -38,7 +38,7 @@
                                 <label class="form-label mt-4" style="font-size: 14px">{{$ticket->name}}</label>
                             </div>
                         </div>
-                        <div class="row mt-5">
+                        <div class="row mt-5 mb-3">
                             <div class="card p-3 border">
                                 <?php echo htmlspecialchars_decode($ticket->body); ?>
                             </div>
@@ -55,7 +55,6 @@
                             <label class="form-label mt-4 h6">Masukkan Respon</label>
                             <textarea name="response" id="response" cols="30" rows="7" class="form-control" placeholder="Answer" required></textarea>
                         </div>
-
                         <div class="mt-4">
                             <button type="submit" class="btn bg-gradient-primary">Submit</button>
                         </div>
@@ -66,7 +65,11 @@
 
                 <div class="card-body pt-0 mt-2">
                     <div class="col-md-12">
-                        <label class="form-label mt-4 h6">Respon</label>
+                        <?php $jumlah_respon = 0; ?>
+                        @foreach($ticket_responses as $response)
+                        <?php $jumlah_respon = $jumlah_respon+1; ?>
+                        @endforeach
+                        <label class="form-label mt-4 h6">{{$jumlah_respon}} Respon</label>
                     </div>
                     @foreach($ticket_responses as $response)
                     <div class="row mt-3">
