@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="col-md-4 mb-5">
-                <a href="#">
+                <a href="{{ route('pengelolaan-kas.income.index') }}">
                     <div class="card bg-gradient-info">
                         <div class="card-body p-3">
                             <div class="text-center">
