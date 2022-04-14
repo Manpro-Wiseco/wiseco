@@ -19,6 +19,8 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
     <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Library -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/js/plugins/datatables/datatables.min.css') }}" />
@@ -56,7 +58,6 @@
                                 ©
                                 <script>
                                     document.write(new Date().getFullYear())
-
                                 </script>,
                                 by Informatika Itenas
                             </div>
@@ -91,12 +92,18 @@
                 </div>
                 <a href="javascript:void(0)" class="switch-trigger background-color">
                     <div class="badge-colors my-2 text-start">
-                        <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-primary active" data-color="primary"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-dark" data-color="dark"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-info" data-color="info"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-success" data-color="success"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-warning" data-color="warning"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-danger" data-color="danger"
+                            onclick="sidebarColor(this)"></span>
                     </div>
                 </a>
                 <!-- Sidenav Type -->
@@ -105,8 +112,10 @@
                     <p class="text-sm">Choose between 2 different sidenav types.</p>
                 </div>
                 <div class="d-flex">
-                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent"
+                        onclick="sidebarType(this)">Transparent</button>
+                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white"
+                        onclick="sidebarType(this)">White</button>
                 </div>
                 <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
                 <!-- Navbar Fixed -->
@@ -114,19 +123,26 @@
                     <h6 class="mb-0">Navbar Fixed</h6>
                 </div>
                 <div class="form-check form-switch ps-0">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
+                        onclick="navbarFixed(this)">
                 </div>
                 <hr class="horizontal dark my-sm-4">
-                <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Free Download</a>
-                <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View
+                <a class="btn bg-gradient-dark w-100"
+                    href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Free Download</a>
+                <a class="btn btn-outline-dark w-100"
+                    href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View
                     documentation</a>
                 <div class="w-100 text-center">
-                    <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
+                    <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard"
+                        data-icon="octicon-star" data-size="large" data-show-count="true"
+                        aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
                     <h6 class="mt-3">Thank you for sharing!</h6>
-                    <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+                    <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
+                        class="btn btn-dark mb-0 me-2" target="_blank">
                         <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard"
+                        class="btn btn-dark mb-0 me-2" target="_blank">
                         <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
                     </a>
                 </div>
@@ -148,13 +164,13 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets') }}/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/datatables/datatables.js') }}"></script>

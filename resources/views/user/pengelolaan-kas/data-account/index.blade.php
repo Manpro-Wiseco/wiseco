@@ -22,7 +22,7 @@
                     type: 'error'
                 })
             }
-            let table = $('#bank-account-table').DataTable({
+            let table = $('#data-account-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 processing: true,
@@ -37,7 +37,7 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('pengelolaan-kas.bank-account.list') }}",
+                ajax: "{{ route('pengelolaan-kas.data-account.list') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -54,8 +54,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'subclassification',
-                        name: 'subclassification',
+                        data: 'subclassification.name',
+                        name: 'subclassification.name',
                         className: 'align-middle text-center'
                     },
                     {
@@ -78,7 +78,7 @@
                 table.ajax.reload(callback, resetPage); //reload datatable ajax 
             }
 
-            $('#bank-account-table').on('click', '.btn-delete', function(e) {
+            $('#data-account-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
                 let nama = $(this).data('name')
                 e.preventDefault()
@@ -95,7 +95,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('pengelolaan-kas/bank-account') }}/" + id,
+                            url: "{{ url('pengelolaan-kas/data-account') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -138,13 +138,13 @@
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
                         <h3>Data Akun Bank</h3>
-                        <a href="{{ route('pengelolaan-kas.bank-account.create') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('pengelolaan-kas.data-account.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">
-                            <table class="table align-items-center mb-0" id="bank-account-table">
+                            <table class="table align-items-center mb-0" id="data-account-table">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -154,7 +154,7 @@
                                             Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Bank</th>
+                                            Vendor</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Klasifikasi</th>

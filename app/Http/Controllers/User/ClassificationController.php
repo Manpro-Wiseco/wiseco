@@ -4,11 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classification;
-use App\Models\Subclassification;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class SubclassificationController extends Controller
+class ClassificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,42 +16,25 @@ class SubclassificationController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.data-lainnya.classification.index');
     }
 
-    public function data(Request $request)
+    public function list(Request $request)
     {
-        $search = $request->search;
-        if ($search == '') {
-            $data = Subclassification::all();
-        } else {
-            $data = Subclassification::where('name', 'like', '%' . $search . '%')->get();
-        }
-        return response()->json($data);
-    }
-
-    public function list(Request $request, Classification $classification)
-    {
-        $data = $classification->subclassification()->currentCompany()->get();
+        $data = Classification::get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('count_account', function ($row) {
-                return $row->dataAccount->count();
+            ->addColumn('count_subclassification', function ($row) {
+                return $row->subclassification->count();
             })
             ->addColumn('action', function ($row) {
-                $urlEdit = route('subclassification.edit', $row->id);
-                if ($row->company_id == null) {
-                    return "";
-                } else {
-                    $actionBtn = '
-                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
-                        <i class="fas fa-trash"></i>
-                    </button>';
-                    return $actionBtn;
-                }
+                $urlEdit = route('classification.edit', $row->id);
+                $urlShow = route('classification.show', $row->id);
+                $actionBtn = '
+                        <a href="' . $urlShow . '" class="btn bg-gradient-success btn-small">
+                            <i class="fas fa-eye"></i>
+                        </a>';
+                return $actionBtn;
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -88,9 +70,9 @@ class SubclassificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Classification $classification)
     {
-        //
+        return view('user.data-lainnya.classification.show', compact('classification'));
     }
 
     /**

@@ -18,8 +18,8 @@ class CreateIncomesTable extends Migration
             $table->string('invoice')->nullable();
             $table->string('description');
             $table->date('transaction_date');
-            $table->unsignedBigInteger('bank_account_id');
-            $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
+            $table->unsignedBigInteger('to_account_id');
+            $table->foreign('to_account_id')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->bigInteger('total');

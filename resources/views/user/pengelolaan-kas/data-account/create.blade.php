@@ -61,12 +61,12 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('pengelolaan-kas.bank-account.index') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('pengelolaan-kas.data-account.index') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-angle-left" style="font-size: 20px"></i>
                         </a>
-                        <h3>Buat Data Akun Bank</h3>
+                        <h3>Buat Data Akun</h3>
                         <div class="card-body pt-0">
-                            <form action="{{ route('pengelolaan-kas.bank-account.store') }}" method="post">
+                            <form action="{{ route('pengelolaan-kas.data-account.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -81,7 +81,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Klasifikasi</label>
+                                        <label class="form-label">Subklasifikasi</label>
                                         <select name="subclassification_id" id="subclassification_id"
                                             class="form-control @error('subclassification_id') is-invalid @enderror"
                                             required>
@@ -94,7 +94,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Vendor</label>
+                                        <label class="form-label mt-4">Vendor</label>
                                         <select name="data_bank_id" id="data_bank_id"
                                             class="form-control @error('data_bank_id') is-invalid @enderror" required>
                                         </select>
@@ -120,6 +120,11 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="is_cash" name="is_cash"
+                                            checked>
+                                        <label class="form-check-label" for="">Kas/Bank</label>
+                                    </div>
                                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
                             </form>
