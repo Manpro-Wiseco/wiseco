@@ -136,7 +136,7 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Pengeluaran</h3>
+                        <h3>Data Uang Keluar</h3>
                         <a href="{{ route('pengelolaan-kas.expense.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>

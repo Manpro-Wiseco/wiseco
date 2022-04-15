@@ -69,6 +69,24 @@ class DataAccountController extends Controller
         return response()->json($response);
     }
 
+    public function dataOnlyIsCash(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->get();
+        } else {
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('name', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->name,
+            );
+        }
+        return response()->json($response);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

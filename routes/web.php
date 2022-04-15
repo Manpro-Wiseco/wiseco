@@ -211,6 +211,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         // Pengelolaan Kas - Data Account
         Route::get('/data-account/list', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'list'])->name('data-account.list');
         Route::get('/data-account/data', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'data'])->name('data-account.data');
+        Route::get('/data-account/data-only-cash', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'dataOnlyIsCash'])->name('data-account.data-only-cash');
         Route::resource('/data-account', App\Http\Controllers\User\PengelolaanKas\DataAccountController::class);
 
         // Pengelolaan Kas - Fund Transfer

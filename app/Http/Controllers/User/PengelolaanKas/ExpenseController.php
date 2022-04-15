@@ -25,7 +25,7 @@ class ExpenseController extends Controller
 
     public function list(Request $request)
     {
-        $data = Expense::with(['bankAccounts', 'dataContact'])->currentCompany()->latest()->get();
+        $data = Expense::with(['dataContact'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('penerima', function ($row) {
@@ -74,9 +74,10 @@ class ExpenseController extends Controller
             'data_contact_id' => 'required|numeric',
             'invoice' => 'required',
             'transaction_date' => 'required',
+            'from_account_id' => 'required',
             'description' => 'required',
             'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
+            'detail.*.data_account_id' => 'required|numeric'
         ]);
         $data = Arr::except($request->all(), '_token');
         $data = Arr::except($request->all(), 'detail');
@@ -87,7 +88,7 @@ class ExpenseController extends Controller
             foreach ($detail as $key => $value) {
                 DB::table('detail_expenses')->insert([
                     "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
+                    "data_account_id" => $value["data_account_id"],
                     "amount" => $value["amount"],
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
@@ -95,7 +96,6 @@ class ExpenseController extends Controller
             }
         });
         return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
