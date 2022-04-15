@@ -32,6 +32,9 @@ class FundTransferController extends Controller
             ->addColumn('to', function ($row) {
                 return $row->toDataAccounts->name;
             })
+            ->addColumn('total_text', function ($row) {
+                return "Rp " . number_format($row->total, 2, ',', '.');
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('pengelolaan-kas.fund-transfer.edit', $row->id);
                 $urlShow = route('pengelolaan-kas.fund-transfer.show', $row->id);

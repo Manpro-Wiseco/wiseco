@@ -59,8 +59,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'total_text',
+                        name: 'total_text',
                         className: 'align-middle text-center'
                     },
                     {
