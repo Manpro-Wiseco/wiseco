@@ -31,6 +31,9 @@ class ExpenseController extends Controller
             ->addColumn('penerima', function ($row) {
                 return $row->dataContact->name;
             })
+            ->addColumn('total_text', function ($row) {
+                return "Rp " . number_format($row->total, 2, ',', '.');
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('pengelolaan-kas.expense.edit', $row->id);
                 $urlShow = route('pengelolaan-kas.expense.show', $row->id);
@@ -117,7 +120,9 @@ class ExpenseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $expense = Expense::with(['fromAccount', 'dataContact', 'dataAccounts'])->findOrFail($id);
+        $dataContacts = DataContact::currentCompany()->get();
+        return view('user.pengelolaan-kas.expense.edit', compact('expense', 'dataContacts'));
     }
 
     /**
@@ -129,7 +134,28 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'from_account_id' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.data_account_id' => 'required|numeric'
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        // create new array with data_account_id value as a key with amount as pair of key and value
+        $new_detail = array_reduce($detail, function ($result, $item) {
+            $result[$item['data_account_id']] = ["amount" => $item['amount']];
+            return $result;
+        }, []);
+        $expense = Expense::findOrFail($id);
+        $expense->update($data);
+        $expense->dataAccounts()->sync($new_detail);
+        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data pengeluaran!']);
     }
 
     /**
@@ -140,7 +166,7 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        $expense->bankAccounts()->detach();
+        $expense->dataAccounts()->detach();
         $expense->delete();
         return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pengeluaran!']);
     }

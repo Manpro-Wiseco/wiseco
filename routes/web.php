@@ -20,6 +20,26 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/test-array', function () {
+    $array = [
+        0 => [
+            "data_account_id" => "9",
+            "amount" => "1000000",
+        ],
+        1 => [
+            "data_account_id" => "36",
+            "amount" => "500000",
+        ]
+    ];
+    // create new array with data_account_id value as a key with amount as pair of key and value
+    $array = array_reduce($array, function ($result, $item) {
+        $result[$item['data_account_id']] = ["amount" => $item['amount']];
+        return $result;
+    }, []);
+
+    dd($array);
+});
+
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard');

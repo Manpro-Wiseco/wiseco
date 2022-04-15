@@ -1,30 +1,7 @@
 let arrHead = new Array(); // array for header.
 arrHead = ["Dari Akun", "Jumlah", "#"];
-let tbody;
-// first create TABLE structure with the headers.
-function createTable() {
-    let empTable = document.createElement("table");
-    empTable.setAttribute("id", "empTable"); // table id.
-    // class : table align-items-center mb-0
-    empTable.classList.add("table", "align-items-center", "mb-0");
-    let header = empTable.createTHead();
-    tbody = empTable.createTBody();
-    let tr = header.insertRow(0);
-    for (let h = 0; h < arrHead.length; h++) {
-        let cell = tr.insertCell(h);
-        cell.innerHTML = arrHead[h];
-        cell.classList.add(
-            "text-uppercase",
-            "text-secondary",
-            "text-xs",
-            "text-center",
-            "font-weight-bolder",
-            "opacity-7"
-        );
-    }
-    let div = document.getElementById("cont");
-    div.appendChild(empTable); // add the TABLE to the container.
-}
+let tableElement = document.getElementById("empTable");
+let tbody = tableElement.getElementsByTagName("tbody")[0];
 
 // delete TABLE row function.
 function removeRow(oButton) {
@@ -37,6 +14,7 @@ const submitBtn = document.getElementById("bt");
 
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let id = e.currentTarget.getAttribute("data-id");
     let myTab = document.getElementById("empTable");
     let arrValues = new Array();
     for (row = 1; row < myTab.rows.length; row++) {
@@ -47,7 +25,7 @@ submitBtn.addEventListener("click", function (e) {
             cellIndex++
         ) {
             let element = myTab.rows.item(row).cells[cellIndex];
-            let elementChild = element.childNodes[0];
+            let elementChild = element.children[0];
             if (elementChild.getAttribute("data") == "amount") {
                 arrObject.amount = elementChild.value;
             } else if (
@@ -70,12 +48,12 @@ submitBtn.addEventListener("click", function (e) {
     let transaction_date = document.getElementById("transaction_date").value;
     let from_account_id = document.getElementById("from_account_id").value;
 
-    console.log(data_contact_id);
     $.ajax({
-        url: `${window.url}/pengelolaan-kas/expense`,
+        url: `${window.url}/pengelolaan-kas/expense/${id}`,
         type: "POST",
         data: {
             _token: CSRF_TOKEN,
+            _method: "PUT",
             detail: arrValues,
             data_contact_id,
             total,
@@ -173,4 +151,3 @@ addRowBtn.addEventListener("click", function (e) {
         }
     }
 });
-createTable();
