@@ -8,7 +8,7 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('assets/js/edit-table.js') }}"></script>
+    <script src="{{ asset('assets/js/expense-table-edit.js') }}"></script>
     <script>
         $("#from_account_id").select2({
             placeholder: "- Pilih Salah Satu -",

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User\PengelolaanKas;
 
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
+use App\Models\DataAccount;
 use App\Models\FundTransfer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -23,14 +23,14 @@ class FundTransferController extends Controller
 
     public function list(Request $request)
     {
-        $data = FundTransfer::with(['fromBankAccounts', 'toBankAccounts'])->currentCompany()->latest()->get();
+        $data = FundTransfer::with(['fromDataAccounts', 'toDataAccounts'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('from', function ($row) {
-                return $row->fromBankAccounts->name;
+                return $row->fromDataAccounts->name;
             })
             ->addColumn('to', function ($row) {
-                return $row->toBankAccounts->name;
+                return $row->toDataAccounts->name;
             })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('pengelolaan-kas.fund-transfer.edit', $row->id);
@@ -56,9 +56,9 @@ class FundTransferController extends Controller
     {
         $search = $request->search;
         if ($search == '') {
-            $data = BankAccount::currentCompany()->get();
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->get();
         } else {
-            $data = BankAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('name', 'like', '%' . $search . '%')->get();
         }
         $response = array();
         foreach ($data as $d) {
@@ -76,15 +76,15 @@ class FundTransferController extends Controller
         $fromBank = $request->fromBank;
         if ($search == '') {
             if ($fromBank) {
-                $data = BankAccount::currentCompany()->where('id', '!=', $fromBank)->get();
+                $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('id', '!=', $fromBank)->get();
             } else {
-                $data = BankAccount::currentCompany()->get();
+                $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->get();
             }
         } else {
             if ($fromBank) {
-                $data = BankAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->where('id', '!=', $fromBank)->get();
+                $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('name', 'like', '%' . $search . '%')->where('id', '!=', $fromBank)->get();
             } else {
-                $data = BankAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+                $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('name', 'like', '%' . $search . '%')->get();
             }
         }
         $response = array();

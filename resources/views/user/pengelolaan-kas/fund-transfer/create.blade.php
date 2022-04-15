@@ -1,3 +1,11 @@
+@push('styles')
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+    </style>
+@endpush
 @push('scripts')
     <script>
         $('#fromBank').select2({
@@ -5,7 +13,7 @@
             ajax: {
                 url: "{{ route('pengelolaan-kas.fund-transfer.fromBank') }}",
                 dataType: 'json',
-                theme: "bootstrap-5",
+                theme: 'bootstrap-5',
                 data: function(params) {
                     return {
                         search: params.term
@@ -33,7 +41,7 @@
                 ajax: {
                     url: "{{ route('pengelolaan-kas.fund-transfer.toBank') }}",
                     dataType: 'json',
-                    theme: "bootstrap-5",
+                    theme: 'bootstrap-5',
                     data: function(params) {
                         return {
                             search: params.term,
@@ -121,7 +129,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Total</label>
                                         <input type="number" class="form-control @error('total') is-invalid @enderror"
-                                            id="total" name="total" value="{{ old('total') }}" placeholder="Invoice"
+                                            id="total" name="total" value="{{ old('total') }}" placeholder="Total"
                                             required autofocus>
                                         @error('total')
                                             <span class="invalid-feedback" role="alert">
