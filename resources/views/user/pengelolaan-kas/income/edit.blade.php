@@ -61,10 +61,13 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('pengelolaan-kas.income.index') }}" class="btn bg-gradient-primary">
-                            <i class="fas fa-angle-left" style="font-size: 20px"></i>
-                        </a>
-                        <h3>Ubah Data Uang Keluar</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.income.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Ubah Data Uang Masuk</h4>
+                        </div>
                         <div class="card-body pt-0">
                             <form action="{{ route('pengelolaan-kas.income.update', $income->id) }}" method="post">
                                 @csrf

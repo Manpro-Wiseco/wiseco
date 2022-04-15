@@ -136,10 +136,12 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Transfer Dana</h3>
-                        <a href="{{ route('pengelolaan-kas.fund-transfer.create') }}" class="btn bg-gradient-primary">
-                            <i class="fas fa-plus-square"></i>
-                        </a>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.index') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Data Transfer Dana</h4>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">

@@ -108,16 +108,21 @@ class DataAccountController extends Controller
         $request->validate([
             'name' => 'required',
             'subclassification_id' => 'required',
-            'data_bank_id' => 'required',
+            'data_bank_id' => 'required|sometimes',
             'status' => 'required',
             'is_cash' => 'required|sometimes',
         ]);
-        dd($request->all());
         $data = Arr::except($request->all(), '_token');
+        if ($request->has('is_cash')) {
+            $data = Arr::except($data, 'is_cash');
+            $data = Arr::add($data, 'is_cash', 1);
+        } else {
+            $data = Arr::add($data, 'is_cash', 0);
+        }
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
         DataAccount::create($data);
 
-        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Menambahkan Data!');
+        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Menambahkan Data Akun Baru!');
     }
 
     /**
@@ -137,9 +142,9 @@ class DataAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataAccount $bankAccount)
+    public function edit(DataAccount $dataAccount)
     {
-        return view('user.pengelolaan-kas.data-account.edit', compact('bankAccount'));
+        return view('user.pengelolaan-kas.data-account.edit', compact('dataAccount'));
     }
 
     /**
@@ -149,18 +154,25 @@ class DataAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataAccount $bankAccount)
+    public function update(Request $request, DataAccount $dataAccount)
     {
         $request->validate([
             'name' => 'required',
             'subclassification_id' => 'required',
-            'data_bank_id' => 'required',
-            'status' => 'required'
+            'data_bank_id' => 'required|sometimes',
+            'status' => 'required',
+            'is_cash' => 'required|sometimes',
         ]);
-
         $data = Arr::except($request->all(), '_token');
-        $bankAccount->update($data);
-        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Mengubah Data!');
+        if ($request->has('is_cash')) {
+            $data = Arr::except($data, 'is_cash');
+            $data = Arr::add($data, 'is_cash', 1);
+        } else {
+            $data = Arr::add($data, 'is_cash', 0);
+        }
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $dataAccount->update($data);
+        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Mengubah Data Akun!');
     }
 
     /**

@@ -76,7 +76,13 @@
                         <a href="{{ route('pengelolaan-kas.fund-transfer.index') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-angle-left" style="font-size: 20px"></i>
                         </a>
-                        <h3>Buat Data Transfer Dana</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.fund-transfer.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Buat Data Transfer Dana</h4>
+                        </div>
                         <div class="card-body pt-0">
                             <form action="{{ route('pengelolaan-kas.fund-transfer.store') }}" method="post">
                                 @csrf

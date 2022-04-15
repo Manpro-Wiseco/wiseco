@@ -52,10 +52,12 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Klasifikasi</h3>
-                        <a href="{{ route('classification.create') }}" class="btn bg-gradient-primary">
-                            <i class="fas fa-plus-square"></i>
-                        </a>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('dashboard') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Data Klasifikasi</h4>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classification;
 use App\Models\Subclassification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Yajra\DataTables\DataTables;
 
 class SubclassificationController extends Controller
@@ -45,9 +46,9 @@ class SubclassificationController extends Controller
                     return "";
                 } else {
                     $actionBtn = '
-                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                    <button class="btn bg-gradient-info btn-small btn-edit" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
                         <i class="fas fa-edit"></i>
-                    </a>
+                    </button>
                     <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
                         <i class="fas fa-trash"></i>
                     </button>';
@@ -80,6 +81,9 @@ class SubclassificationController extends Controller
             'name' => 'required',
             'code' => 'required',
         ]);
+        $data = Arr::add($request->all(), 'company_id', session()->get('company')->id);
+        Subclassification::create($data);
+        return response()->json(['data' => $data, 'success' => TRUE]);
     }
 
     /**
@@ -90,7 +94,8 @@ class SubclassificationController extends Controller
      */
     public function show($id)
     {
-        //
+        $subclassification = Subclassification::findOrFail($id);
+        return response()->json($subclassification);
     }
 
     /**
@@ -101,7 +106,8 @@ class SubclassificationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subclassification = Subclassification::findOrFail($id);
+        return response()->json($subclassification);
     }
 
     /**
@@ -124,6 +130,9 @@ class SubclassificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subclassification = Subclassification::findOrFail($id);
+        $subclassification->dataAccount()->delete();
+        $subclassification->delete();
+        return response()->json(['success' => TRUE]);
     }
 }

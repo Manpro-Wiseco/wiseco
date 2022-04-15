@@ -4,7 +4,12 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            let table = $('#classification-table').DataTable({
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var table = $('#classification-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
@@ -42,8 +47,143 @@
                     },
                 ]
             });
+
+            function reload_table(callback, resetPage = false) {
+                table.ajax.reload(callback, resetPage); //reload datatable ajax 
+            }
+
+            $('#btn-create').click(function() {
+                $('#save-btn').val("Save Changes");
+                $('#subclassification-form').trigger("reset");
+                $('#exampleModalLabel').html("Buat Subklasifikasi");
+                $('#classification_id').val($(this).data('classification'));
+                $('#exampleModal').modal('show');
+            });
+
+            $('body').on('click', '.btn-edit', function() {
+                let id = $(this).data('id');
+                $.get("{{ url('subclassification') }}/" + id, function(data) {
+                    $('#exampleModalLabel').html("Edit Subklasifikasi");
+                    $('#save-btn').val("Save Changes");
+                    $('#exampleModal').modal('show');
+                    $('#name').val(data.name);
+                    $('#code').val(data.code);
+                    $('#classification_id').val(data.classification_id);
+                })
+            });
+            $('#save-btn').click(function(e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+                $.ajax({
+                    data: $('#subclassification-form').serialize(),
+                    url: "{{ route('subclassification.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire(
+                                'Success!',
+                                `Berhasi menambahkan data!`,
+                                'success'
+                            )
+                            $('#subclassification-form').trigger("reset");
+                            $('#exampleModal').modal('hide');
+                            reload_table();
+                        }
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        $('#saveBtn').html('Save Changes');
+                        Swal.fire({
+                            icon: 'error',
+                            type: 'error',
+                            title: 'Error saat memasukkan data',
+                            showConfirmButton: true
+                        })
+                    }
+                });
+            });
+            $('#classification-table').on('click', '.btn-delete', function(e) {
+                let id = $(this).data('id')
+                let name = $(this).data('name')
+                e.preventDefault()
+                Swal.fire({
+                    title: 'Apakah Yakin?',
+                    text: `Apakah Anda yakin ingin menghapus subklasifikasi dengan nama ${name}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            url: "{{ url('subclassification') }}/" + id,
+                            type: 'POST',
+                            data: {
+                                _method: "delete",
+                            },
+                            dataType: 'JSON',
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        `Subklasifikasi ${name} berhasil terhapus.`,
+                                        'success'
+                                    )
+                                    reload_table(null, true)
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    type: 'error',
+                                    title: 'Error saat delete data',
+                                    showConfirmButton: true
+                                })
+                            }
+                        })
+                    }
+                })
+            })
         })
     </script>
+@endpush
+
+@push('modals')
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="subclassification-form">
+                    <input type="hidden" name="classification_id" id="classification_id">
+                    <div class="modal-body">
+                        <label>Nama</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nama" aria-label="Nama" name="name"
+                                id="name">
+                        </div>
+                        <label>Kode</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Code" aria-label="Code" name="code"
+                                id="code">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" id="save-btn" value="" class="btn bg-gradient-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endpush
 
 <x-template-layout>
@@ -53,10 +193,17 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between">
-                            <h3>Data Subklasifikasi</h3>
-                            <a href="{{ route('classification.create') }}" class="btn bg-gradient-primary">
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('subclassification.index') }}"
+                                    class="btn bg-gradient-primary btn-small">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                                <h4>Data Sublasifikasi</h4>
+                            </div>
+                            <button type="button" class="btn bg-gradient-primary btn-small" id="btn-create"
+                                data-classification="{{ $classification->id }}">
                                 <i class="fas fa-plus-square"></i>
-                            </a>
+                            </button>
                         </div>
                         <div class="row">
                             <p>Klasifikasi : {{ $classification->name }}</p>
