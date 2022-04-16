@@ -215,7 +215,7 @@ class SubClassificationSeeder extends Seeder
             ),
             array(
                 "id" => 23,
-                "name" => "Penjualan Produk",
+                "name" => "Pendapatan Jasa",
                 "code" => "4900",
                 "classification_id" => 4,
                 "company_id" => NULL,
@@ -339,7 +339,35 @@ class SubClassificationSeeder extends Seeder
                 "created_at" => "2022-04-14 13:21:57",
                 "updated_at" => "2022-04-14 13:21:58",
             ),
+            array(
+                "id" => 37,
+                "name" => "Beban Atas Pendapatan Lain",
+                "code" => "5500",
+                "classification_id" => 5,
+                "company_id" => NULL,
+                "created_at" => "2022-04-14 15:44:51",
+                "updated_at" => "2022-04-14 15:44:52",
+            ),
+            array(
+                "id" => 38,
+                "name" => "Beban Administrasi dan Umum",
+                "code" => "6300",
+                "classification_id" => 6,
+                "company_id" => NULL,
+                "created_at" => "2022-04-14 15:45:16",
+                "updated_at" => "2022-04-14 15:45:16",
+            ),
+            array(
+                "id" => 39,
+                "name" => "Pendapatan Luar Usaha",
+                "code" => "4400",
+                "classification_id" => 4,
+                "company_id" => NULL,
+                "created_at" => "2022-04-14 15:55:07",
+                "updated_at" => "2022-04-14 15:55:07",
+            ),
         );
+
 
         Subclassification::insert($subclassifications);
     }

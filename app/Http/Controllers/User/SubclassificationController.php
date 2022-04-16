@@ -82,8 +82,14 @@ class SubclassificationController extends Controller
             'code' => 'required',
         ]);
         $data = Arr::add($request->all(), 'company_id', session()->get('company')->id);
-        Subclassification::create($data);
-        return response()->json(['data' => $data, 'success' => TRUE]);
+        $data = Arr::except($data, 'type');
+        $data = Arr::except($data, 'id');
+        if ($request->type === "create") {
+            Subclassification::create($data);
+        } else {
+            Subclassification::find($request->id)->update($data);
+        }
+        return response()->json(['data' => $data, 'success' => TRUE, 'message' => ($request->type === "create") ? 'Data berhasil ditambahkan' : 'Data berhasil diubah']);
     }
 
     /**

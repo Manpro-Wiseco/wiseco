@@ -57,6 +57,7 @@
                 $('#subclassification-form').trigger("reset");
                 $('#exampleModalLabel').html("Buat Subklasifikasi");
                 $('#classification_id').val($(this).data('classification'));
+                $("#type").val("create");
                 $('#exampleModal').modal('show');
             });
 
@@ -66,11 +67,14 @@
                     $('#exampleModalLabel').html("Edit Subklasifikasi");
                     $('#save-btn').val("Save Changes");
                     $('#exampleModal').modal('show');
+                    $("#type").val("update");
                     $('#name').val(data.name);
                     $('#code').val(data.code);
                     $('#classification_id').val(data.classification_id);
+                    $('#id').val(data.id);
                 })
             });
+
             $('#save-btn').click(function(e) {
                 e.preventDefault();
                 $(this).html('Sending..');
@@ -80,10 +84,10 @@
                     type: "POST",
                     dataType: 'json',
                     success: function(response) {
-                        if (response.status) {
+                        if (response.success) {
                             Swal.fire(
                                 'Success!',
-                                `Berhasi menambahkan data!`,
+                                `${response.message}`,
                                 'success'
                             )
                             $('#subclassification-form').trigger("reset");
@@ -103,6 +107,7 @@
                     }
                 });
             });
+
             $('#classification-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
                 let name = $(this).data('name')
@@ -163,7 +168,9 @@
                     </button>
                 </div>
                 <form id="subclassification-form">
+                    <input type="hidden" name="id" id="id">
                     <input type="hidden" name="classification_id" id="classification_id">
+                    <input type="hidden" name="type" id="type">
                     <div class="modal-body">
                         <label>Nama</label>
                         <div class="input-group mb-3">
@@ -194,7 +201,7 @@
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex gap-2">
-                                <a href="{{ route('subclassification.index') }}"
+                                <a href="{{ route('classification.index') }}"
                                     class="btn bg-gradient-primary btn-small">
                                     <i class="fas fa-chevron-left"></i>
                                 </a>
