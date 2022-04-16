@@ -25,6 +25,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         return view('dashboard');
     })->name('dashboard');
 });
+
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard');
@@ -213,10 +214,11 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/income/list', [\App\Http\Controllers\User\PengelolaanKas\IncomeController::class, 'list'])->name('income.list');
         Route::resource('/income', \App\Http\Controllers\User\PengelolaanKas\IncomeController::class);
 
-        // Pengelolaan Kas - Bank Account
-        Route::get('/bank-account/list', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'list'])->name('bank-account.list');
-        Route::get('/bank-account/data', [App\Http\Controllers\User\PengelolaanKas\BankAccountController::class, 'data'])->name('bank-account.data');
-        Route::resource('/bank-account', App\Http\Controllers\User\PengelolaanKas\BankAccountController::class);
+        // Pengelolaan Kas - Data Account
+        Route::get('/data-account/list', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'list'])->name('data-account.list');
+        Route::get('/data-account/data', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'data'])->name('data-account.data');
+        Route::get('/data-account/data-only-cash', [App\Http\Controllers\User\PengelolaanKas\DataAccountController::class, 'dataOnlyIsCash'])->name('data-account.data-only-cash');
+        Route::resource('/data-account', App\Http\Controllers\User\PengelolaanKas\DataAccountController::class);
 
         // Pengelolaan Kas - Fund Transfer
         Route::get('/fund-transfer/list', [App\Http\Controllers\User\PengelolaanKas\FundTransferController::class, 'list'])->name('fund-transfer.list');
@@ -239,8 +241,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Data Lainnya - Data Contact 
     Route::get('/data-contact/list', [\App\Http\Controllers\User\DataContactController::class, 'list'])->name('data-contact.list');
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
+    // Data Lainnya - Classification
+    Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');
+    Route::resource('/classification', \App\Http\Controllers\User\ClassificationController::class);
     // Data Lainnya - Subclassification
+    Route::get('{classification}/subclassification/list', [App\Http\Controllers\User\SubclassificationController::class, 'list'])->name('subclassification.list');
     Route::get('/subclassification/data', [App\Http\Controllers\User\SubclassificationController::class, 'data'])->name('subclassification.data');
+    Route::resource('/subclassification', \App\Http\Controllers\User\SubclassificationController::class);
     // Data Lainnya - Ticket
     Route::get('/ticket/list', [\App\Http\Controllers\User\TicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/view/{id}', [\App\Http\Controllers\User\TicketController::class, 'view'])->name('ticket.view');

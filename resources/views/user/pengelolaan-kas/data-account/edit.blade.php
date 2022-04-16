@@ -1,40 +1,15 @@
 @push('scripts')
     <script>
-        $('#subclassification_id').select2({
+        $("#subclassification_id").select2({
             placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            theme: 'bootstrap-5',
             ajax: {
-                url: "{{ route('subclassification.data') }}",
-                dataType: 'json',
-                theme: "bootstrap-5",
+                url: `{{ route('subclassification.data') }}`,
+                dataType: "json",
                 data: function(params) {
                     return {
-                        search: params.term
-                    };
-                },
-                processResults: function(response) {
-                    let results = [];
-                    response.forEach(data => {
-                        results.push({
-                            "id": data.id,
-                            "text": data.name
-                        })
-                    })
-                    return {
-                        results
-                    };
-                },
-                cache: true
-            }
-        });
-        $('#data_bank_id').select2({
-            placeholder: "- Pilih Salah Satu -",
-            ajax: {
-                url: "{{ route('data-bank.data') }}",
-                dataType: 'json',
-                theme: "bootstrap-5",
-                data: function(params) {
-                    return {
-                        search: params.term
+                        search: params.term,
                     };
                 },
                 processResults: function(response) {
@@ -49,9 +24,57 @@
                         results
                     };
                 },
-                cache: true
-            }
+                cache: true,
+            },
         });
+        $("#data_bank_id").select2({
+            placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            theme: 'bootstrap-5',
+            ajax: {
+                url: `{{ route('data-bank.data') }}`,
+                dataType: "json",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function(response) {
+                    let results = [];
+                    response.forEach(data => {
+                        results.push({
+                            "id": data.id,
+                            "text": `${data.name} - ${data.code}`
+                        })
+                    })
+                    return {
+                        results
+                    };
+                },
+                cache: true,
+            },
+        });
+
+        let is_cash = $("#is_cash")
+        if (is_cash.is('checked')) {
+            console.log("Checked");
+            $("#data_bank_id").prop('disabled', false)
+        } else {
+            console.log("Not Checked");
+            $("#data_bank_id").prop("disabled", true);
+        }
+
+        $(document).on('change', '#is_cash', function() {
+            let isChecked = $(this).is(':checked')
+            if (isChecked) {
+                console.log("Checked");
+                $("#data_bank_id").prop("disabled", false);
+            } else {
+                console.log("Not Checked")
+                $('#data_bank_id').val(null).trigger('change');
+                $("#data_bank_id").prop("disabled", true);
+            }
+        })
     </script>
 @endpush
 
@@ -61,12 +84,15 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('pengelolaan-kas.bank-account.index') }}" class="btn bg-gradient-primary">
-                            <i class="fas fa-angle-left" style="font-size: 20px"></i>
-                        </a>
-                        <h3>Buat Data Akun Bank</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.data-account.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Buat Data Akun</h4>
+                        </div>
                         <div class="card-body pt-0">
-                            <form action="{{ route('pengelolaan-kas.bank-account.update', $bankAccount->id) }}"
+                            <form action="{{ route('pengelolaan-kas.data-account.update', $dataAccount->id) }}"
                                 method="post">
                                 @csrf
                                 @method('PUT')
@@ -74,7 +100,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label">Nama</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name') ?? $bankAccount->name }}"
+                                            id="name" name="name" value="{{ old('name') ?? $dataAccount->name }}"
                                             placeholder="Name" required autofocus>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -83,12 +109,12 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Klasifikasi</label>
+                                        <label class="form-label">Subklasifikasi</label>
                                         <select name="subclassification_id" id="subclassification_id"
                                             class="form-control @error('subclassification_id') is-invalid @enderror"
                                             required>
-                                            <option value="{{ $bankAccount->subclassification->id }}" selected>
-                                                {{ $bankAccount->subclassification->name }}</option>
+                                            <option value="{{ $dataAccount->subclassification_id }}" selected>
+                                                {{ $dataAccount->subclassification->name }} </option>
                                         </select>
                                         @error('subclassification_id')
                                             <span class="invalid-feedback" role="alert">
@@ -97,27 +123,41 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Vendor</label>
+                                        <label class="form-label mt-4">Vendor</label>
                                         <select name="data_bank_id" id="data_bank_id"
                                             class="form-control @error('data_bank_id') is-invalid @enderror" required>
-                                            <option value="{{ $bankAccount->dataBank->id }}" selected>
-                                                {{ $bankAccount->dataBank->name . '-' . $bankAccount->dataBank->code }}
-                                            </option>
+                                            @if ($dataAccount->data_bank_id)
+                                                <option value="{{ $dataAccount->data_bank_id }}" selected>
+                                                    {{ $dataAccount->dataBank->name }} -
+                                                    {{ $dataAccount->dataBank->code }}
+                                                </option>
+                                            @else
+                                                <option>
+                                                    - Pilih Salah Satu -
+                                                </option>
+                                            @endif
                                         </select>
                                         @error('data_bank_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <div class="mt-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="is_cash"
+                                                    name="is_cash" @if ($dataAccount->is_cash) checked @endif>
+                                                <label class="form-check-label" for="">Kas/Bank</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Status</label>
                                         <select name="status" id="status"
                                             class="form-control @error('status') is-invalid @enderror" required>
                                             <option>- Pilih Salah Satu -</option>
-                                            <option value="1" @if ($bankAccount->status == 1) selected @endif>Bisnis
+                                            <option value="1" @if ($dataAccount->status == 1) selected @endif>Bisnis
                                             </option>
-                                            <option value="0" @if ($bankAccount->status == 0) selected @endif>Pribadi
+                                            <option value="0" @if ($dataAccount->status == 0) selected @endif>Pribadi
                                             </option>
                                         </select>
                                         @error('status')
@@ -128,6 +168,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
+
                                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
                             </form>

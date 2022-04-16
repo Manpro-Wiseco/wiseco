@@ -22,6 +22,16 @@ class Expense extends Model
         return $this->belongsToMany(BankAccount::class, 'detail_expenses', 'expense_id', 'bank_account_id')->withPivot(['id', 'amount'])->withTimestamps();
     }
 
+    public function fromAccount()
+    {
+        return $this->belongsTo(DataAccount::class);
+    }
+
+    public function dataAccounts()
+    {
+        return $this->belongsToMany(DataAccount::class, 'detail_expenses', 'expense_id', 'data_account_id')->withPivot(['id', 'amount'])->withTimestamps();
+    }
+
     public function dataContact()
     {
         return $this->belongsTo(DataContact::class);

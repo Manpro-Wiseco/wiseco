@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col-md-4 mb-5">
                 <a href="{{ route('pengelolaan-kas.expense.index') }}">
-                    <div class="card bg-gradient-success">
+                    <div class="card bg-gradient-primary">
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <h4 class="text-white text-capitalize font-weight-bold">
-                                    Pengelolaan Pengeluaran</h4>
+                                    Uang Keluar</h4>
                                 <i class="text-white fas fa-money-bill fa-5x my-3"></i>
                                 <p class="text-white">
-                                    Anda dapat melakukan pengelolaan pengeluaran pada usaha.
+                                    Anda dapat melakukan pengelolaan pengeluaran atau uang keluar pada usaha.
                                 </p>
                             </div>
                         </div>
@@ -19,14 +19,14 @@
             </div>
             <div class="col-md-4 mb-5">
                 <a href="{{ route('pengelolaan-kas.income.index') }}">
-                    <div class="card bg-gradient-info">
+                    <div class="card bg-gradient-primary">
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <h4 class="text-white text-capitalize font-weight-bold">
-                                    Pengelolaan Pemasukan</h4>
+                                    Uang Masuk</h4>
                                 <i class="text-white fas fa-wallet fa-5x my-3"></i>
                                 <p class="text-white">
-                                    Anda dapat melakukan pengelolaan pemasukan pada usaha.
+                                    Anda dapat melakukan pengelolaan pemasukan atau uang masuk pada usaha.
                                 </p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4 mb-5">
                 <a href="{{ route('pengelolaan-kas.fund-transfer.index') }}">
-                    <div class="card bg-gradient-secondary">
+                    <div class="card bg-gradient-primary">
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <h4 class="text-white text-capitalize font-weight-bold">
@@ -50,15 +50,15 @@
                 </a>
             </div>
             <div class="col-md-4 mb-5">
-                <a href="{{ route('pengelolaan-kas.bank-account.index') }}">
-                    <div class="card bg-gradient-warning">
+                <a href="{{ route('pengelolaan-kas.data-account.index') }}">
+                    <div class="card bg-gradient-primary">
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <h4 class="text-white text-capitalize font-weight-bold">
-                                    Pengelolaan Akun Bank</h4>
+                                    Data Akun</h4>
                                 <i class="text-white fas fa-briefcase fa-5x my-3"></i>
                                 <p class="text-white">
-                                    Anda dapat melakukan pengelolaan pengeluaran akun bank.
+                                    Anda dapat melakukan pengelolaan data akun.
                                 </p>
                             </div>
                         </div>

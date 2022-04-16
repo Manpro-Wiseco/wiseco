@@ -196,6 +196,12 @@
                 <div class="collapse" id="data-lainnya-dropdown" style="">
                     <ul class="nav ms-4 ps-3">
                         <li class="nav-item ">
+                            <a class="nav-link " href="{{ route('classification.index') }}">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Klasifikasi </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link " href="{{ route('data-bank.index') }}">
                                 <span class="sidenav-mini-icon"> O </span>
                                 <span class="sidenav-normal"> Data Bank </span>
