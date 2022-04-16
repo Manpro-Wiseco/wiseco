@@ -200,6 +200,17 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/export', [\App\Http\Controllers\User\Inventory\GudangController::class, 'export'])->name('export');
             Route::get('/list', [\App\Http\Controllers\User\Inventory\GudangController::class, 'list'])->name('list');
         });
+
+        // Barang Konsinyasi
+        Route::prefix('barang-konsinyasi')->name('barang-konsinyasi.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'delete'])->name('delete');
+            Route::get('/export', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'export'])->name('export');
+            Route::get('/list', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'list'])->name('list');
     });
 
     // Pengelolaan Kas
