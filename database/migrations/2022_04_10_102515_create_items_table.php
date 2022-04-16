@@ -28,6 +28,7 @@ class CreateItemsTable extends Migration
             $table->string('pajakPenjualanItem')->nullable();
             $table->string('photoItem')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
         });
     }
