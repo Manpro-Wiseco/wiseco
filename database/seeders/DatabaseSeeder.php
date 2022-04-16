@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CompanySeeder::class,
             DataBankSeeder::class,
-            Classification::class,
+            ClassificationSeeder::class,
             SubClassificationSeeder::class,
             TicketCategorySeeder::class,
         ]);
