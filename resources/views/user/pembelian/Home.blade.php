@@ -32,7 +32,7 @@
                 </div>
             
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('fitur-pembelian.FakturPembelian.index')}}">
+                    <a class="link" href="{{route('faktur-pembelian')}}">
                         <div class="card bg-gradient-secondary">
                             <div class="card-body pt-3">
                                 <div class="text-center">

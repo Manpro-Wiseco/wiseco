@@ -115,29 +115,40 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     });
 
     // Pembelian
-    Route::get('/pembelian', [\App\Http\Controllers\User\PembelianController::class, 'index'])->name('pembelian');
+    Route::get('/pembelian', [\App\Http\Controllers\User\Pembelian\HomeController::class, 'index'])->name('pembelian');
 
+    //Route::prefix('pembelian')->name('pembelian.')->group(function () {
+       // Route::get('/', [\App\Http\Controllers\User\pembelian\HomeController::class, 'index'])->name('index');
+    
+        //pesanan pembelian
+       Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
 
-    //Penawaran pembelian
-    Route::get('/penawaran-pembelian', [\App\Http\Controllers\User\Pembelian\PermintaanPenawaranController::class, 'index'])->name('penawaran-pembelian');
+        //penerimaan barang
+        Route::get('/penerimaan-barang', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('penerimaan-barang');
 
-    //pesanan pembelian
-    Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
+        //faktur pembelian
+        Route::prefix('faktur-pembelian')->name('faktur-pembelian.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\FakturPembelianController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'list'])->name('list');
+            //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+       });
 
-    //penerimaan barang
-    Route::get('/penerimaan-barang', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('penerimaan-barang');
+        Route::get('/faktur-pembelian', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
 
-    //faktur pembelian
-    Route::get('/faktur-pembelian', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
+        //retur pembelian
+        Route::get('/retur-pembelian', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('retur-pembelian');
 
-    //retur pembelian
-    Route::get('/retur-pembelian', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+        //daftar pembayaran utang
+        Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
+   //});
 
-    //daftar pembayaran utang
-    Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
+    
 
-    //penerimaan lebih bayar
-    Route::get('/Penerimaan-lebih-bayar', [\App\Http\Controllers\User\Pembelian\DebitController::class, 'index'])->name('Penerimaan-lebih-bayar');
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {

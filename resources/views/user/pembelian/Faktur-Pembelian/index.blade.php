@@ -4,7 +4,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            let table = $('#faktur-penjualan-table').DataTable({
+            let table = $('#faktur-pembelian-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
@@ -14,7 +14,7 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('penjualan.faktur-penjualan.list') }}",
+                ajax: "{{ route('pembelian.faktur-pembelian.list') }}",
                 columns: [
                     {
                         data: 'tanggal',
@@ -68,13 +68,13 @@
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
                             <h3>Faktur Pembelian</h3>
-                            <a href="{{ route('fitur-pembelian.FakturPembelian.create') }}" class="btn bg-gradient-primary">
+                            <a href="{{ route('pembelian.Faktur-Pembelian.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-3">
-                                <table class="table align-items-center mb-0" id="faktur-penjualan-table">
+                                <table class="table align-items-center mb-0" id="faktur-pembelian-table">
                                     <thead>
                                         <tr>
                                             <th
