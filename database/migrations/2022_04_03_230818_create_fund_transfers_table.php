@@ -19,9 +19,9 @@ class CreateFundTransfersTable extends Migration
             $table->string('description');
             $table->date('transaction_date');
             $table->unsignedBigInteger('from_bank_account');
-            $table->foreign('from_bank_account')->references('id')->on('bank_accounts');
+            $table->foreign('from_bank_account')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('to_bank_account');
-            $table->foreign('to_bank_account')->references('id')->on('bank_accounts');
+            $table->foreign('to_bank_account')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->bigInteger('total');

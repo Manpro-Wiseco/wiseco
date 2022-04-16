@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classification;
 use App\Models\PenawaranHarga;
 use Illuminate\Database\Seeder;
 
@@ -19,9 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CompanySeeder::class,
             DataBankSeeder::class,
+            Classification::class,
             SubClassificationSeeder::class,
-            BankAccountSeeder::class,
-            ExpenseSeeder::class,
             TicketCategorySeeder::class,
         ]);
     }

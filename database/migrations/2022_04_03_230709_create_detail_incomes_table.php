@@ -15,8 +15,8 @@ class CreateDetailIncomesTable extends Migration
     {
         Schema::create('detail_incomes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('data_contact_id');
-            $table->foreign('data_contact_id')->references('id')->on('data_contact');
+            $table->unsignedBigInteger('data_account_id');
+            $table->foreign('data_account_id')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('income_id');
             $table->foreign('income_id')->references('id')->on('incomes');
             $table->bigInteger('amount');

@@ -1,5 +1,5 @@
 let arrHead = new Array(); // array for header.
-arrHead = ["Dari Akun Bank", "Jumlah", "#"];
+arrHead = ["Dari Akun", "Jumlah", "#"];
 let tbody;
 // first create TABLE structure with the headers.
 function createTable() {
@@ -39,11 +39,8 @@ submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let myTab = document.getElementById("empTable");
     let arrValues = new Array();
-    // loop through each row of the table.
     for (row = 1; row < myTab.rows.length; row++) {
         let arrObject = {};
-        // loop through each cell in a row.
-        // console.log(myTab.rows[row].cells.length, "Cell length");
         for (
             cellIndex = 0;
             cellIndex < myTab.rows[row].cells.length - 1;
@@ -54,10 +51,10 @@ submitBtn.addEventListener("click", function (e) {
             if (elementChild.getAttribute("data") == "amount") {
                 arrObject.amount = elementChild.value;
             } else if (
-                elementChild.getAttribute("class") == "bank_account_container"
+                elementChild.getAttribute("class") == "data_account_container"
             ) {
-                arrObject.bank_account_id = parseInt(
-                    $(".bank_account :selected")[row - 1].value
+                arrObject.data_account_id = parseInt(
+                    $(".data_account :selected")[row - 1].value
                 );
             }
         }
@@ -71,6 +68,7 @@ submitBtn.addEventListener("click", function (e) {
     let description = document.getElementById("description").value;
     let invoice = document.getElementById("invoice").value;
     let transaction_date = document.getElementById("transaction_date").value;
+    let from_account_id = document.getElementById("from_account_id").value;
 
     console.log(data_contact_id);
     $.ajax({
@@ -84,6 +82,7 @@ submitBtn.addEventListener("click", function (e) {
             description,
             invoice,
             transaction_date,
+            from_account_id,
         },
         dataType: "JSON",
         success: function (response) {
@@ -100,6 +99,7 @@ submitBtn.addEventListener("click", function (e) {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
             Swal.fire({
                 icon: "error",
                 type: "error",
@@ -132,21 +132,21 @@ addRowBtn.addEventListener("click", function (e) {
             let select = document.createElement("select");
             let optionDefault = document.createElement("option");
             select.setAttribute("required", "required");
-            select.setAttribute("data", "bank_account");
-            select.setAttribute("name", "bank_account_id[]");
-            select.classList.add("form-control", "bank_account");
-            container.classList.add("bank_account_container");
-            container.setAttribute("id", `container-select-${cell}`);
+            select.setAttribute("data", "data_account");
+            select.setAttribute("name", "data_account_id[]");
+            select.classList.add("form-control", "data_account");
+            container.classList.add("data_account_container");
             // optionDefault.innerHTML = "- Pilih Salah Satu -";
             select.appendChild(optionDefault);
             container.appendChild(select);
             td.appendChild(container);
-            $(".bank_account").select2({
+            $(".data_account").select2({
                 placeholder: "- Pilih Salah Satu -",
                 allowClear: true,
                 // dropdownParent: $(`#container-select-${cell}`),
+                theme: "bootstrap-5",
                 ajax: {
-                    url: `${window.url}/pengelolaan-kas/bank-account/data`,
+                    url: `${window.url}/pengelolaan-kas/data-account/data`,
                     dataType: "json",
                     data: function (params) {
                         return {

@@ -49,8 +49,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'bank_account.name',
-                        name: 'bank_account.name',
+                        data: 'data_contact.name',
+                        name: 'data_contact.name',
                         className: 'align-middle text-center'
                     },
                     {
@@ -59,8 +59,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'total_text',
+                        name: 'total_text',
                         className: 'align-middle text-center'
                     },
                     {
@@ -136,7 +136,12 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Pengeluaran</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.index') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Data Uang Masuk</h4>
+                        </div>
                         <a href="{{ route('pengelolaan-kas.income.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
@@ -153,7 +158,7 @@
                                             Invoice</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Penerima</th>
+                                            Dari</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Deskripsi</th>

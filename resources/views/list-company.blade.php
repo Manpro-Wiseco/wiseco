@@ -75,33 +75,38 @@
                                     </div>
                                     <label>Province</label>
                                     <div class="input-group mb-3" id="province-input-group">
-                                        <select class="form-control" id="province" style="width: 100%" required>
-                                            <option></option>
+                                        <select name="province" id="province"
+                                            class="form-control"
+                                            required>
+                                            <option>- Pilih Salah Satu -</option>
                                         </select>
                                     </div>
                                     <label>City</label>
                                     <div class="input-group mb-3" id="city-input-group">
-                                        <select class="form-control" id="city" required>
-                                            <option></option>
+                                        <select name="city" id="city"
+                                            class="form-control"
+                                            required>
+                                            <option>- Pilih Salah Satu -</option>
                                         </select>
                                     </div>`;
                 document.getElementById("luar-negeri").classList.add("d-none");
                 document.getElementById("luar-negeri").classList.remove("d-block");
                 document.getElementById("luar-negeri").innerHTML = ``;
                 $.ajax({
-                    url: "https://dev.farizdotid.com/api/daerahindonesia/provinsi",
+                    url: "http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
                     type: 'GET',
                     success: function(res) {
                         let provinceList = [];
-                        res.provinsi.forEach(element => {
+                        res.forEach(element => {
                             provinceList.push({
                                 "id": element.id,
-                                "text": element.nama
+                                "text": element.name
                             })
                         })
                         $('#province').select2({
                             placeholder: "- Pilih Salah Satu -",
                             data: provinceList,
+                            theme: 'bootstrap-5',
                             dropdownParent: $("#province-input-group")
                         });
                     }
@@ -111,19 +116,20 @@
                 $("#province").change(function(e) {
                     e.preventDefault();
                     $.ajax({
-                        url: `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${$('#province').select2('data')[0].id}`,
+                        url: `http://www.emsifa.com/api-wilayah-indonesia/api/regencies/${$('#province').select2('data')[0].id}.json`, // http://www.emsifa.com/api-wilayah-indonesia/api/regencies/32.json
                         type: 'GET',
                         success: function(res) {
                             let responseValue = [];
-                            res.kota_kabupaten.forEach(element => {
+                            res.forEach(element => {
                                 responseValue.push({
                                     "id": element.id,
-                                    "text": element.nama
+                                    "text": element.name
                                 })
                             })
                             $('#city').select2({
                                 placeholder: "- Pilih Salah Satu -",
                                 data: responseValue,
+                                theme: 'bootstrap-5',
                                 dropdownParent: $("#city-input-group")
                             });
                         }

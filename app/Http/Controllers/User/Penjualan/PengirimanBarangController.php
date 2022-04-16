@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataContact;
 use App\Models\PengirimanBarang;
+use App\Models\Expense;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -42,7 +47,8 @@ class PengirimanBarangController extends Controller
      */
     public function create()
     {
-        //
+        $dataContacts = DataContact::currentCompany()->get();
+        return view('user.penjualan.pengiriman-barang.create', compact('dataContacts'));
     }
 
     /**
@@ -53,7 +59,32 @@ class PengirimanBarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.bank_account_id' => 'required|numeric'
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        DB::transaction(function () use ($data, $detail) {
+            $expense = Expense::create($data);
+            foreach ($detail as $key => $value) {
+                DB::table('detail_expenses')->insert([
+                    "expense_id" => $expense->id,
+                    "bank_account_id" => $value["bank_account_id"],
+                    "amount" => $value["amount"],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
+                ]);
+            }
+        });
+        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**

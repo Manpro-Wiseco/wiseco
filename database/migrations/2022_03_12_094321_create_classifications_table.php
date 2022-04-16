@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubclassificationsTable extends Migration
+class CreateClassificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSubclassificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subclassifications', function (Blueprint $table) {
+        Schema::create('classifications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->unsignedBigInteger('classification_id');
-            $table->foreign('classification_id')->references('id')->on('classifications');
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
@@ -32,6 +30,6 @@ class CreateSubclassificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subclassifications');
+        Schema::dropIfExists('classifications');
     }
 }

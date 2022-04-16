@@ -52,7 +52,6 @@
                                     </span>
                                     @enderror
                                 </div>
-
                                 <div class="mt-4">
                                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
@@ -65,7 +64,7 @@
     </section>
 </x-template-layout>
 
-<script src="http://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('body');
     CKEDITOR.config.allowedContent = true;
