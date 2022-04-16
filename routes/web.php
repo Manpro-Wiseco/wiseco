@@ -211,6 +211,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'delete'])->name('delete');
             Route::get('/export', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'export'])->name('export');
             Route::get('/list', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'list'])->name('list');
+        });
     });
 
     // Pengelolaan Kas
