@@ -142,6 +142,10 @@
                             </a>
                             <h4>Data Transfer Dana</h4>
                         </div>
+                        <a href="{{ route('pengelolaan-kas.fund-transfer.create') }}"
+                            class="btn bg-gradient-primary btn-small">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">

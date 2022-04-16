@@ -148,7 +148,9 @@ class FundTransferController extends Controller
      */
     public function show($id)
     {
-        //
+        $fundTransfer = FundTransfer::with(['fromDataAccounts', 'toDataAccounts'])->findOrFail($id);
+        $company = session()->get('company');
+        return view('user.pengelolaan-kas.fund-transfer.show', compact('fundTransfer', 'company'));
     }
 
     /**
