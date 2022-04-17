@@ -24,7 +24,7 @@ class StokOpnameController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.inventory.stok-opname.create');
     }
 
     /**
