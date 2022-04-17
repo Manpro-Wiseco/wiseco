@@ -35,9 +35,6 @@ class DataAccountController extends Controller
                 $urlEdit = route('pengelolaan-kas.data-account.edit', $row->id);
                 $urlShow = route('pengelolaan-kas.data-account.show', $row->id);
                 $actionBtn = '
-                <a href="' . $urlShow . '" class="btn bg-gradient-success btn-small">
-                    <i class="fas fa-eye"></i>
-                </a>
                 <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                     <i class="fas fa-edit"></i>
                 </a>

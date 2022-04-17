@@ -107,7 +107,9 @@ class IncomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $income = Income::with(['dataContact', 'toAccount', 'dataAccounts'])->findOrFail($id);
+        $company = session()->get('company');
+        return view('user.pengelolaan-kas.income.show', compact('income', 'company'));
     }
 
     /**

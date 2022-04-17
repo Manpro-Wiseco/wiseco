@@ -109,7 +109,9 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        //
+        $expense = Expense::with(['dataContact', 'fromAccount', 'dataAccounts'])->findOrFail($id);
+        $company = session()->get('company');
+        return view('user.pengelolaan-kas.expense.show', compact('expense', 'company'));
     }
 
     /**

@@ -84,6 +84,10 @@
                     type: "POST",
                     dataType: 'json',
                     success: function(response) {
+                        let alertErrors = $('#alert-errors');
+                        let ul = $('ul.errors');
+                        alertErrors.addClass("d-none");
+                        ul.html("");
                         if (response.success) {
                             Swal.fire(
                                 'Success!',
@@ -97,6 +101,14 @@
                     },
                     error: function(data) {
                         console.log('Error:', data);
+                        let errors = data.responseJSON.errors
+                        let ul = $('ul.errors');
+                        ul.html("")
+                        for (const error in errors) {
+                            ul.append(`<li>${error}: ${errors[error]}</li>`);
+                        }
+                        let alertErrors = $('#alert-errors');
+                        alertErrors.removeClass("d-none");
                         $('#saveBtn').html('Save Changes');
                         Swal.fire({
                             icon: 'error',
@@ -166,6 +178,20 @@
                     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                </div>
+                <div class="pt-3 px-5">
+                    <div id="alert-errors" class="alert alert-danger text-white d-none" role="alert">
+                        <strong>Danger!</strong>
+                        <p class="mb-0">
+                            <small>
+                                <i>
+                                    <ul class="errors">
+
+                                    </ul>
+                                </i>
+                            </small>
+                        </p>
+                    </div>
                 </div>
                 <form id="subclassification-form">
                     <input type="hidden" name="id" id="id">
