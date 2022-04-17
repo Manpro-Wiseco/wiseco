@@ -115,37 +115,69 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     });
 
     // Pembelian
-    Route::get('/pembelian', [\App\Http\Controllers\User\Pembelian\HomeController::class, 'index'])->name('pembelian');
-
-    //Route::prefix('pembelian')->name('pembelian.')->group(function () {
-       // Route::get('/', [\App\Http\Controllers\User\pembelian\HomeController::class, 'index'])->name('index');
+    Route::prefix('pembelian')->name('pembelian.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\pembelian\HomeController::class, 'index'])->name('index');
     
         //pesanan pembelian
-       Route::get('/pesanan-pembelian', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('pesanan-pembelian');
+        Route::prefix('pesanan-pembelian')->name('pesanan-pembelian.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'list'])->name('list');
+            //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+        });
 
         //penerimaan barang
-        Route::get('/penerimaan-barang', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('penerimaan-barang');
+        Route::prefix('penerimaan-barang')->name('penerimaan-barang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'edit'])->name('edit');
+            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\PenerimaanBarangController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'list'])->name('list');
+            //Route::get('/export', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'export'])->name('export');
+        });
 
         //faktur pembelian
         Route::prefix('faktur-pembelian')->name('faktur-pembelian.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'store'])->name('store');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\FakturPembelianController::class, 'destroy'])->name('destroy');
+            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
+            //Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
-       });
-
-        Route::get('/faktur-pembelian', [\App\Http\Controllers\User\Pembelian\FakturPembelianController::class, 'index'])->name('faktur-pembelian');
+        });
 
         //retur pembelian
-        Route::get('/retur-pembelian', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('retur-pembelian');
+        Route::prefix('retur-pembelian')->name('retur-pembelian.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Pembelian\ReturPembelianController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'edit'])->name('edit');
+            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\ReturPenjualanHargaController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
+            //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
+        });
 
         //daftar pembayaran utang
-        Route::get('/Daftar-Pembayaran-Utang', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('Daftar-Pembayaran-Utang');
-   //});
+        Route::prefix('daftar-pembayaran-utang')->name('daftar-pembayaran-utang.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\User\Pembelian\DaftardanPembayaranUtangController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'edit'])->name('edit');
+            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\ReturPenjualanHargaController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
+            //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
+        });
+   });
 
     
 

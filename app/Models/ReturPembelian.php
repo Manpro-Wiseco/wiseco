@@ -8,7 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class ReturPembelian extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
-    protected $table = 'retur_pembelian';
 }

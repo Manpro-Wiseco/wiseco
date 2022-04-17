@@ -8,7 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class PesananPembelian extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
-    protected $table = 'pesanan_pembelian';
 }

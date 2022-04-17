@@ -8,7 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class DaftarPembayaranUtang extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
-    protected $table = 'daftar_pembayaran_utang';
 }

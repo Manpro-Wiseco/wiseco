@@ -4,7 +4,7 @@
         <div class="row">
             
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('pesanan-pembelian')}}">
+                    <a class="link" href="{{route('pembelian.pesanan-pembelian.index')}}">
                         <div class="card bg-gradient-success">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('penerimaan-barang')}}">
+                    <a class="link" href="{{route('pembelian.penerimaan-barang.index')}}">
                         <div class="card bg-gradient-info">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -32,7 +32,7 @@
                 </div>
             
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('faktur-pembelian')}}">
+                    <a class="link" href="{{route('pembelian.faktur-pembelian.index')}}">
                         <div class="card bg-gradient-secondary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -46,7 +46,7 @@
                 </div>
             
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('retur-pembelian')}}">
+                    <a class="link" href="{{route('pembelian.retur-pembelian.index')}}">
                         <div class="card bg-gradient-warning">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -59,8 +59,9 @@
                     </a>
                 </div>
 
-                <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('Daftar-Pembayaran-Utang')}}">
+                
+               <div class="col-md-4 mb-5">
+                    <a class="link" href="{{route('pembelian.daftar-pembayaran-utang.index')}}">
                         <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
@@ -72,7 +73,7 @@
                         </div>
                     </a>
                 </div>
-       
+                
         </div>
     </div>
     </section>

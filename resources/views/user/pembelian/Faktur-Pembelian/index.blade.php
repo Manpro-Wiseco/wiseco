@@ -68,7 +68,7 @@
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
                             <h3>Faktur Pembelian</h3>
-                            <a href="{{ route('pembelian.Faktur-Pembelian.create') }}" class="btn bg-gradient-primary">
+                            <a href="{{ route('pembelian.faktur-pembelian.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
