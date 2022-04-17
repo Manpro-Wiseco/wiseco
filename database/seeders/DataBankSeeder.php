@@ -1002,7 +1002,36 @@ class DataBankSeeder extends Seeder
                 "created_at" => "2022-03-12 12:07:23",
                 "updated_at" => "2022-03-12 12:07:23",
             ),
+            array(
+                "id" => 142,
+                "name" => "GOPAY",
+                "code" => "0",
+                "created_at" => "2022-04-14 13:03:04",
+                "updated_at" => "2022-04-14 13:03:06",
+            ),
+            array(
+                "id" => 143,
+                "name" => "SHOPEEPAY",
+                "code" => "0",
+                "created_at" => "2022-04-14 13:03:19",
+                "updated_at" => "2022-04-14 13:03:20",
+            ),
+            array(
+                "id" => 144,
+                "name" => "OVO",
+                "code" => "0",
+                "created_at" => "2022-04-14 13:04:39",
+                "updated_at" => "2022-04-14 13:04:40",
+            ),
+            array(
+                "id" => 145,
+                "name" => "iSaku",
+                "code" => "0",
+                "created_at" => "2022-04-14 13:05:03",
+                "updated_at" => "2022-04-14 13:05:04",
+            ),
         );
+
 
         DataBank::insert($data_bank);
     }

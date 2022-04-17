@@ -59,8 +59,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'total_text',
+                        name: 'total_text',
                         className: 'align-middle text-center'
                     },
                     {
@@ -136,8 +136,14 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Transfer Dana</h3>
-                        <a href="{{ route('pengelolaan-kas.fund-transfer.create') }}" class="btn bg-gradient-primary">
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.index') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Data Transfer Dana</h4>
+                        </div>
+                        <a href="{{ route('pengelolaan-kas.fund-transfer.create') }}"
+                            class="btn bg-gradient-primary btn-small">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>

@@ -18,6 +18,8 @@ class CreateExpensesTable extends Migration
             $table->string('invoice')->nullable();
             $table->string('description');
             $table->date('transaction_date');
+            $table->unsignedBigInteger('from_account_id');
+            $table->foreign('from_account_id')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('data_contact_id');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
             $table->unsignedBigInteger('company_id');

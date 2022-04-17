@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\User\PengelolaanKas;
 
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
+use App\Models\DataAccount;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Arr;
 
-class BankAccountController extends Controller
+class DataAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,30 +17,24 @@ class BankAccountController extends Controller
      */
     public function index()
     {
-        return view('user.pengelolaan-kas.bank-account.index');
+        return view('user.pengelolaan-kas.data-account.index');
     }
 
     public function list(Request $request)
     {
-        $data = BankAccount::with(['dataBank', 'subclassification', 'company'])->currentCompany()->latest()->get();
+        $data = DataAccount::with(['dataBank', 'subclassification', 'company'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('bank', function ($row) {
-                return $row->dataBank->name;
-            })
-            ->addColumn('subclassification', function ($row) {
-                return $row->subclassification->name;
+                return $row->dataBank ? $row->dataBank->name : '-';
             })
             ->editColumn('status', function ($row) {
                 return $row->status == 1 ? "Bisnis" : "Pribadi";
             })
             ->addColumn('action', function ($row) {
-                $urlEdit = route('pengelolaan-kas.bank-account.edit', $row->id);
-                $urlShow = route('pengelolaan-kas.bank-account.show', $row->id);
+                $urlEdit = route('pengelolaan-kas.data-account.edit', $row->id);
+                $urlShow = route('pengelolaan-kas.data-account.show', $row->id);
                 $actionBtn = '
-                <a href="' . $urlShow . '" class="btn bg-gradient-success btn-small">
-                    <i class="fas fa-eye"></i>
-                </a>
                 <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -58,9 +52,27 @@ class BankAccountController extends Controller
     {
         $search = $request->search;
         if ($search == '') {
-            $data = BankAccount::currentCompany()->get();
+            $data = DataAccount::currentCompany()->get();
         } else {
-            $data = BankAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+            $data = DataAccount::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->name,
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function dataOnlyIsCash(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->get();
+        } else {
+            $data = DataAccount::currentCompany()->where('is_cash', '=', 1)->where('name', 'like', '%' . $search . '%')->get();
         }
         $response = array();
         foreach ($data as $d) {
@@ -79,7 +91,7 @@ class BankAccountController extends Controller
      */
     public function create()
     {
-        return view('user.pengelolaan-kas.bank-account.create');
+        return view('user.pengelolaan-kas.data-account.create');
     }
 
     /**
@@ -93,14 +105,21 @@ class BankAccountController extends Controller
         $request->validate([
             'name' => 'required',
             'subclassification_id' => 'required',
-            'data_bank_id' => 'required',
-            'status' => 'required'
+            'data_bank_id' => 'required|sometimes',
+            'status' => 'required',
+            'is_cash' => 'required|sometimes',
         ]);
         $data = Arr::except($request->all(), '_token');
+        if ($request->has('is_cash')) {
+            $data = Arr::except($data, 'is_cash');
+            $data = Arr::add($data, 'is_cash', 1);
+        } else {
+            $data = Arr::add($data, 'is_cash', 0);
+        }
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        BankAccount::create($data);
+        DataAccount::create($data);
 
-        return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Menambahkan Data Akun Baru!');
     }
 
     /**
@@ -120,9 +139,9 @@ class BankAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BankAccount $bankAccount)
+    public function edit(DataAccount $dataAccount)
     {
-        return view('user.pengelolaan-kas.bank-account.edit', compact('bankAccount'));
+        return view('user.pengelolaan-kas.data-account.edit', compact('dataAccount'));
     }
 
     /**
@@ -132,18 +151,25 @@ class BankAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BankAccount $bankAccount)
+    public function update(Request $request, DataAccount $dataAccount)
     {
         $request->validate([
             'name' => 'required',
             'subclassification_id' => 'required',
-            'data_bank_id' => 'required',
-            'status' => 'required'
+            'data_bank_id' => 'required|sometimes',
+            'status' => 'required',
+            'is_cash' => 'required|sometimes',
         ]);
-
         $data = Arr::except($request->all(), '_token');
-        $bankAccount->update($data);
-        return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Mengubah Data!');
+        if ($request->has('is_cash')) {
+            $data = Arr::except($data, 'is_cash');
+            $data = Arr::add($data, 'is_cash', 1);
+        } else {
+            $data = Arr::add($data, 'is_cash', 0);
+        }
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $dataAccount->update($data);
+        return redirect()->route('pengelolaan-kas.data-account.index')->with('success', 'Berhasil Mengubah Data Akun!');
     }
 
     /**
@@ -152,7 +178,7 @@ class BankAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BankAccount $bankAccount)
+    public function destroy(DataAccount $bankAccount)
     {
         $bankAccount->expenses->delete();
         $bankAccount->delete();

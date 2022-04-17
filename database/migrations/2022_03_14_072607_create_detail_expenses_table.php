@@ -15,8 +15,8 @@ class CreateDetailExpensesTable extends Migration
     {
         Schema::create('detail_expenses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('bank_account_id');
-            $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
+            $table->unsignedBigInteger('data_account_id');
+            $table->foreign('data_account_id')->references('id')->on('data_accounts');
             $table->unsignedBigInteger('expense_id');
             $table->foreign('expense_id')->references('id')->on('expenses');
             $table->bigInteger('amount');

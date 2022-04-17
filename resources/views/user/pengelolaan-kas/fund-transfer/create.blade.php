@@ -1,3 +1,11 @@
+@push('styles')
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+    </style>
+@endpush
 @push('scripts')
     <script>
         $('#fromBank').select2({
@@ -5,7 +13,9 @@
             ajax: {
                 url: "{{ route('pengelolaan-kas.fund-transfer.fromBank') }}",
                 dataType: 'json',
-                theme: "bootstrap-5",
+                allowClear: true,
+                theme: 'bootstrap-5',
+                placeholder: "- Pilih Salah Satu -",
                 data: function(params) {
                     return {
                         search: params.term
@@ -22,8 +32,7 @@
                     return {
                         results
                     };
-                },
-                cache: true
+                }
             }
         });
         $("#fromBank").change(function(e) {
@@ -33,7 +42,9 @@
                 ajax: {
                     url: "{{ route('pengelolaan-kas.fund-transfer.toBank') }}",
                     dataType: 'json',
-                    theme: "bootstrap-5",
+                    allowClear: true,
+                    theme: 'bootstrap-5',
+                    placeholder: "- Pilih Salah Satu -",
                     data: function(params) {
                         return {
                             search: params.term,
@@ -51,8 +62,7 @@
                         return {
                             results
                         };
-                    },
-                    cache: true
+                    }
                 }
             });
         })
@@ -65,10 +75,13 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('pengelolaan-kas.fund-transfer.index') }}" class="btn bg-gradient-primary">
-                            <i class="fas fa-angle-left" style="font-size: 20px"></i>
-                        </a>
-                        <h3>Buat Data Transfer Dana</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('pengelolaan-kas.fund-transfer.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Buat Data Transfer Dana</h4>
+                        </div>
                         <div class="card-body pt-0">
                             <form action="{{ route('pengelolaan-kas.fund-transfer.store') }}" method="post">
                                 @csrf
@@ -97,9 +110,10 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Dari Bank</label>
+                                        <label class="form-label mt-4">Dari Bank</label>
                                         <select name="fromBank" id="fromBank"
                                             class="form-control @error('fromBank') is-invalid @enderror" required>
+                                            <option>- Pilih Salah Satu -</option>
                                         </select>
                                         @error('fromBank')
                                             <span class="invalid-feedback" role="alert">
@@ -108,9 +122,10 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Ke Bank</label>
+                                        <label class="form-label mt-4">Ke Bank</label>
                                         <select name="toBank" id="toBank"
                                             class="form-control @error('toBank') is-invalid @enderror" required>
+                                            <option>- Pilih Salah Satu -</option>
                                         </select>
                                         @error('toBank')
                                             <span class="invalid-feedback" role="alert">
@@ -121,7 +136,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Total</label>
                                         <input type="number" class="form-control @error('total') is-invalid @enderror"
-                                            id="total" name="total" value="{{ old('total') }}" placeholder="Invoice"
+                                            id="total" name="total" value="{{ old('total') }}" placeholder="Total"
                                             required autofocus>
                                         @error('total')
                                             <span class="invalid-feedback" role="alert">

@@ -21,13 +21,13 @@ class FundTransfer extends Model
         return $query->where('company_id', '=', session()->get('company')->id);
     }
 
-    public function fromBankAccounts()
+    public function fromDataAccounts()
     {
-        return $this->belongsTo(BankAccount::class, 'from_bank_account', 'id');
+        return $this->belongsTo(DataAccount::class, 'from_bank_account', 'id');
     }
 
-    public function toBankAccounts()
+    public function toDataAccounts()
     {
-        return $this->belongsTo(BankAccount::class, 'to_bank_account', 'id');
+        return $this->belongsTo(DataAccount::class, 'to_bank_account', 'id');
     }
 }
