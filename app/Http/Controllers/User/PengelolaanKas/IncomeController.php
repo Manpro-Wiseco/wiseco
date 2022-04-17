@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\PengelolaanKas;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataContact;
 use App\Models\Expense;
 use App\Models\Income;
 use Illuminate\Http\Request;
@@ -25,9 +26,12 @@ class IncomeController extends Controller
 
     public function list(Request $request)
     {
-        $data = Income::with(['bankAccount', 'dataContact'])->currentCompany()->latest()->get();
+        $data = Income::with(['dataAccounts', 'dataContact'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('total_text', function ($row) {
+                return "Rp " . number_format($row->total, 2, ',', '.');
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('pengelolaan-kas.income.edit', $row->id);
                 $urlShow = route('pengelolaan-kas.income.show', $row->id);
@@ -55,7 +59,8 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        //
+        $dataContacts = DataContact::currentCompany()->get();
+        return view('user.pengelolaan-kas.income.create', compact('dataContacts'));
     }
 
     /**
@@ -66,7 +71,32 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'to_account_id' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.data_account_id' => 'required|numeric'
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        DB::transaction(function () use ($data, $detail) {
+            $income = Income::create($data);
+            foreach ($detail as $key => $value) {
+                DB::table('detail_incomes')->insert([
+                    "income_id" => $income->id,
+                    "data_account_id" => $value["data_account_id"],
+                    "amount" => $value["amount"],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
+                ]);
+            }
+        });
+        return response()->json(['data' => ['income' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pemasukan!']);
     }
 
     /**
@@ -77,7 +107,9 @@ class IncomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $income = Income::with(['dataContact', 'toAccount', 'dataAccounts'])->findOrFail($id);
+        $company = session()->get('company');
+        return view('user.pengelolaan-kas.income.show', compact('income', 'company'));
     }
 
     /**
@@ -88,7 +120,9 @@ class IncomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $income = Income::with(['toAccount', 'dataContact', 'dataAccounts'])->findOrFail($id);
+        $dataContacts = DataContact::currentCompany()->get();
+        return view('user.pengelolaan-kas.income.edit', compact('income', 'dataContacts'));
     }
 
     /**
@@ -100,7 +134,28 @@ class IncomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'to_account_id' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.data_account_id' => 'required|numeric'
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        // create new array with data_account_id value as a key with amount as pair of key and value
+        $new_detail = array_reduce($detail, function ($result, $item) {
+            $result[$item['data_account_id']] = ["amount" => $item['amount']];
+            return $result;
+        }, []);
+        $income = Income::findOrFail($id);
+        $income->update($data);
+        $income->dataAccounts()->sync($new_detail);
+        return response()->json(['data' => ['income' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data pemasukan!']);
     }
 
     /**
@@ -109,8 +164,10 @@ class IncomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Income $income)
     {
-        //
+        $income->dataAccounts()->detach();
+        $income->delete();
+        return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pemasukan!']);
     }
 }

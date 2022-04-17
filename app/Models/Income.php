@@ -17,14 +17,19 @@ class Income extends Model
         return $query->where('company_id', '=', session()->get('company')->id);
     }
 
-    public function dataContact()
+    public function toAccount()
     {
-        return $this->belongsToMany(DataContact::class, 'detail_incomes', 'income_id', 'data_contact_id')->withPivot(['id', 'amount'])->withTimestamps();
+        return $this->belongsTo(DataAccount::class);
     }
 
-    public function bankAccount()
+    public function dataAccounts()
     {
-        return $this->belongsTo(BankAccount::class);
+        return $this->belongsToMany(DataAccount::class, 'detail_incomes', 'income_id', 'data_account_id')->withPivot(['id', 'amount'])->withTimestamps();
+    }
+
+    public function dataContact()
+    {
+        return $this->belongsTo(DataContact::class);
     }
 
     public function company()
