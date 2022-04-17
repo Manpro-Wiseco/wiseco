@@ -1,4 +1,215 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@push('scripts')
+<script src="{{ asset('assets') }}/js/plugins/chartjs.min.js"></script>
+<script>
+    var ctx2 = document.getElementById("chart-line-sales").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+
+    new Chart(ctx2, {
+        type: "line"
+        , data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            , datasets: [{
+                    label: "Mobile apps"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#cb0c9f"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke1
+                    , fill: true
+                    , data: [50, 40, 300, 220, 500, 250, 400, 0, 500]
+                    , maxBarThickness: 6
+
+                }
+                , {
+                    label: "Websites"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#3A416F"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke2
+                    , fill: true
+                    , data: [30, 90, 40, 140, 290, 290, 340, 230, 400]
+                    , maxBarThickness: 6
+                }
+            , ]
+        , }
+        , options: {
+            responsive: true
+            , maintainAspectRatio: false
+            , plugins: {
+                legend: {
+                    display: false
+                , }
+            }
+            , interaction: {
+                intersect: false
+                , mode: 'index'
+            , }
+            , scales: {
+                y: {
+                    grid: {
+                        drawBorder: false
+                        , display: true
+                        , drawOnChartArea: true
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , padding: 10
+                        , color: '#b2b9bf'
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+                , x: {
+                    grid: {
+                        drawBorder: false
+                        , display: false
+                        , drawOnChartArea: false
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , color: '#b2b9bf'
+                        , padding: 20
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+            , }
+        , }
+    , });
+
+</script>
+<script>
+    var ctx2 = document.getElementById("chart-line-purchases").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+
+    new Chart(ctx2, {
+        type: "line"
+        , data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            , datasets: [{
+                    label: "Mobile apps"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#cb0c9f"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke1
+                    , fill: true
+                    , data: [50, 40, 300, 220, 500, 250, 400, 0, 500]
+                    , maxBarThickness: 6
+
+                }
+                , {
+                    label: "Websites"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#3A416F"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke2
+                    , fill: true
+                    , data: [30, 90, 40, 140, 290, 290, 340, 230, 400]
+                    , maxBarThickness: 6
+                }
+            , ]
+        , }
+        , options: {
+            responsive: true
+            , maintainAspectRatio: false
+            , plugins: {
+                legend: {
+                    display: false
+                , }
+            }
+            , interaction: {
+                intersect: false
+                , mode: 'index'
+            , }
+            , scales: {
+                y: {
+                    grid: {
+                        drawBorder: false
+                        , display: true
+                        , drawOnChartArea: true
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , padding: 10
+                        , color: '#b2b9bf'
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+                , x: {
+                    grid: {
+                        drawBorder: false
+                        , display: false
+                        , drawOnChartArea: false
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , color: '#b2b9bf'
+                        , padding: 20
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+            , }
+        , }
+    , });
+
+</script>
+@endpush
 
 {{-- Content Body --}}
 <x-template-layout>
@@ -6,6 +217,41 @@
 
         {{-- Loss,Revenue,Expense,Filter  --}}
         <div class="row">
+            {{-- Filter --}}
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="Filter">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <div class="numbers">
+                                        <div class="dropdown m-0">
+                                            <button class="btn bg-gradient-primary dropdown-toggle m-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Show
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" href="javascript:;">Today</a></li>
+                                                <li><a class="dropdown-item" href="javascript:;">This Week</a></li>
+                                                <li><a class="dropdown-item" href="javascript:;">This Month</a></li>
+                                                <li><a class="dropdown-item" href="javascript:;">This Year</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <div class="icon shadow text-center border-radius-md">
+                                        <form action="/notification" method="GET">
+                                            <button style="padding: 0; border: none; background: none;">
+                                                <i class="fa-solid fa-bell fa-lg opacity-10 mt-2" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- Loss --}}
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
@@ -75,48 +321,6 @@
                     </div>
                 </div>
             </div>
-            {{-- Filter --}}
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="Filter">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row mt-2">
-                                <div class="col-6">
-                                    <div class="numbers">
-                                        <div class="dropdown m-0">
-                                            <button class="btn bg-gradient-primary dropdown-toggle m-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Show
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="javascript:;">Today</a></li>
-                                                <li><a class="dropdown-item" href="javascript:;">This Week</a></li>
-                                                <li><a class="dropdown-item" href="javascript:;">This Month</a></li>
-                                                <li><a class="dropdown-item" href="javascript:;">This Year</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-2 text-end mt-1">
-                                    <div class="text-center border-radius-md">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon shadow text-center border-radius-md">
-                                        <form action="/notification" method="GET">
-                                            <button style="padding: 0; border: none; background: none;">
-                                                <i class="fa-solid fa-bell fa-lg opacity-10" aria-hidden="true"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         {{-- Daily Sales & Balance Sheet --}}
@@ -133,8 +337,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="chart-line" class="chart-canvas" height="280">
-                            </canvas>
+                            <canvas id="chart-line-sales" class="chart-canvas" height="300px"></canvas>
                         </div>
                     </div>
                 </div>
@@ -273,7 +476,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-money-bill-wave fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-money-bill-wave fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +499,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-money-bill-trend-up fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-money-bill-trend-up fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +522,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-clipboard-list fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-clipboard-list fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -338,8 +541,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="chart-line" class="chart-canvas" height="300">
-                            </canvas>
+                            <canvas id="chart-line-purchases" class="chart-canvas" height="300px"></canvas>
                         </div>
                     </div>
                 </div>

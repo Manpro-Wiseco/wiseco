@@ -21,7 +21,7 @@ class FakturPembelianController extends Controller
      */
     public function index(Request $request)
     {
-        return view('user.fitur-pembelian.FakturPembelian.index');
+        return view('user.pembelian.Faktur-Pembelian.index');
     }
 
     public function list(Request $request)
@@ -30,8 +30,8 @@ class FakturPembelianController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $urlEdit = route('fitur-pembelian.FakturPembelian.edit', $row->id);
-                $urlDelete = route('fitur-pembelian.FakturPembelian.destroy', $row->id);
+                $urlEdit = route('pembelian.Faktur-Pembelian.edit', $row->id);
+                $urlDelete = route('pembelian.Faktur-Pembelian.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -53,7 +53,7 @@ class FakturPembelianController extends Controller
     public function create()
     {
         $dataContacts = DataContact::currentCompany()->get();
-        return view('user.fitur-pembelian.FakturPembelian.create', compact('dataContacts'));
+        return view('user.pembelian.Faktur-Pembelian.create', compact('dataContacts'));
     }
 
     /**
