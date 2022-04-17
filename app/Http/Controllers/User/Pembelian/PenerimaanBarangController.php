@@ -16,7 +16,7 @@ class PenerimaanBarangController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.fitur-pembelian.Penerimaan-barang.index');
+        return view('user.pembelian.Penerimaan-barang.index');
     }
 
     public function list(Request $request)
@@ -25,8 +25,8 @@ class PenerimaanBarangController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $urlEdit = route('fitur-pembelian.Penerimaan-barang.edit', $row->id);
-                $urlDelete = route('fitur-pembelian.Penerimaan-barang.destroy', $row->id);
+                $urlEdit = route('pembelian.Penerimaan-barang.edit', $row->id);
+                $urlDelete = route('pembelian.Penerimaan-barang.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -48,7 +48,7 @@ class PenerimaanBarangController extends Controller
     public function create()
     {
         $dataContacts = DataContact::currentCompany()->get();
-        return view('user.fitur-pembelian.Penerimaan-barang.create', compact('dataContacts'));
+        return view('user.pembelian.Penerimaan-barang.create', compact('dataContacts'));
     }
 
     /**

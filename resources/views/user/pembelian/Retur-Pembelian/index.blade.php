@@ -4,7 +4,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            let table = $('#faktur-penjualan-table').DataTable({
+            let table = $('#retur-pembelian-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
@@ -14,7 +14,7 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('penjualan.faktur-penjualan.list') }}",
+                ajax: "{{ route('pembelian.retur-pembelian.list') }}",
                 columns: [
                     {
                         data: 'tanggal',
@@ -22,8 +22,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'no_faktur',
-                        name: 'no_faktur',
+                        data: 'no_retur',
+                        name: 'no_retur',
                         className: 'align-middle text-center'
                     },
                     {
@@ -67,14 +67,14 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                            <h3>Faktur Pembelian</h3>
-                            <a href="{{ route('fitur-pembelian.FakturPembelian.create') }}" class="btn bg-gradient-primary">
+                            <h3>Retur Pembelian</h3>
+                            <a href="{{ route('pembelian.retur-pembelian.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-3">
-                                <table class="table align-items-center mb-0" id="faktur-penjualan-table">
+                                <table class="table align-items-center mb-0" id="retur-pembelian-table">
                                     <thead>
                                         <tr>
                                             <th
@@ -82,7 +82,7 @@
                                                 Tanggal</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">
-                                                Nomor</th>
+                                                No Retur</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Pelanggan</th>

@@ -10,5 +10,5 @@ class FakturPembelian extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'faktur_pembelian';
+    protected $table = 'faktur_pembelians';
 }

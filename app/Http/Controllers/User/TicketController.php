@@ -42,9 +42,9 @@ class TicketController extends Controller
             })
             ->addColumn('status', function ($row) {
                 if ($row->status == 'close') {
-                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-1 disabled">close</h5>';
+                    $actionBtn = '<h5 class="btn bg-gradient-secondary btn-small mt-2 disabled">close</h5>';
                   }elseif ($row->status == 'open') {
-                    $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-1 disabled">open</h5>';
+                    $actionBtn = '<h5 class="btn bg-gradient-success btn-small mt-2 disabled">open</h5>';
                   }
                 return ($actionBtn);
             })
@@ -57,13 +57,13 @@ class TicketController extends Controller
                 $userId  = auth()->user()->id;
                 if ($row->user_id == $userId ) {
                     $actionBtn = '
-                    <a href="' . $urlView . '" class="btn bg-gradient-success btn-small">
+                    <a href="' . $urlView . '" class="btn bg-gradient-success btn-small mt-2">
                     <i class="fas fa-eye"></i>
                     </a>
-                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small mt-2">
                     <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" type="button">
+                    <button class="btn bg-gradient-danger btn-small btn-delete mt-2" data-id="' . $row->id . '" type="button">
                     <i class="fas fa-trash"></i>
                     </button>';
                 }else{
