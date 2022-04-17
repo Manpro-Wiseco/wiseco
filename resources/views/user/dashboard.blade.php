@@ -1,4 +1,111 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@push('scripts')
+<script src="{{ asset('assets') }}/js/plugins/chartjs.min.js"></script>
+<script>
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+
+    new Chart(ctx2, {
+        type: "line"
+        , data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            , datasets: [{
+                    label: "Mobile apps"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#cb0c9f"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke1
+                    , fill: true
+                    , data: [50, 40, 300, 220, 500, 250, 400, 0, 500]
+                    , maxBarThickness: 6
+
+                }
+                , {
+                    label: "Websites"
+                    , tension: 0.4
+                    , borderWidth: 0
+                    , pointRadius: 0
+                    , borderColor: "#3A416F"
+                    , borderWidth: 3
+                    , backgroundColor: gradientStroke2
+                    , fill: true
+                    , data: [30, 90, 40, 140, 290, 290, 340, 230, 400]
+                    , maxBarThickness: 6
+                }
+            , ]
+        , }
+        , options: {
+            responsive: true
+            , maintainAspectRatio: false
+            , plugins: {
+                legend: {
+                    display: false
+                , }
+            }
+            , interaction: {
+                intersect: false
+                , mode: 'index'
+            , }
+            , scales: {
+                y: {
+                    grid: {
+                        drawBorder: false
+                        , display: true
+                        , drawOnChartArea: true
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , padding: 10
+                        , color: '#b2b9bf'
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+                , x: {
+                    grid: {
+                        drawBorder: false
+                        , display: false
+                        , drawOnChartArea: false
+                        , drawTicks: false
+                        , borderDash: [5, 5]
+                    }
+                    , ticks: {
+                        display: true
+                        , color: '#b2b9bf'
+                        , padding: 20
+                        , font: {
+                            size: 11
+                            , family: "Open Sans"
+                            , style: 'normal'
+                            , lineHeight: 2
+                        }
+                    , }
+                }
+            , }
+        , }
+    , });
+
+</script>
+@endpush
 
 {{-- Content Body --}}
 <x-template-layout>
@@ -133,8 +240,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="chart-line" class="chart-canvas" height="280">
-                            </canvas>
+                            <canvas id="chart-line" class="chart-canvas" height="300px"></canvas>
                         </div>
                     </div>
                 </div>
@@ -273,7 +379,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-money-bill-wave fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-money-bill-wave fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +402,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-money-bill-trend-up fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-money-bill-trend-up fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +425,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                <i class="fa-solid fa-clipboard-list fa-lg opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-clipboard-list fa-lg opacity-10 mt-1" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
