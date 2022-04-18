@@ -21,4 +21,9 @@ class Company extends Model
     {
         return $this->hasMany(DataContact::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }
