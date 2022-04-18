@@ -39,12 +39,12 @@
                     {
                         data: 'nilai',
                         name: 'nilai',
-                        className: 'align-middle text-center'
+                        className: 'align-middle text-center '
                     },
                     {
                         data: 'status',
                         name: 'status',
-                        className: 'align-middle text-center'
+                        className: 'align-middle text-center '
                     },
                     {
                         data: 'action',
