@@ -1010,10 +1010,6 @@ select {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -1119,6 +1115,9 @@ select {
 }
 .mb-5 {
   margin-bottom: 1.25rem;
+}
+.mt-auto {
+  margin-top: auto;
 }
 .block {
   display: block;
@@ -1554,6 +1553,10 @@ select {
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
+}
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 .pt-6 {
   padding-top: 1.5rem;

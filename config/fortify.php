@@ -65,7 +65,7 @@ return [
 
         //or if you have a bunch of redirection options
         if (auth()->user()->role_id === 1) {
-            return route('dashboard');
+            return route('admin.dashboard');
         } else {
             return route('list-company');
         }

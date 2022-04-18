@@ -24,7 +24,7 @@ class PenyesuaianBarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.inventory.penyesuaian-barang.create');
     }
 
     /**

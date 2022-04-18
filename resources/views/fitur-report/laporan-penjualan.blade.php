@@ -6,7 +6,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-lg-6 col-7">
-                                <h5>Laporan Keuangan</h5>
+                                <h5>Laporan Penjualan dan Piutang</h5>
                             </div>
 
                             
@@ -18,7 +18,7 @@
                                 <thead>
                                     <tr>
                                         <th
-                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Laporan Keuangan</th>
+                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Penjualan</th>
                       
                                     </tr>
                                 </thead>
@@ -27,7 +27,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Arus Kas</a>
+                                                    <a class="mb-0 text-sm">Penawaran Harga - Ringkas</a>
                                                 </div>
                                             </div>
 
@@ -36,7 +36,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Standar</a>
+                                                    <a class="mb-0 text-sm">Penawaran Harga - Rangkuman</a>
                                                 </div>
                                             </div>
                              
@@ -45,7 +45,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi 12 Bulan</a>
+                                                    <a class="mb-0 text-sm">Penawaran Harga - Detail</a>
                                                 </div>
                                             </div>
                              
@@ -54,7 +54,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Neraca</a>
+                                                    <a class="mb-0 text-sm">Pesanan Penjualan - Ringkas</a>
                                                 </div>
                                             </div>
                              
@@ -63,7 +63,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Neraca 12 Bulan</a>
+                                                    <a class="mb-0 text-sm">Pesanan Penjualan - Rangkuman</a>
                                                 </div>
                                             </div>
                              
@@ -72,13 +72,112 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Neraca Saldo</a>
+                                                    <a class="mb-0 text-sm">Pesanan Penjualan - Detail</a>
                                                 </div>
                                             </div>
                              
                                     </tr>
                                     </tr>
-
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Status Pengiriman Pesanan Penjualan - Detail</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Penjualan - Ringkas</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Penjualan - Rangkuman</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Penjualan - Detail</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Penjualan - Dengan Pengiriman Pesanan</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Penjualan - Rangkuman Per Penjual</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Faktur Pajak Penjualan</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Retur Penjualan - Ringkas</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Retur Penjualan - Rangkuman</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle text-left text-sm">
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <a class="mb-0 text-sm">Retur Penjualan - Detail</a>
+                                                </div>
+                                            </div>
+                             
+                                    </tr>
+                                    </tr>
                                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -86,7 +185,7 @@
                                 <thead>
                                     <tr>
                                         <th
-                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Buku Besar</th>
+                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Daftar Piutang Usaha</th>
                       
                                     </tr>
                                 </thead>
@@ -95,7 +194,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Daftar Rekening</a>
+                                                    <a class="mb-0 text-sm">Umur Piutang</a>
                                                 </div>
                                             </div>
 
@@ -104,7 +203,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jurnal Umum</a>
+                                                    <a class="mb-0 text-sm">Kartu Piutang Usaha</a>
                                                 </div>
                                             </div>
                              
@@ -113,7 +212,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jurnal - Semua Transaksi</a>
+                                                    <a class="mb-0 text-sm">Mutasi Piutang</a>
                                                 </div>
                                             </div>
                              
@@ -122,7 +221,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Buku Besar - Sederhana</a>
+                                                    <a class="mb-0 text-sm">Analisa Pembayaran Piutang</a>
                                                 </div>
                                             </div>
                              
@@ -131,7 +230,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Buku Besar - Lengkap</a>
+                                                    <a class="mb-0 text-sm">Analisa Pembayaran Piutang Custom</a>
                                                 </div>
                                             </div>
                              
@@ -140,7 +239,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jejak Audit - Ringkasan</a>
+                                                    <a class="mb-0 text-sm">Pembayaran Piutang Usaha</a>
                                                 </div>
                                             </div>
                                     
@@ -148,19 +247,12 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jejak Audit - Detail</a>
+                                                    <a class="mb-0 text-sm">Surat Tagihan untuk Pelanggan</a>
                                                 </div>
                                             </div>
 
-                                            <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jejak Audit - Histori Transaksi</a>
-                                                </div>
-                                            </div>
-
-                                            </tr>
+                                           
+                 
                                     </tr>
 </tr>
 
@@ -171,7 +263,7 @@
                                 <thead>
                                     <tr>
                                         <th
-                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Kas & Bank</th>
+                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Pengiriman</th>
                       
                                     </tr>
                                 </thead>
@@ -180,7 +272,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jurnal Pengeluaran</a>
+                                                    <a class="mb-0 text-sm">Pengiriman Pesanan - Ringkas</a>
                                                 </div>
                                             </div>
 
@@ -189,7 +281,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Jurnal Penerimaan</a>
+                                                    <a class="mb-0 text-sm">Pengiriman Pesanan - Rangkuman</a>
                                                 </div>
                                             </div>
                              
@@ -198,7 +290,7 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Rekonsiliasi Bank Per Rekening Koran</a>
+                                                    <a class="mb-0 text-sm">Pengiriman Pesanan - Detail</a>
                                                 </div>
                                             </div>
                              
@@ -207,130 +299,12 @@
                                         <td class="align-middle text-left text-sm">
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Rekonsiliasi Bank Per Buku Besar</a>
+                                                    <a class="mb-0 text-sm">Status Pengiriman Item Barang Penjualan</a>
                                                 </div>
                                             </div>
                              
                                     </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Giro Masuk</a>
-                                                </div>
-                                            </div>
-                             
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Giro Masuk - Hari Jatuh Tempo</a>
-                                                </div>
-                                            </div>
-                                    
-                                            <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Giro Keluar</a>
-                                                </div>
-                                            </div>
-
-                                            <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Giro Masuk - Hari Jatuh Tempo</a>
-                                                </div>
-                                            </div>
-
-                                            </tr>
-                                    </tr>
-</tr>
-
-                                    </div>
-</tr>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table align-items-letft mb-0">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            class="text-left text-uppercase text-secondary text-l font-weight-bolder opacity-7">Laporan Anggaran</th>
-                      
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi - Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Neraca - Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-                             
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Per Departemen - Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-                             
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Per Departemen Ringkas - Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-                             
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Per Proyek - Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-                             
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Per Proyek Ringkas- Realisasi vs Anggaran</a>
-                                                </div>
-                                            </div>
-                                    
-                                            <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Laba Rugi Tahun Sampai Saat Ini - Aktual vs Anggaran</a>
-                                                </div>
-                                            </div>
-
-                                            <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a class="mb-0 text-sm">Giro Masuk - Hari Jatuh Tempo</a>
-                                                </div>
-                                            </div>
-
+                                  
                                             
 
 
