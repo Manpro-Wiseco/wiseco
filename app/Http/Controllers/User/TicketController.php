@@ -67,7 +67,7 @@ class TicketController extends Controller
                     <i class="fas fa-trash"></i>
                     </button>';
                 }else{
-                    $actionBtn = '<a href="' . $urlView . '" class="btn bg-gradient-success btn-small">
+                    $actionBtn = '<a href="' . $urlView . '" class="btn bg-gradient-success btn-small mt-2">
                     <i class="fas fa-eye"></i></a>';
             }
                 return $actionBtn;
@@ -104,7 +104,7 @@ class TicketController extends Controller
 
         $data = Arr::except($request->all(), '_token');
         $data = Arr::add($data, 'ticket_category_id', $request->ticket_category);
-        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        // $data = Arr::add($data, 'company_id', session()->get('company')->id);
         $data = Arr::add($data, 'user_id', auth()->user()->id);
         $data = Arr::add($data, 'created_at',  Carbon::now()->timestamp);
         $data = Arr::add($data, 'updated_at',  Carbon::now()->timestamp);
