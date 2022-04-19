@@ -7,8 +7,8 @@
             <span class="ms-1 font-weight-bold text-white">Wiseco</span>
         </a>
     </div>
-    <hr class="horizontal light mt-0 mb-2">
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+    <hr class="horizontal light mt-0">
+    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main" style="height: 60vh">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link text-white nav-link <?php if (url()->current() == route('admin.dashboard')) {echo 'bg-gradient-primary';} ?>" href="{{ route('admin.dashboard') }}">
