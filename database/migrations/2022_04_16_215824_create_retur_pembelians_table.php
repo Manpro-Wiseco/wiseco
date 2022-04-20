@@ -17,7 +17,10 @@ class CreateReturPembeliansTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->integer('no_retur');
-            $table->string('nama_pelanggan');
+            $table->unsignedBigInteger('data_contact_id');
+            $table->foreign('data_contact_id')->references('id')->on('data_contact');
+            $table->unsignedBigInteger('pesanan_pembelian_id');
+            $table->foreign('pesanan_pembelian_id')->references('id')->on('pesanan_pembelians');
             $table->string('deskripsi');
             $table->integer('nilai');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);

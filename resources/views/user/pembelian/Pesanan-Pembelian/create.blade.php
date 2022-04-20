@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-faktur-pembelian.js') }}"></script>
+    <script src="{{ asset('assets/js/table-row-pesanan-pembelian.js') }}"></script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -7,12 +7,12 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('pembelian.faktur-pembelian.index') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('pembelian.pesanan-pembelian.index') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-angle-left" style="font-size: 20px"></i>
                         </a>
                         <h3>Buat Pesanan Pembelian</h3>
                         <div class="card-body pt-0">
-                            <form action="{{ route('pembelian.faktur-pembelian.store') }}" method="post">
+                            <form action="{{ route('pembelian.pesanan-pembelian.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
