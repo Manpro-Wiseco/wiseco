@@ -12,7 +12,7 @@ class Ticket extends Model
     protected $table = 'tickets';
 
     protected $fillable = [
-        'body','ticket_category_id','status','company_id','user_id','created_at','updated_at'
+        'body','ticket_category_id','status','user_id','created_at','updated_at'
     ];
 
     public function company()
