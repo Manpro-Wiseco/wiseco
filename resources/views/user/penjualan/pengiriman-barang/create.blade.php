@@ -50,7 +50,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label mt-4">No. Penawaran</label>
+                                        <label class="form-label mt-4">No. Pengiriman</label>
                                         <input type="text" class="form-control @error('invoice') is-invalid @enderror"
                                             id="invoice" name="invoice" value="{{ old('invoice') }}"
                                             placeholder="No. Penawaran" required>

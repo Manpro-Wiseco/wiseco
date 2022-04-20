@@ -49,7 +49,7 @@
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Penjualan</h4>
-                                    <svg width="145px" height="145px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+                                    <svg width="145px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                                     aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <path data-name="layer1"
                                     d="M56.7 35H7.3L2.7 49h58.6zM19 47h-4v-4h4zm5-6h-4v-4h4zm5 6h-4v-4h4zm5-6h-4v-4h4zm5 6h-4v-4h4zm5-6h-4v-4h4zm5 6h-4v-4h4z"
@@ -64,7 +64,8 @@
                         </div>
                     </a>
                 </div>
-
+            </div>
+            <div class="row">
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.pengiriman-barang.index')}}">
                         <div class="card bg-gradient-warning">
@@ -113,7 +114,7 @@
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Retur Penjualan</h4>
-                                    <svg width="145px" height="145px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+                                    <svg width="145px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                                     aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <path data-name="layer1"
                                     d="M59 19.5h-5.1L37.5 1.2a2 2 0 0 0-3 2.7l14 15.7h-35l14-15.7a2 2 0 1 0-3-2.7L8.2 19.5H3a2 2 0 0 0 0 4h56a2 2 0 0 0 0-4z"
@@ -129,14 +130,15 @@
                         </div>
                     </a>
                 </div>  
-
+            </div>
+            <div class="row">
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.retur-penjualan.index')}}">
                         <div class="card bg-gradient-danger">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Daftar Piutang Usaha</h4>
-                                    <svg width="145px" height="145px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+                                    <svg width="145px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                                     aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <path data-name="layer1"
                                     d="M59 19.5h-5.1L37.5 1.2a2 2 0 0 0-3 2.7l14 15.7h-35l14-15.7a2 2 0 1 0-3-2.7L8.2 19.5H3a2 2 0 0 0 0 4h56a2 2 0 0 0 0-4z"
@@ -152,5 +154,6 @@
                         </div>
                     </a>
                 </div>
+            </div>
     </section>
 </x-template-layout>
