@@ -38,6 +38,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
 
+    // Profile
+    Route::get('/profile', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('profile');
+
+    // Company Setting
+    Route::get('/company-setting', [\App\Http\Controllers\User\CompanySettingController::class, 'index'])->name('company-setting');
+
     // Penjualan
     Route::prefix('penjualan')->name('penjualan.')->group(function () {
         Route::get('/', [\App\Http\Controllers\User\Penjualan\HomeController::class, 'index'])->name('index');
