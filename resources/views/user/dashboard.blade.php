@@ -611,7 +611,7 @@
         </div>
         <div class="fixed-plugin">
             <a class="fixed-plugin-button text-dark position-fixed px-3 py-3" href={{ route('inbox', session()->get('company')->id) }}>
-                <img style="max-height: 30px" src="https://cdn-icons-png.flaticon.com/512/1827/1827347.png" alt="">
+                <img style="max-height: 30px" src="https://cdn-icons-png.flaticon.com/512/725/725683.png" alt="">
             </a>
         </div>
     </section>
