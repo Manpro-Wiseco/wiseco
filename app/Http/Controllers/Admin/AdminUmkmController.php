@@ -73,7 +73,7 @@ class AdminUmkmController extends Controller
                 $userId  = auth()->user()->id;
                 $actionBtn = '
                 <a href="' . $urlInbox . '" class="btn bg-gradient-info btn-small mt-2">
-                <i class="fa-solid fa-message"></i>
+                <i class="fa-solid fa-envelope"></i>
                 </a>';
                 return $actionBtn;
             })

@@ -27,7 +27,7 @@
                                 <label class="form-label mt-2" style="font-size: 14px">Kategori</label>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label mt-2" style="font-size: 14px">{{$ticket->category}}</label>
+                                <label class="form-label mt-2" style="font-size: 14px"><?php echo htmlspecialchars_decode($ticket->category); ?></label>
                             </div>
                         </div>
                         <div class="row mt-0">

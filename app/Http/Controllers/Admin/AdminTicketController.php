@@ -53,21 +53,16 @@ class AdminTicketController extends Controller
                 $urlView = route('admin.ticket.view', $row->id);
                 $urlEdit = route('admin.ticket.edit', $row->id);
                 $userId  = auth()->user()->id;
-                if ($row->user_id == $userId ) {
-                    $actionBtn = '
-                    <a href="' . $urlView . '" class="btn bg-gradient-success btn-small mt-2">
-                    <i class="fas fa-eye"></i>
-                    </a>
-                    <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small mt-2">
-                    <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn bg-gradient-danger btn-small btn-delete mt-2" data-id="' . $row->id . '" type="button">
-                    <i class="fas fa-trash"></i>
-                    </button>';
-                }else{
-                    $actionBtn = '<a href="' . $urlView . '" class="btn bg-gradient-success btn-small">
-                    <i class="fas fa-eye"></i></a>';
-            }
+                $actionBtn = '
+                <a href="' . $urlView . '" class="btn bg-gradient-success btn-small mt-2">
+                <i class="fas fa-eye"></i>
+                </a>
+                <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small mt-2">
+                <i class="fas fa-edit"></i>
+                </a>
+                <button class="btn bg-gradient-danger btn-small btn-delete mt-2" data-id="' . $row->id . '" type="button">
+                <i class="fas fa-trash"></i>
+                </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action','status','category','time'])
@@ -125,8 +120,8 @@ class AdminTicketController extends Controller
         if ($ticket->user_id == $userId ) {
             return view('admin.tiket.edit', compact('ticket','categories'));
         }else{
-        abort(403);
-    }
+            return view('admin.tiket.edit', compact('ticket','categories'));
+        }
     }
 
     /**
