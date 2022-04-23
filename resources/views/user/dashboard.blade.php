@@ -218,7 +218,7 @@
         {{-- Loss,Revenue,Expense,Filter  --}}
         <div class="row">
             {{-- Filter --}}
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            {{-- <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="Filter">
                     <div class="card">
                         <div class="card-body p-3">
@@ -251,9 +251,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- Loss --}}
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="row">
@@ -276,7 +276,7 @@
                 </div>
             </div>
             {{-- Revenue --}}
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="row">
@@ -299,7 +299,7 @@
                 </div>
             </div>
             {{-- Expense --}}
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="row">
@@ -609,7 +609,10 @@
                 </div>
             </div>
         </div>
-
-
+        <div class="fixed-plugin">
+            <a class="fixed-plugin-button text-dark position-fixed px-3 py-3" href={{ route('inbox', session()->get('company')->id) }}>
+                <img style="max-height: 30px" src="https://cdn-icons-png.flaticon.com/512/1827/1827347.png" alt="">
+            </a>
+        </div>
     </section>
 </x-template-layout>

@@ -10,7 +10,7 @@
         background-color: lightyellow;
     }
 
-    .border {
+    .border-chat {
         border: 8px solid #666;
     }
 
@@ -21,193 +21,8 @@
 
     }
 
-    /* Right triangle placed top left flush. */
-    .tri-right.border.left-top:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -40px;
-        right: auto;
-        top: -8px;
-        bottom: auto;
-        border: 32px solid;
-        border-color: #666 transparent transparent transparent;
-    }
-
-    .tri-right.left-top:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -20px;
-        right: auto;
-        top: 0px;
-        bottom: auto;
-        border: 22px solid;
-        border-color: lightyellow transparent transparent transparent;
-    }
-
-    /* Right triangle, left side slightly down */
-    .tri-right.border.left-in:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -40px;
-        right: auto;
-        top: 30px;
-        bottom: auto;
-        border: 20px solid;
-        border-color: #666 #666 transparent transparent;
-    }
-
-    .tri-right.left-in:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -20px;
-        right: auto;
-        top: 38px;
-        bottom: auto;
-        border: 12px solid;
-        border-color: lightyellow lightyellow transparent transparent;
-    }
-
-    /*Right triangle, placed bottom left side slightly in*/
-    .tri-right.border.btm-left:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -8px;
-        right: auto;
-        top: auto;
-        bottom: -40px;
-        border: 32px solid;
-        border-color: transparent transparent transparent #666;
-    }
-
-    .tri-right.btm-left:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 0px;
-        right: auto;
-        top: auto;
-        bottom: -20px;
-        border: 22px solid;
-        border-color: transparent transparent transparent lightyellow;
-    }
-
-    /*Right triangle, placed bottom left side slightly in*/
-    .tri-right.border.btm-left-in:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 30px;
-        right: auto;
-        top: auto;
-        bottom: -40px;
-        border: 20px solid;
-        border-color: #666 transparent transparent #666;
-    }
-
-    .tri-right.btm-left-in:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 38px;
-        right: auto;
-        top: auto;
-        bottom: -20px;
-        border: 12px solid;
-        border-color: lightyellow transparent transparent lightyellow;
-    }
-
-    /*Right triangle, placed bottom right side slightly in*/
-    .tri-right.border.btm-right-in:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: 30px;
-        bottom: -40px;
-        border: 20px solid;
-        border-color: #666 #666 transparent transparent;
-    }
-
-    .tri-right.btm-right-in:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: 38px;
-        bottom: -20px;
-        border: 12px solid;
-        border-color: lightyellow lightyellow transparent transparent;
-    }
-
-    /*Right triangle, placed bottom right side slightly in*/
-    .tri-right.border.btm-right:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: -8px;
-        bottom: -40px;
-        border: 20px solid;
-        border-color: #666 #666 transparent transparent;
-    }
-
-    .tri-right.btm-right:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: 0px;
-        bottom: -20px;
-        border: 12px solid;
-        border-color: lightyellow lightyellow transparent transparent;
-    }
-
-    /* Right triangle, right side slightly down*/
-    .tri-right.border.right-in:before {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: -40px;
-        top: 30px;
-        bottom: auto;
-        border: 20px solid;
-        border-color: #666 transparent transparent #666;
-    }
-
-    .tri-right.right-in:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: auto;
-        right: -20px;
-        top: 38px;
-        bottom: auto;
-        border: 12px solid;
-        border-color: lightyellow transparent transparent lightyellow;
-    }
-
     /* Right triangle placed top right flush. */
-    .tri-right.border.right-top:before {
+    .tri-right.border-chat.right-top:before {
         content: ' ';
         position: absolute;
         width: 0;
@@ -233,6 +48,33 @@
         border-color: lightyellow transparent transparent transparent;
     }
 
+    /* Left triangle placed top left flush. */
+    .tri-left.border-chat.left-top:before {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -40px;
+        right: auto;
+        top: -8px;
+        bottom: auto;
+        border: 32px solid;
+        border-color: #666 transparent transparent transparent;
+    }
+
+    .tri-left.left-top:after {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -20px;
+        right: auto;
+        top: 0px;
+        bottom: auto;
+        border: 20px solid;
+        border-color: lightyellow transparent transparent transparent;
+    }
+
     /* talk bubble contents */
     .talktext {
         padding: 1em;
@@ -248,34 +90,40 @@
 
 </style>
 @endpush
-<div class="card">
-    <div class="chat-box card p-5" style="color:black;height: 400px; overflow: auto; background-color: rgba(173,173, 173, .7)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div id="card" class="card">
+    <div id="chat-box" class="chat-box card p-5" style="color:black;height: 600px; overflow: auto; background-color: rgba(173,173, 173, .7)">
         @foreach ($chats as $chat)
-        <div class="<?php if ($chat->user_id == (auth()->user()->id)){echo "talk-bubble tri-right left-top";}else {
-            echo "talk-bubble tri-right round border right-top";}?>">
+        <div class="<?php if ($chat->user_id == (auth()->user()->id)){echo "talk-bubble tri-right round border-chat right-top";}else {
+            echo "talk-bubble tri-left round border-chat left-top";}?>">
             <div class="talktext">
-                <div class="border card p-2 mb-0" style="<?php if ($chat->user_id == (auth()->user()->id)) echo"background-color: rgba(102, 220, 59  ,   .4) ";?>">
-                    <div class="card-header pb-0" style="font-size:12px; <?php if ($chat->user_id == (auth()->user()->id)) echo"background-color: rgba(102, 220, 59  ,   .4) ";?>">
+                <div class="border card p-2 mb-0">
+                    <div class="card-header pb-0" style="font-size:12px;>">
                         <small>{{Carbon\Carbon::parse($chat->updated_at)->format("d/m/Y")}}</small>
-
                         <br>
                         <small>by: {{$chat->name}}</small>
+                        &nbsp;
+                        <?php if ($chat->user_id == 1){ echo 
+                        '<i class="fas fa-user-check"></i>';}else{
+                            echo '';
+                        };
+                         ?>
                     </div>
-                    <div class="card-body" style="<?php if ($chat->user_id == (auth()->user()->id)) echo"background-color: rgba(102, 220, 59   ,   .4) ";?>">
+                    <div class="card-body" style="overflow:auto;">
                         <?php  echo htmlspecialchars_decode($chat->chat);?>
                     </div>
                     <form onsubmit="return confirm('Chat Anda Akan Dihapus, Apakah Anda Yakin ?');" action="{{ route('admin.inbox.hapus', $chat->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <?php if ($chat->user_id == (auth()->user()->id)) echo
+                        <div style="text-align: right">
+                            <?php if ($chat->user_id == (auth()->user()->id)) echo
                         '<button type="submit" class="btn shadow"><i class="fas fa-trash"></i></button>' ;
                     ?>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-
-
         @endforeach
 
     </div>

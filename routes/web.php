@@ -64,6 +64,10 @@ Route::middleware(['auth', 'role:user'])->post('/session-company/{company}', [\A
 Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    //Inbox
+    Route::get('/inbox/{id}', [\App\Http\Controllers\User\DashboardController::class, 'inbox'])->name('inbox');
+    Route::post('/inbox/submit', [\App\Http\Controllers\User\DashboardController::class, 'submit'])->name('inbox.submit');
+    Route::delete('/inbox/hapus/{id}', [\App\Http\Controllers\User\DashboardController::class, 'hapus'])->name('inbox.hapus');
 
     // Profile
     Route::get('/profile', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('profile');
