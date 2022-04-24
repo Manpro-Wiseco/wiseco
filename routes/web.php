@@ -185,74 +185,28 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/', [\App\Http\Controllers\User\Inventory\HomeController::class, 'index'])->name('index');
 
         // Data Produk
-        Route::prefix('data-produk')->name('data-produk.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'delete'])->name('delete');
-            Route::get('/list', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'list'])->name('list');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
-            Route::get('/dropImage', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'dropImage'])->name('dropImage');
-        });
+        Route::get('/data-produk/list', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'list'])->name('data-produk.list');
+        Route::resource('/data-produk', \App\Http\Controllers\User\Inventory\DataProdukController::class);
 
         // Penyesuaian Barang
-        Route::prefix('penyesuaian-barang')->name('penyesuaian-barang.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'delete'])->name('delete');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'export'])->name('export');
-        });
+        Route::get('/penyesuaian-barang/list', [\App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class, 'list'])->name('penyesuaian-barang.list');
+        Route::resource('/penyesuaian-barang', \App\Http\Controllers\User\Inventory\PenyesuaianBarangController::class);
 
         // Stok Opname
-        Route::prefix('stok-opname')->name('stok-opname.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'delete'])->name('delete');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'export'])->name('export');
-        });
+        Route::get('/stok-opname/list', [\App\Http\Controllers\User\Inventory\StokOpnameController::class, 'list'])->name('stok-opname.list');
+        Route::resource('/stok-opname', \App\Http\Controllers\User\Inventory\StokOpnameController::class);
 
         // Pindah Gudang
-        Route::prefix('pindah-gudang')->name('pindah-gudang.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'delete'])->name('delete');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'export'])->name('export');
-        });
+        Route::get('/pindah-gudang/list', [\App\Http\Controllers\User\Inventory\PindahGudangController::class, 'list'])->name('pindah-gudang.list');
+        Route::resource('/pindah-gudang', \App\Http\Controllers\User\Inventory\PindahGudangController::class);
 
         // Gudang
-        Route::prefix('gudang')->name('gudang.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\GudangController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\GudangController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\GudangController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\GudangController::class, 'delete'])->name('delete');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\GudangController::class, 'export'])->name('export');
-            Route::get('/list', [\App\Http\Controllers\User\Inventory\GudangController::class, 'list'])->name('list');
-        });
+        Route::get('/gudang/list', [\App\Http\Controllers\User\Inventory\GudangController::class, 'list'])->name('gudang.list');
+        Route::resource('/gudang', \App\Http\Controllers\User\Inventory\GudangController::class);
 
         // Barang Konsinyasi
-        Route::prefix('barang-konsinyasi')->name('barang-konsinyasi.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'delete'])->name('delete');
-            Route::get('/export', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'export'])->name('export');
-            Route::get('/list', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'list'])->name('list');
-        });
+        Route::get('/barang-konsinyasi/list', [\App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class, 'list'])->name('barang-konsinyasi.list');
+        Route::resource('/barang-konsinyasi', \App\Http\Controllers\User\Inventory\BarangKonsinyasiController::class);
     });
 
     // Pengelolaan Kas

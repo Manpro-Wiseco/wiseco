@@ -84,8 +84,9 @@
                             <h4>Edit Data Produk</h4>
                         </div>
                         <div class="card-body pt-0">
-                            <form action="{{ route('inventory.data-produk.store') }}" method="post">
+                            <form action="{{ route('inventory.data-produk.update', $dataProduk->id) }}" method="post">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="form-label">Nama Produk</label>
@@ -103,7 +104,7 @@
                                         <label class="form-label mt-4">Kode Produk</label>
                                         <input type="text"
                                             class="form-control read-only @error('codeItem') is-invalid @enderror"
-                                            id="codeItem" name="codeItem" value="{{ old('codeItem') }}"
+                                            id="codeItem" name="codeItem" value="{{ old('codeItem') ?? $dataProduk->codeItem }}"
                                             placeholder="Kode Produk" required>
                                         @error('codeItem')
                                             <span class="invalid-feedback" role="alert">
@@ -131,7 +132,7 @@
                                         <label class="form-label mt-4">Deskripsi</label>
                                         <input type="text"
                                             class="form-control @error('descriptionItem') is-invalid @enderror"
-                                            id="descriptionItem" name="descriptionItem" value="{{ old('descriptionItem') }}"
+                                            id="descriptionItem" name="descriptionItem" value="{{ old('descriptionItem') ?? $dataProduk->descriptionItem }}"
                                             placeholder="Deskripsi" required>
                                         @error('descriptionItem')
                                             <span class="invalid-feedback" role="alert">
@@ -142,7 +143,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Harga Jual</label>
                                         <div class="input-group input-group-alternative mb-4" @error('priceItem') is-invalid @enderror>
-                                            <input class="form-control" id="priceItem" name="priceItem" placeholder="Rp. 00.00" type="text" >
+                                            <input class="form-control" id="priceItem" name="priceItem" placeholder="Rp. 00.00" type="text" value="{{ old('priceItem') ?? $dataProduk->priceItem }}">
                                         </div>
                                         @error('priceItem')
                                             <span class="invalid-feedback" role="alert">
@@ -153,7 +154,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Harga Beli</label>
                                         <div class="input-group input-group-alternative mb-4" @error('costItem') is-invalid @enderror>
-                                            <input class="form-control" id="costItem" name="costItem" placeholder="Rp. 00.00" type="text" >
+                                            <input class="form-control" id="costItem" name="costItem" placeholder="Rp. 00.00" type="text" value="{{ old('costItem') ?? $dataProduk->costItem }}">
                                         </div>
                                         @error('costItem')
                                             <span class="invalid-feedback" role="alert">
@@ -164,7 +165,7 @@
                                     
                                 </div>
                                 <div class="mt-4">
-                                    <input type="submit" id="bt" value="Submit Data" class="btn bg-gradient-primary" />
+                                    <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

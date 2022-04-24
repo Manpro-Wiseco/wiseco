@@ -37,11 +37,11 @@ class DataProdukController extends Controller
             ->addColumn('action', function ($row) {
                 $urlEdit = route('inventory.data-produk.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-        <i class="fas fa-edit"></i>
-    </a>
-    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
-        <i class="fas fa-trash"></i>
-    </button>';
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                            <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->nameItem . '" type="button">
+                                <i class="fas fa-trash"></i>
+                            </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -97,10 +97,10 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataProduk $dataProduk)
+    public function edit(Item $dataProduk)
     {
         return view('user.inventory.data-produk.edit', compact('dataProduk'));
-
+        // dd($dataProduk);
     }
 
     /**
@@ -110,7 +110,7 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataProduk $dataProduk)
+    public function update(Request $request, Item $dataProduk)
     {
         $request->validate([
             'nameItem' => 'required',
@@ -131,8 +131,9 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DataProduk $dataProduk)
+    public function destroy(Item $dataProduk)
     {
-        //
+        $dataProduk->delete();
+        return response()->json(['status' => TRUE]);
     }
 }
