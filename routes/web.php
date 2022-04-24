@@ -180,9 +180,6 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         });
    });
 
-    
-
-
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
         Route::get('/', [\App\Http\Controllers\User\Inventory\HomeController::class, 'index'])->name('index');
@@ -197,6 +194,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/delete/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'delete'])->name('delete');
             Route::get('/list', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'list'])->name('list');
             Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+            Route::get('/dropImage', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'dropImage'])->name('dropImage');
         });
 
         // Penyesuaian Barang

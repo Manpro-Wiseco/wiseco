@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Inventory;
 use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
 use App\Models\Expense;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -23,12 +24,12 @@ class DataProdukController extends Controller
 
     public function list(Request $request)
     {
-        $data = Expense::with(['bankAccounts', 'dataContact'])->currentCompany()->latest()->get();
+        $data = Item::currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('penerima', function ($row) {
-                return $row->dataContact->name;
-            })
+            ->addColumn('quantitasItem', function ($row) {
+                return $row->stockItem . " " . $row->unitItem;
+            })          
             ->addColumn('action', function ($row) {
                 $urlEdit = route('inventory.data-produk.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">

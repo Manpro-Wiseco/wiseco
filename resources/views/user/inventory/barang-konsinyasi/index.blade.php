@@ -42,7 +42,7 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('pengelolaan-kas.expense.list') }}", //Fix Export Data di DataProdukController
+                ajax: "{{ route('inventory.data-produk.list') }}", //Fix List Data di DataProdukController
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -64,13 +64,17 @@
                         className: 'align-middle text-center'
                     },
                     {
+                        data: 'total',
+                        name: 'total',
+                        className: 'align-middle text-center'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false,
                         className: 'align-middle text-center'
                     },
-
                 ]
             });
 
@@ -140,9 +144,9 @@
                             <a href="{{ route('inventory.index') }}" class="btn bg-gradient-primary btn-small">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <h4>Stok Opname</h4>
+                            <h4>Barang Konsinyasi</h4>
                         </div>
-                        <a href="{{ route('inventory.stok-opname.create') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('inventory.data-produk.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
@@ -153,16 +157,19 @@
                                     <tr>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Tanggal</th>
+                                            Kode</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kode Referensi</th>
+                                            Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Data Gudang</th>
+                                            Kategori</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Deskripsi</th>
+                                            Harga Jual</th>
+                                            <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Kuantitas Tersedia</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
