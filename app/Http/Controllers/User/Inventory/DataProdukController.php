@@ -4,9 +4,10 @@ namespace App\Http\Controllers\User\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
-use App\Models\Expense;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 
@@ -28,6 +29,9 @@ class DataProdukController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('quantitasItem', function ($row) {
+                if ($row->stockItem == null) {
+                    return "0 " . $row->unitItem;
+                }
                 return $row->stockItem . " " . $row->unitItem;
             })          
             ->addColumn('action', function ($row) {
@@ -62,7 +66,18 @@ class DataProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nameItem' => 'required',
+            'codeItem' => 'required',
+            'unitItem' => 'required',
+            'descriptionItem' => 'required',
+            'priceItem' => 'required|numeric',
+            'costItem' => 'required|numeric',
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        Item::create($data);
+        return redirect()->route('inventory.data-produk.index')->with('success', 'Berhasil Menambahkan Data Item Baru!');
     }
 
     /**
@@ -84,7 +99,8 @@ class DataProdukController extends Controller
      */
     public function edit(DataProduk $dataProduk)
     {
-        //
+        return view('user.inventory.data-produk.edit', compact('dataProduk'));
+
     }
 
     /**
@@ -96,7 +112,17 @@ class DataProdukController extends Controller
      */
     public function update(Request $request, DataProduk $dataProduk)
     {
-        //
+        $request->validate([
+            'nameItem' => 'required',
+            'codeItem' => 'required',
+            'unitItem' => 'required',
+            'descriptionItem' => 'required',
+            'priceItem' => 'required|numeric',
+            'costItem' => 'required|numeric',
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $dataProduk->update($data);
+        return redirect()->route('inventory.data-produk.index')->with('success', 'Berhasil Mengubah Data Item Baru!');
     }
 
     /**

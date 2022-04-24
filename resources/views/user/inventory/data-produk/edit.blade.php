@@ -81,7 +81,7 @@
                                 class="btn bg-gradient-primary btn-small">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <h4>Input Data Produk</h4>
+                            <h4>Edit Data Produk</h4>
                         </div>
                         <div class="card-body pt-0">
                             <form action="{{ route('inventory.data-produk.store') }}" method="post">
@@ -90,7 +90,7 @@
                                     <div class="col-md-12">
                                         <label class="form-label">Nama Produk</label>
                                         <input type="text" class="form-control @error('nameItem') is-invalid @enderror"
-                                            id="nameItem" name="nameItem" value="{{ old('nameItem') }}"
+                                            id="nameItem" name="nameItem" value="{{ old('nameItem')?? $dataProduk->nameItem }}"
                                             placeholder="Masukan Nama Produk" required>
                                         @error('nameItem')
                                             <span class="invalid-feedback" role="alert">
