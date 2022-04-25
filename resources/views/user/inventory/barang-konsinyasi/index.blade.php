@@ -42,30 +42,40 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('inventory.data-produk.list') }}", //Fix List Data di DataProdukController
+                ajax: "{{ route('inventory.barang-konsinyasi.list') }}", //Fix List Data di DataProdukController
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'invoice',
-                        name: 'invoice',
+                        data: 'dateKonsinyasi',
+                        name: 'dateKonsinyasi',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'penerima',
-                        name: 'penerima',
+                        data: 'invoiceKonsinyasi',
+                        name: 'invoiceKonsinyasi',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'description',
-                        name: 'description',
+                        data: 'nama_customer',
+                        name: 'nama_customer',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'keterangan',
+                        name: 'keterangan',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'total_rupiah',
+                        name: 'total_rupiah',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
                         className: 'align-middle text-center'
                     },
                     {
@@ -146,7 +156,7 @@
                             </a>
                             <h4>Barang Konsinyasi</h4>
                         </div>
-                        <a href="{{ route('inventory.data-produk.create') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('inventory.barang-konsinyasi.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
@@ -155,21 +165,26 @@
                             <table class="table align-items-center mb-0" id="product-table">
                                 <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Nomor</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Kode</th>
+                                            Tangal</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Nama</th>
+                                            Invoice</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kategori</th>
+                                            Nama Kostumer</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Harga Jual</th>
-                                            <th
+                                            Deskripsi</th>
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kuantitas Tersedia</th>
+                                            Total Harga</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Status</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
