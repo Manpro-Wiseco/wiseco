@@ -21,9 +21,36 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    //Admin Dashboard
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
+    
+    //List Pengguna
+    Route::get('/table/list', [\App\Http\Controllers\Admin\AdminUserTableController::class, 'list'])->name('table.list');
+    Route::resource('/table', \App\Http\Controllers\Admin\AdminUserTableController::class);
+    
+    //List Umkm
+    Route::get('/umkm/list', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'list'])->name('umkm.list');
+    Route::get('/umkm/inbox/{id}', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'inbox'])->name('umkm.inbox');
+    Route::resource('/umkm', \App\Http\Controllers\Admin\AdminUmkmController::class);
+
+    //Inbox
+    Route::post('/inbox/submit', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'submit'])->name('inbox.submit');
+    Route::delete('/inbox/hapus/{id}', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'hapus'])->name('inbox.hapus');
+    Route::resource('/umkm', \App\Http\Controllers\Admin\AdminUmkmController::class);
+
+    // Data Ticket
+    Route::get('/ticket/list', [\App\Http\Controllers\Admin\AdminTicketController::class, 'list'])->name('ticket.list');
+    Route::get('/ticket/view/{id}', [\App\Http\Controllers\Admin\AdminTicketController::class, 'view'])->name('ticket.view');
+    Route::get('/ticket/update', [\App\Http\Controllers\Admin\AdminTicketController::class, 'update'])->name('ticket.update');
+    Route::resource('/ticket', \App\Http\Controllers\Admin\AdminTicketController::class);
+
+    Route::get('/ticket_response/store', [\App\Http\Controllers\Admin\AdminTicketResponseController::class, 'store'])->name('ticket_response.store');
+    Route::resource('/ticket_response', \App\Http\Controllers\Admin\AdminTicketResponseController::class);
+
+    Route::get('/ticketcategory/list', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'list'])->name('ticketcategory.list');
+    Route::get('/ticketcategory/update', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'update'])->name('ticketcategory.update');
+    Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
+
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -37,6 +64,16 @@ Route::middleware(['auth', 'role:user'])->post('/session-company/{company}', [\A
 Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    //Inbox
+    Route::get('/inbox/{id}', [\App\Http\Controllers\User\DashboardController::class, 'inbox'])->name('inbox');
+    Route::post('/inbox/submit', [\App\Http\Controllers\User\DashboardController::class, 'submit'])->name('inbox.submit');
+    Route::delete('/inbox/hapus/{id}', [\App\Http\Controllers\User\DashboardController::class, 'hapus'])->name('inbox.hapus');
+
+    // Profile
+    Route::get('/profile', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('profile');
+
+    // Company Setting
+    Route::get('/company-setting', [\App\Http\Controllers\User\CompanySettingController::class, 'index'])->name('company-setting');
 
     // Penjualan
     Route::prefix('penjualan')->name('penjualan.')->group(function () {
@@ -124,10 +161,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
-            Route::get('/list', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'list'])->name('list');
+            Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\PesananPembelianController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
         });
 

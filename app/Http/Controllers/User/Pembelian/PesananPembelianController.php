@@ -4,11 +4,11 @@ namespace App\Http\Controllers\User\Pembelian;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataContact;
-use App\Models\pesananPembelian;
-use App\Models\Expense;
-use Carbon\Carbon;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use App\Models\PesananPembelian;
+//use App\Models\Expense;
+//use Carbon\Carbon;
+//use Illuminate\Support\Arr;
+//use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -21,7 +21,7 @@ class PesananPembelianController extends Controller
 
     public function list(Request $request)
     {
-        $data = PenerimaanBarang::latest()->get();
+        $data = PesananPembelian::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {

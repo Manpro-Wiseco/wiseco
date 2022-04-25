@@ -17,6 +17,8 @@ class CreatePesananPembeliansTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->integer('no_pesanan');
+            $table->unsignedBigInteger('data_contact_id');
+            $table->foreign('data_contact_id')->references('id')->on('data_contact');
             $table->string('nama_pelanggan');
             $table->string('deskripsi');
             $table->integer('nilai');
