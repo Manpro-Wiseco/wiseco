@@ -21,7 +21,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white <?php if (url()->current() == route('admin.table.index')) {echo 'bg-gradient-primary';} ?>" href="{{ route('admin.table.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">account_box</i>
                     </div>
                     <span class="nav-link-text ms-1">Tabel Pengguna</span>
                 </a>
@@ -29,7 +29,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white <?php if (url()->current() == route('admin.umkm.index')) {echo 'bg-gradient-primary';} ?>" href="{{ route('admin.umkm.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">store</i>
                     </div>
                     <span class="nav-link-text ms-1">Tabel UMKM</span>
                 </a>
@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white <?php if (url()->current() == route('admin.ticketcategory.index')) {echo 'bg-gradient-primary';} ?>" href="{{ route('admin.ticketcategory.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">credit_card</i>
+                        <i class="material-icons opacity-10">category</i>
                     </div>
                     <span class="nav-link-text ms-1">Kategori Tiket</span>
                 </a>

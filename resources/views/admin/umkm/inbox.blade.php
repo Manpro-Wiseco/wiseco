@@ -88,11 +88,45 @@
         -webkit-margin-after: 0em;
     }
 
+    /* custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #ddd;
+    }
+
+    #chat-box:hover::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        opacity: 0.9;
+    }
+
+    #chat-box {
+        transition: 1s;
+    }
+
 </style>
 @endpush
+<a href="{{ route('admin.umkm.index') }}" class="btn bg-gradient-primary">
+    <i class="fas fa-angle-left" style="font-size: 20px"></i>
+</a>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="card" class="card">
-    <div id="chat-box" class="chat-box card p-5" style="color:black;height: 600px; overflow: auto; background-color: rgba(173,173, 173, .7)">
+    <div id="chat-box" class="chat-box card p-6 m-4 custom-scrollbar w3-animate-opacity" style="color:black;height: 600px; overflow: auto; background-color: rgba(173,173, 173, .7)">
         @foreach ($chats as $chat)
         <div class="<?php if ($chat->user_id == (auth()->user()->id)){echo "talk-bubble tri-right round border-chat right-top";}else {
             echo "talk-bubble tri-left round border-chat left-top";}?>">
