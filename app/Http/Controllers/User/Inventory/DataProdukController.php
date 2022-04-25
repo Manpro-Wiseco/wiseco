@@ -33,7 +33,10 @@ class DataProdukController extends Controller
                     return "0 " . $row->unitItem;
                 }
                 return $row->stockItem . " " . $row->unitItem;
-            })          
+            })    
+            ->addColumn('hargaJual', function ($row) {
+                return "Rp " . number_format($row->priceItem, 2, ',', '.');
+            })      
             ->addColumn('action', function ($row) {
                 $urlEdit = route('inventory.data-produk.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">

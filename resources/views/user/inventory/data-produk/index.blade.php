@@ -65,6 +65,11 @@
                         className: 'align-middle text-center'
                     },
                     {
+                        data: 'hargaJual',
+                        name: 'hargaJual',
+                        className: 'align-middle text-center'
+                    },
+                    {
                         data: 'quantitasItem',
                         name: 'quantitasItem',
                         className: 'align-middle text-center'
@@ -167,6 +172,9 @@
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Deskripsi</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Harga Jual Item</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Kuantitas Tersedia</th>
