@@ -26,7 +26,7 @@
             /**
              * * Fungsi untuk Exporting Data tabel ke Excel
              * TODO: Refactor untuk menyesuaikan dengan tabel yang akan ditampilkan
-            */
+             */
             let table = $('#product-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
@@ -43,8 +43,7 @@
                     }
                 },
                 ajax: "{{ route('inventory.data-produk.list') }}", //Fix List Data di DataProdukController
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
@@ -104,7 +103,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('expense') }}/" + id,
+                            url: "{{ url('inventory/data-produk') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
