@@ -38,7 +38,7 @@ class ChartPenjualanScript extends Component
         $count = [];
         $tanggal = [];
 
-        for ($i=1; $i < $hari_per_bulan ; $i++) { 
+        for ($i=1; $i <= $hari_per_bulan ; $i++) { 
             for ($j=0; $j < count($penjualan) ; $j++) { 
                 if (substr($penjualan[$j]->tanggal,-2)==$i) {
                     $tanggal[$i] = substr($penjualan[$j]->tanggal,-2);
@@ -63,6 +63,7 @@ class ChartPenjualanScript extends Component
         
         // var_dump($tanggal);
         // die();
+        // dd($tanggal);
 
         return view('livewire.chart-penjualan-script',compact('count','tanggal'));
     }
