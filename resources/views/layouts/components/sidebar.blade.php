@@ -229,9 +229,15 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link " href="#">
+                            <a class="nav-link " href="{{ route('company-setting') }}">
                                 <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal"> Settings </span>
+                                <span class="sidenav-normal"> My Company </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="{{ route('profile') }}">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Profile </span>
                             </a>
                         </li>
                     </ul>
