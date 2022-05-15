@@ -21,4 +21,9 @@ class Warehouse extends Model
     {
         return $query->where('company_id', '=', session()->get('company')->id);
     }
+
+    public function konsinyasi()
+    {
+        return $this->hasMany(Konsinyasi::class);
+    }
 }

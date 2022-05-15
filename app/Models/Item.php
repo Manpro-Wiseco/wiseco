@@ -24,6 +24,6 @@ class Item extends Model
 
     public function konsinyasi()
     {
-        return $this->belongsToMany(Konsinyasi::class, 'item_konsinyasi', 'item_id', 'konsinyasi_id')->withPivot(['id', 'jumlah_barang']);
+        return $this->belongsToMany(Konsinyasi::class, 'item_konsinyasi', 'item_id', 'konsinyasi_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
     }
 }

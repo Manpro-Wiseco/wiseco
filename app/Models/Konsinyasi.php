@@ -33,6 +33,11 @@ class Konsinyasi extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'item_konsinyasi', 'konsinyasi_id', 'item_id')->withPivot(['id', 'jumlah_barang']);
+        return $this->belongsToMany(Item::class, 'item_konsinyasi', 'konsinyasi_id', 'item_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal'])->withTimestamps();
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 }
