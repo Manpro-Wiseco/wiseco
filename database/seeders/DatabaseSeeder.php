@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ClassificationSeeder::class,
             SubClassificationSeeder::class,
             TicketCategorySeeder::class,
+            ItemSeeder::class,
         ]);
     }
 }

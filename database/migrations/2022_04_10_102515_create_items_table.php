@@ -18,15 +18,12 @@ class CreateItemsTable extends Migration
             $table->string('nameItem');
             $table->string('codeItem')->nullable();
             $table->string('descriptionItem')->nullable();
-            $table->string('unitItem')->nullable();
-            $table->string('classificationItem')->nullable();
+            $table->enum('unitItem', ['Box', 'Pcs', 'Kg', 'Cup', 'Unit']);
             $table->string('costItem')->nullable();
             $table->string('priceItem')->nullable();
             $table->string('stockItem')->nullable();
-            $table->string('stockMinItem')->nullable();
             $table->string('pajakPembelianItem')->nullable();
             $table->string('pajakPenjualanItem')->nullable();
-            $table->string('photoItem')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();

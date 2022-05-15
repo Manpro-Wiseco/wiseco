@@ -27,20 +27,20 @@
                         <label class="form-label mt-2" style="font-size: 14px">Kategori</label>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label mt-2" style="font-size: 14px">{{$ticket->category}}</label>
-                    </div>
-                </div>
-                <div class="row mt-0">
-                    <div class="col-md-1">
-                        <label class="form-label mt-4" style="font-size: 14px">Author</label>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label mt-4" style="font-size: 14px">{{$ticket->name}}</label>
+                        <label class="form-label mt-2" style="font-size: 14px"><?php echo htmlspecialchars_decode($ticket->category); ?></label>
                     </div>
                 </div>
                 <div class="row mt-5 mb-3">
-                    <div class="card p-3 border">
-                        <?php echo htmlspecialchars_decode($ticket->body); ?>
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-header text-white" style="background-color: #00AA9E;">
+                                By : {{$ticket->name}} <br>
+                                <small>{{Carbon\Carbon::parse($ticket->updated_at)->format("d/m/Y")}}</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><?php echo htmlspecialchars_decode($ticket->body); ?></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,11 @@
 <script>
     CKEDITOR.replace('response');
     CKEDITOR.config.allowedContent = true;
+    CKEDITOR.editorConfig = function(config) {
+        config.language = 'es';
+        config.uiColor = '#F7B42C';
+        config.toolbarCanCollapse = true;
+    };
 
 </script>
 @endcomponent

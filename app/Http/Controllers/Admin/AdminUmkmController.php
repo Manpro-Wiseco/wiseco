@@ -73,7 +73,7 @@ class AdminUmkmController extends Controller
                 $userId  = auth()->user()->id;
                 $actionBtn = '
                 <a href="' . $urlInbox . '" class="btn bg-gradient-info btn-small mt-2">
-                <i class="fa-solid fa-message"></i>
+                <i class="fa-solid fa-envelope"></i>
                 </a>';
                 return $actionBtn;
             })
@@ -92,7 +92,7 @@ class AdminUmkmController extends Controller
     {
         $data = Company::join('users', 'companies.user_id', '=', 'users.id')->get(['companies.*','users.name AS username']);
         $company = $data->find($id);
-        $chats_ = Chat::join('companies', 'chats.company_id', '=', 'companies.id')->join('users', 'chats.user_id', '=', 'users.id')->get(['chats.*','users.name']);
+        $chats_ = Chat::join('companies', 'chats.company_id', '=', 'companies.id')->join('users', 'chats.user_id', '=', 'users.id')->orderBy('id', 'ASC')->get(['chats.*','users.name']);
         $chats = $chats_->where('company_id',$id);
         return view('admin.umkm.inbox',compact('company','chats'));
     }

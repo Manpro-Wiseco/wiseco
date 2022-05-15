@@ -107,7 +107,7 @@
                         , success: function(response) {
                             Swal.fire(
                                 'Deleted!'
-                                , `Data ticket berhasil dihapus.`
+                                , `Data berhasil dihapus.`
                                 , 'success'
                             )
                             reload_table(null, true)

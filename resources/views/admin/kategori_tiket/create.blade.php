@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <a href="{{ route('admin.ticket.index') }}" class="btn bg-gradient-primary">
+                <a href="{{ route('admin.ticketcategory.index') }}" class="btn bg-gradient-primary">
                     <i class="fas fa-angle-left" style="font-size: 20px"></i>
                 </a>
                 <h4>Buat Kategori Baru</h4>
@@ -12,7 +12,7 @@
                         @csrf
                         <div class="col-md-12">
                             <label class="form-label mt-4">Deskripsi</label>
-                            <textarea name="category" id="category" cols="30" rows="7" class="form-control @error('category') is-invalid @enderror" placeholder="Deskripsi" required>{{ old('category') }}</textarea>
+                            <textarea style="padding: 5px" name="category" id="category" cols="1" rows="1" class="border form-control @error('category') is-invalid @enderror" placeholder="Deskripsi" required>{{ old('category') }}</textarea>
                             @error('category')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -31,8 +31,8 @@
 </div>
 @endcomponent
 <script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
-<script>
+{{-- <script>
     CKEDITOR.replace('category');
     CKEDITOR.config.allowedContent = true;
 
-</script>
+</script> --}}

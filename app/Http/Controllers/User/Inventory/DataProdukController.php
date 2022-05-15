@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
-use App\Models\Expense;
+use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 
@@ -23,20 +25,26 @@ class DataProdukController extends Controller
 
     public function list(Request $request)
     {
-        $data = Expense::with(['bankAccounts', 'dataContact'])->currentCompany()->latest()->get();
+        $data = Item::currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('penerima', function ($row) {
-                return $row->dataContact->name;
-            })
+            ->addColumn('quantitasItem', function ($row) {
+                if ($row->stockItem == null) {
+                    return "0 " . $row->unitItem;
+                }
+                return $row->stockItem . " " . $row->unitItem;
+            })    
+            ->addColumn('hargaJual', function ($row) {
+                return "Rp " . number_format($row->priceItem, 2, ',', '.');
+            })      
             ->addColumn('action', function ($row) {
                 $urlEdit = route('inventory.data-produk.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-        <i class="fas fa-edit"></i>
-    </a>
-    <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->name . '" type="button">
-        <i class="fas fa-trash"></i>
-    </button>';
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                            <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-name="' . $row->nameItem . '" type="button">
+                                <i class="fas fa-trash"></i>
+                            </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -61,7 +69,18 @@ class DataProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nameItem' => 'required',
+            'codeItem' => 'required',
+            'unitItem' => 'required',
+            'descriptionItem' => 'required',
+            'priceItem' => 'required|numeric',
+            'costItem' => 'required|numeric',
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        Item::create($data);
+        return redirect()->route('inventory.data-produk.index')->with('success', 'Berhasil Menambahkan Data Item Baru!');
     }
 
     /**
@@ -81,9 +100,10 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataProduk $dataProduk)
+    public function edit(Item $dataProduk)
     {
-        //
+        return view('user.inventory.data-produk.edit', compact('dataProduk'));
+        // dd($dataProduk);
     }
 
     /**
@@ -93,9 +113,19 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataProduk $dataProduk)
+    public function update(Request $request, Item $dataProduk)
     {
-        //
+        $request->validate([
+            'nameItem' => 'required',
+            'codeItem' => 'required',
+            'unitItem' => 'required',
+            'descriptionItem' => 'required',
+            'priceItem' => 'required|numeric',
+            'costItem' => 'required|numeric',
+        ]);
+        $data = Arr::except($request->all(), '_token');
+        $dataProduk->update($data);
+        return redirect()->route('inventory.data-produk.index')->with('success', 'Berhasil Mengubah Data Item Baru!');
     }
 
     /**
@@ -104,8 +134,9 @@ class DataProdukController extends Controller
      * @param  \App\Models\DataProduk  $dataProduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DataProduk $dataProduk)
+    public function destroy(Item $dataProduk)
     {
-        //
+        $dataProduk->delete();
+        return response()->json(['status' => TRUE]);
     }
 }
