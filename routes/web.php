@@ -23,11 +23,11 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
     //Admin Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
-    
+
     //List Pengguna
     Route::get('/table/list', [\App\Http\Controllers\Admin\AdminUserTableController::class, 'list'])->name('table.list');
     Route::resource('/table', \App\Http\Controllers\Admin\AdminUserTableController::class);
-    
+
     //List Umkm
     Route::get('/umkm/list', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'list'])->name('umkm.list');
     Route::get('/umkm/inbox/{id}', [\App\Http\Controllers\Admin\AdminUmkmController::class, 'inbox'])->name('umkm.inbox');
@@ -50,7 +50,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/ticketcategory/list', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'list'])->name('ticketcategory.list');
     Route::get('/ticketcategory/update', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'update'])->name('ticketcategory.update');
     Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
-
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -155,7 +154,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Pembelian
     Route::prefix('pembelian')->name('pembelian.')->group(function () {
         Route::get('/', [\App\Http\Controllers\User\pembelian\HomeController::class, 'index'])->name('index');
-    
+
         //pesanan pembelian
         Route::prefix('pesanan-pembelian')->name('pesanan-pembelian.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('index');
@@ -215,7 +214,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
-   });
+    });
 
     // Inventory
     Route::prefix('inventory')->name('inventory.')->group(function () {
@@ -301,4 +300,9 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
     Route::get('/ticket_response/store', [\App\Http\Controllers\User\TicketResponseController::class, 'store'])->name('ticket_response.store');
     Route::resource('/ticket_response', \App\Http\Controllers\User\TicketResponseController::class);
+
+    // Data Lainnya - Data Warehouse
+    Route::get('/warehouse/list', [\App\Http\Controllers\User\WarehouseController::class, 'list'])->name('warehouse.list');
+    Route::get('/warehouse/data', [\App\Http\Controllers\User\WarehouseController::class, 'data'])->name('warehouse.data');
+    Route::resource('/warehouse', \App\Http\Controllers\User\WarehouseController::class);
 });

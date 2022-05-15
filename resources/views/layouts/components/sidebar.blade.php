@@ -233,6 +233,12 @@
                             </a>
                         </li>
                         <li class="nav-item ">
+                            <a class="nav-link " href="{{ route('warehouse.index') }}">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Data Gudang </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link " href="{{ route('ticket.index') }}">
                                 <span class="sidenav-mini-icon"> O </span>
                                 <span class="sidenav-normal"> Tiket </span>
