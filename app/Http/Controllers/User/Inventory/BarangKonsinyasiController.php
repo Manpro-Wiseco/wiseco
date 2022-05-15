@@ -176,10 +176,6 @@ class BarangKonsinyasiController extends Controller
             return $result;
         }, []);
 
-        // $new_array = array_reduce($detail, function ($result, $item) {
-        //     $result[$item['data_produk_id']] = $item['amount'];
-        //     return $result;
-        // }, []);
         $konsinyasi->update([
             'dateKonsinyasi' => $data['transaction_date'],
             'invoiceKonsinyasi' => $data['invoice'],

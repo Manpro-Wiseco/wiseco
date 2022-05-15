@@ -9,15 +9,15 @@
 
 @push('scripts')
     {{-- Script multi table --}}
-    <script src="{{ asset('assets/js/konsinyasi-table-create.js') }}"></script>
+    <script src="{{ asset('assets/js/adjustment-table-create.js') }}"></script>
     {{-- Script for select 2 for Customer --}}
     <script>
-        $("#from_account_id").select2({
+        $("#warehouse_id").select2({
             placeholder: "- Pilih Salah Satu -",
             allowClear: true,
             theme: 'bootstrap-5',
             ajax: {
-                url: `{{ route('pengelolaan-kas.data-account.data-only-cash') }}`,
+                url: `{{ route('warehouse.data') }}`,
                 dataType: "json",
                 data: function(params) {
                     return {
@@ -46,74 +46,30 @@
                                 class="btn bg-gradient-primary btn-small">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <h4>Penyesuaian Barang</h4>
+                            <h4>Buat Data Penyesuaian Barang</h4>
                         </div>
                         <div class="card-body pt-0">
-                            <form action="{{ route('inventory.barang-konsinyasi.store') }}" method="post">
+                            <form action="{{ route('inventory.penyesuaian-barang.store') }}" method="post">
                                 @csrf
                                 <div class="row">
-                                    {{-- <div class="col-md-6">
-                                        <label class="form-label">Penerima</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
-                                            required>
-                                            <option>- Pilih Salah Satu -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('data_contact_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Dari Gudang</label>
-                                        <select name="from_account_id" id="from_account_id"
-                                            class="form-control @error('from_account_id') is-invalid @enderror"
-                                            required>
-                                            <option>- Pilih Salah Satu -</option>
-                                        </select>
-                                        @error('from_account_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label mt-4">Invoice</label>
-                                        <input type="text" class="form-control @error('invoice') is-invalid @enderror"
-                                            id="invoice" name="invoice" value="{{ old('invoice') }}"
-                                            placeholder="Invoice" required>
-                                        @error('invoice')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
-                                    <div class="col-md-6">
-                                        <label class="form-label mt-4">Tanggal Tambah Barang</label>
-                                        <input type="date"
-                                            class="form-control @error('transaction_date') is-invalid @enderror"
-                                            id="transaction_date" name="transaction_date"
-                                            value="{{ old('transaction_date') }}" placeholder="Nomor Telepon"
-                                            required>
-                                        @error('transaction_date')
+                                    <div class="col-md-12">
+                                        <label class="form-label mt-4">Tanggal</label>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}"
+                                            placeholder="Tanggal" required>
+                                        @error('tanggal')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-label mt-4">Deskripsi</label>
+                                        <label class="form-label mt-4">Keterangan</label>
                                         <input type="text"
-                                            class="form-control @error('description') is-invalid @enderror"
-                                            id="description" name="description" value="{{ old('description') }}"
-                                            placeholder="Deskripsi" required>
-                                        @error('description')
+                                            class="form-control @error('keterangan') is-invalid @enderror"
+                                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}"
+                                            placeholder="Keterangan" required>
+                                        @error('keterangan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
