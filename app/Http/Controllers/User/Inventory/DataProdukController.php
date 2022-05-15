@@ -51,6 +51,25 @@ class DataProdukController extends Controller
             ->make(true);
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Item::currentCompany()->get();
+        } else {
+            $data = Item::currentCompany()->where('nameItem', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->nameItem,
+            );
+        }
+        return response()->json($response);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -53,10 +53,10 @@ submitBtn.addEventListener("click", function (e) {
             if (elementChild.getAttribute("data") == "amount") {
                 arrObject.amount = elementChild.value;
             } else if (
-                elementChild.getAttribute("class") == "data_account_container"
+                elementChild.getAttribute("class") == "data_produk_container"
             ) {
-                arrObject.data_account_id = parseInt(
-                    $(".data_account :selected")[row - 1].value
+                arrObject.data_produk_id = parseInt(
+                    $(".data_produk :selected")[row - 1].value
                 );
             }
         }
@@ -136,21 +136,21 @@ addRowBtn.addEventListener("click", function (e) {
             let select = document.createElement("select");
             let optionDefault = document.createElement("option");
             select.setAttribute("required", "required");
-            select.setAttribute("data", "data_account");
-            select.setAttribute("name", "data_account_id[]");
-            select.classList.add("form-control", "data_account");
-            container.classList.add("data_account_container");
+            select.setAttribute("data", "data_produk");
+            select.setAttribute("name", "data_produk_id[]");
+            select.classList.add("form-control", "data_produk");
+            container.classList.add("data_produk_container");
             // optionDefault.innerHTML = "- Pilih Salah Satu -";
             select.appendChild(optionDefault);
             container.appendChild(select);
             td.appendChild(container);
-            $(".data_account").select2({
+            $(".data_produk").select2({
                 placeholder: "- Pilih Salah Satu -",
                 allowClear: true,
                 // dropdownParent: $(`#container-select-${cell}`),
                 theme: "bootstrap-5",
                 ajax: {
-                    url: `${window.url}/pengelolaan-kas/data-account/data`,
+                    url: `${window.url}/inventory/data-produk/data`,
                     dataType: "json",
                     data: function (params) {
                         return {
@@ -165,6 +165,11 @@ addRowBtn.addEventListener("click", function (e) {
                     cache: true,
                 },
             });
+            $('.data_produk').on('select2:select', function (e) {
+                $(function(){$('.priceItem').val('Rp. 5000000');})
+                var data = e.params.data;
+                console.log(data);
+              });
         } else if (cell == 1) {
             let input = document.createElement("input");
             input.setAttribute("type", "text");
@@ -190,6 +195,7 @@ addRowBtn.addEventListener("click", function (e) {
             input.setAttribute("name", "priceItem[]");
             input.setAttribute("data", "priceItem");
             input.setAttribute("required", "required");
+            input.setAttribute("id", "priceItem");
             input.setAttribute("class", "text-center");
             input.innerText = "Rp 0";
             td.appendChild(input);
@@ -206,4 +212,6 @@ addRowBtn.addEventListener("click", function (e) {
         }
     }
 });
+
+
 createTable();

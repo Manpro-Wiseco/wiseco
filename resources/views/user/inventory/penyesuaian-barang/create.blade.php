@@ -1,35 +1,38 @@
 @push('styles')
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
 
+    </style>
 @endpush
 
 @push('scripts')
-<script src="{{ asset('assets/js/table-row.js') }}"></script>
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<script>
-    /* Dengan Rupiah */
-    var dengan_rupiah = document.getElementById('dengan-rupiah');
-    dengan_rupiah.addEventListener('keyup', function(e) {
-        dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
-    });
-
-    /* Fungsi */
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-</script>
+    {{-- Script multi table --}}
+    <script src="{{ asset('assets/js/konsinyasi-table-create.js') }}"></script>
+    {{-- Script for select 2 for Customer --}}
+    <script>
+        $("#from_account_id").select2({
+            placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            theme: 'bootstrap-5',
+            ajax: {
+                url: `{{ route('pengelolaan-kas.data-account.data-only-cash') }}`,
+                dataType: "json",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response,
+                    };
+                },
+                cache: true,
+            },
+        });
+    </script>
 @endpush
 
 <x-template-layout>
@@ -38,79 +41,98 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('inventory.penyesuaian-barang.index') }}" class="btn bg-gradient-danger">
-                            <i class="fas fa-angle-left" style="font-size: 20px"></i>
-                        </a>
-                        <h3>Input Penyesuaian Barang</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('inventory.penyesuaian-barang.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Penyesuaian Barang</h4>
+                        </div>
                         <div class="card-body pt-0">
-                            <form action="#" method="post">
+                            <form action="{{ route('inventory.barang-konsinyasi.store') }}" method="post">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Nama Produk</label>
-                                        <input type="text" class="form-control @error('namaProduk') is-invalid @enderror" id="namaProduk" name="namaProduk" value="{{ old('namaProduk') }}" placeholder="Masukan Nama Produk" required>
-                                        @error('namaProduk')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label mt-4">Akun</label>
-                                        <select name="data-satuan" id="data-satuan" class="form-control">
+                                    {{-- <div class="col-md-6">
+                                        <label class="form-label">Penerima</label>
+                                        <select name="data_contact_id" id="data_contact_id"
+                                            class="form-control @error('data_contact_id') is-invalid @enderror"
+                                            required>
                                             <option>- Pilih Salah Satu -</option>
-                                            <option>Test1</option>
-                                            <option>Test2</option>
-                                            <option>Test3</option>
+                                            @foreach ($dataContacts as $contact)
+                                                <option value="{{ $contact->id }}"
+                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
+                                                    {{ $contact->name }} - {{ $contact->status }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('kodeProduk')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        @error('data_contact_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label mt-4">Pcs</label>
-                                        <input type="text" class="form-control @error('kodeProduk') is-invalid @enderror" id="kodeProduk" name="kodeProduk" value="{{ old('kodeProduk') }}" placeholder="Kode Produk" required>
-                                        @error('kodeProduk')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label mt-4">Harga per unit</label>
-                                        <div class="input-group input-group-alternative mb-4">
-                                            <input class="form-control" id="dengan-rupiah" placeholder="Rp. 00.00" type="text">
-                                        </div>
-                                        @error('description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <label class="form-label">Dari Gudang</label>
+                                        <select name="from_account_id" id="from_account_id"
+                                            class="form-control @error('from_account_id') is-invalid @enderror"
+                                            required>
+                                            <option>- Pilih Salah Satu -</option>
+                                        </select>
+                                        @error('from_account_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label mt-4">Total Harga</label>
-                                        <div class="input-group input-group-alternative mb-4">
-                                            <input class="form-control" id="dengan-rupiah" placeholder="Rp. 00.00" type="text">
-                                        </div>
-                                        @error('description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <label class="form-label mt-4">Invoice</label>
+                                        <input type="text" class="form-control @error('invoice') is-invalid @enderror"
+                                            id="invoice" name="invoice" value="{{ old('invoice') }}"
+                                            placeholder="Invoice" required>
+                                        @error('invoice')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                    <div class="col-md-6">
+                                        <label class="form-label mt-4">Tanggal Tambah Barang</label>
+                                        <input type="date"
+                                            class="form-control @error('transaction_date') is-invalid @enderror"
+                                            id="transaction_date" name="transaction_date"
+                                            value="{{ old('transaction_date') }}" placeholder="Nomor Telepon"
+                                            required>
+                                        @error('transaction_date')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-label mt-4">Gambar Produk</label>
-                                        <form action="#" method="post" class="dropzone" id="dropzone" enctype="multipart/form-data"></form>
-                                        <div class="dz-default dz-message">
-                                            <h4>Click here to upload images</h4>
+                                        <label class="form-label mt-4">Deskripsi</label>
+                                        <input type="text"
+                                            class="form-control @error('description') is-invalid @enderror"
+                                            id="description" name="description" value="{{ old('description') }}"
+                                            placeholder="Deskripsi" required>
+                                        @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 mt-5">
+                                        <div id="cont"></div> <!-- the container to add the TABLE -->
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-primary" type="button" id="addRow">
+                                                <i class="fas fa-plus"></i> Add New Row
+                                            </button>
                                         </div>
+
+
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn bg-gradient-success">Submit</button>
+                                    <input type="button" id="bt" value="Submit Data" class="btn bg-gradient-primary" />
+                                    {{-- <button type="submit" class="btn bg-gradient-primary">Submit</button> --}}
                                 </div>
                             </form>
                         </div>

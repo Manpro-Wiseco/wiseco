@@ -223,6 +223,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
         // Data Produk
         Route::get('/data-produk/list', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'list'])->name('data-produk.list');
+        Route::get('/data-produk/data', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'data'])->name('data-produk.data');
         Route::resource('/data-produk', \App\Http\Controllers\User\Inventory\DataProdukController::class);
 
         // Penyesuaian Barang
