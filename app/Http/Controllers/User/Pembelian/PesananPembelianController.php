@@ -5,10 +5,10 @@ namespace App\Http\Controllers\User\Pembelian;
 use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\PesananPembelian;
-//use App\Models\Expense;
-//use Carbon\Carbon;
-//use Illuminate\Support\Arr;
-//use Illuminate\Support\Facades\DB;
+use App\Models\Expense;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -16,7 +16,7 @@ class PesananPembelianController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.pembelian.Pesanan-Pembelian.index');
+        return view('user.pembelian.pesanan-pembelian.index');
     }
 
     public function list(Request $request)
@@ -25,8 +25,8 @@ class PesananPembelianController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $urlEdit = route('pembelian.Pesanan-Pembelian.edit', $row->id);
-                $urlDelete = route('pembelian.Pesanan-Pembelian.destroy', $row->id);
+                $urlEdit = route('pembelian.pesanan-pembelian.edit', $row->id);
+                $urlDelete = route('pembelian.pesanan-pembelian.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -48,7 +48,7 @@ class PesananPembelianController extends Controller
     public function create()
     {
         $dataContacts = DataContact::currentCompany()->get();
-        return view('user.pembelian.Pesanan-Pembelian.create', compact('dataContacts'));
+        return view('user.pembelian.pesanan-pembelian.create', compact('dataContacts'));
     }
 
     /**
