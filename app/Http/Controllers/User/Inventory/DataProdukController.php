@@ -25,14 +25,11 @@ class DataProdukController extends Controller
 
     public function list(Request $request)
     {
-        $data = Item::currentCompany()->latest()->get();
+        $data = Item::with(['konsinyasi', 'adjustments'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('quantitasItem', function ($row) {
-                if ($row->stockItem == null) {
-                    return "0 " . $row->unitItem;
-                }
-                return $row->stockItem . " " . $row->unitItem;
+                return ($row->adjustments->sum('pivot.jumlah_barang') - $row->konsinyasi->sum('pivot.jumlah_barang')) . " " . $row->unitItem;
             })
             ->addColumn('hargaJual', function ($row) {
                 return "Rp " . number_format($row->priceItem, 2, ',', '.');
