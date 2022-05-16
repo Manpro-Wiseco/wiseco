@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-penerimaan-barang.js') }}"></script>
+    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -16,7 +16,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <label class="form-label">Nama Pelanggan</label>
+                                        <label class="form-label">Nama Pemasok</label>
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
@@ -33,8 +33,26 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">No. Pesanan</label>
+                                        <select name="data_contact_id" id="data_contact_id"
+                                            class="form-control @error('data_contact_id') is-invalid @enderror"
+                                            required>
+                                            <option>-  Pilih No.Pesanan  -</option>
+                                            @foreach ($dataContacts as $contact)
+                                                <option value="{{ $contact->id }}"
+                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
+                                                    {{ $contact->name }} - {{ $contact->status }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> 
                                 </div>
-
+                                    
                                 <div class="row">
                                     <div class="col-md-2">
                                         <label class="form-label mt-4">Tanggal Transaksi</label>
@@ -50,10 +68,10 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label mt-4">No. Penawaran</label>
+                                        <label class="form-label mt-4">No. Penerimaan Barang</label>
                                         <input type="text" class="form-control @error('invoice') is-invalid @enderror"
                                             id="invoice" name="invoice" value="{{ old('invoice') }}"
-                                            placeholder="No. Penawaran" required>
+                                            placeholder="No. Penerimaan Barang" required>
                                         @error('invoice')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -81,6 +99,51 @@
                                         </div>
 
 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="other-cost">Biaya Lain</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="other-cost" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="discount">Discount</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="discount" placeholder="%">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="pajak">Pajak</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="pajak">Total Barang</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="pajak">Total Layanan</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="jml-total">Total</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input disabled type="text" class="form-control" id="jml-total" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mt-4">

@@ -16,7 +16,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <label class="form-label">Nama Pelanggan</label>
+                                        <label class="form-label">Nama Pemasok</label>
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
@@ -33,7 +33,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <label class="form-label">No. Penawaran</label>
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
@@ -50,7 +50,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="row">
@@ -124,12 +124,6 @@
                                                 </div>
                                             </div>
                                             <hr>
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="potongan">Potongan Harga</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input disabled type="text" class="form-control" id="potongan" placeholder="Rp.">
-                                                </div>
-                                            </div>
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4" for="jml-total">Total</label>
                                                 <div class="col-sm-12 col-md-7">
