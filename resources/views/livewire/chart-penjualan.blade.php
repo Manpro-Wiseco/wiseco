@@ -3,5 +3,5 @@
 </div>
 
 <div class="chart">
-    <canvas id="chart_penjualan" class="chart-canvas" height="300px"></canvas>
+    <canvas id="chart_penjualan" class="chart-canvas" height="250px"></canvas>
 </div>

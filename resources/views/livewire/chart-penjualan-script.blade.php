@@ -48,7 +48,7 @@
             , maintainAspectRatio: false
             , plugins: {
                 legend: {
-                    display: false
+                    display: true
                 , }
             }
             , interaction: {
@@ -141,7 +141,7 @@
                 , maintainAspectRatio: false
                 , plugins: {
                     legend: {
-                        display: false
+                        display: true
                     , }
                 }
                 , interaction: {
