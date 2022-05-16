@@ -79,7 +79,7 @@
                                 <br>
                                 <small>by: {{$response->name}}</small>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="overflow: auto">
                                 <?php echo htmlspecialchars_decode($response->response); ?>
                             </div>
                             <form onsubmit="return confirm('Komentar Anda Akan Dihapus, Apakah Anda Yakin ?');" action="{{ route('ticket_response.destroy', $response->id) }}" method="POST">
