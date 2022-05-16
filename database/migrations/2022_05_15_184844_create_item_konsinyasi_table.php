@@ -17,8 +17,8 @@ class CreateItemKonsinyasiTable extends Migration
             $table->id();
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('konsonyasi_id')->references('id')->on('konsinyasis');
-            $table->unsignedBigInteger('konsonyasi_id');
+            $table->foreign('konsinyasi_id')->references('id')->on('konsinyasis');
+            $table->unsignedBigInteger('konsinyasi_id');
             $table->integer('jumlah_barang');
             $table->integer('harga_barang');
             $table->integer('subtotal');
