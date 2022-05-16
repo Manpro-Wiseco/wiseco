@@ -29,7 +29,15 @@ class DataProdukController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('quantitasItem', function ($row) {
-                return ($row->adjustments->sum('pivot.jumlah_barang') - $row->konsinyasi->sum('pivot.jumlah_barang')) . " " . $row->unitItem;
+                if ($row->adjustments != null && $row->konsinyasi != null) {
+                    return ($row->adjustments->sum('pivot.jumlah_barang') - $row->konsinyasi->sum('pivot.jumlah_barang')) . " " . $row->unitItem;
+                } else if ($row->adjustments != null && $row->konsinyasi == null) {
+                    return $row->adjustments->sum('pivot.jumlah_barang') . " " . $row->unitItem;
+                } else if ($row->adjustments == null && $row->konsinyasi != null) {
+                    return "-" . $row->konsinyasi->sum('pivot.jumlah_barang') . " " . $row->unitItem;
+                } else {
+                    return "0 " . $row->unitItem;
+                }
             })
             ->addColumn('hargaJual', function ($row) {
                 return "Rp " . number_format($row->priceItem, 2, ',', '.');
