@@ -33,11 +33,11 @@
                 <div class="row mt-5 mb-3">
                     <div class="container">
                         <div class="card">
-                            <div class="card-header text-white" style="background-color: #00AA9E;">
+                            <div class="card-header text-white bg-gradient-primary">
                                 By : {{$ticket->name}} <br>
                                 <small>{{Carbon\Carbon::parse($ticket->updated_at)->format("d/m/Y")}}</small>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body border rounded-bottom border-2 border-primary">
                                 <p class="card-text"><?php echo htmlspecialchars_decode($ticket->body); ?></p>
                             </div>
                         </div>
