@@ -26,8 +26,8 @@
             /**
              * * Fungsi untuk Exporting Data tabel ke Excel
              * TODO: Refactor untuk menyesuaikan dengan tabel yang akan ditampilkan
-            */
-            let table = $('#product-table').DataTable({
+             */
+            let table = $('#adjustment-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 processing: true,
@@ -42,25 +42,25 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('pengelolaan-kas.expense.list') }}", //Fix Export Data di DataProdukController
+                ajax: "{{ route('inventory.penyesuaian-barang.list') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'invoice',
-                        name: 'invoice',
+                        data: 'tanggal',
+                        name: 'tanggal',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'penerima',
-                        name: 'penerima',
+                        data: 'keterangan',
+                        name: 'keterangan',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'description',
-                        name: 'description',
+                        data: 'total_barang',
+                        name: 'total_barang',
                         className: 'align-middle text-center'
                     },
                     {
@@ -78,13 +78,13 @@
                 table.ajax.reload(callback, resetPage); //reload datatable ajax 
             }
 
-            $('#product-table').on('click', '.btn-delete', function(e) {
+            $('#adjustment-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
                 let nama = $(this).data('name')
                 e.preventDefault()
                 Swal.fire({
                     title: 'Apakah Yakin?',
-                    text: `Apakah Anda yakin ingin menghapus data kontak dengan nama ${nama}`,
+                    text: `Apakah Anda yakin ingin menghapus data penyesuaian barang ?`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -94,7 +94,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('expense') }}/" + id,
+                            url: "{{ url('inventory/penyesuaian-barang') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -104,7 +104,7 @@
                             success: function(response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    `Data produk dengan nama ${nama} berhasil terhapus.`,
+                                    `Data penyesuaian barang berhasil terhapus.`,
                                     'success'
                                 )
                                 reload_table(null, true)
@@ -148,21 +148,21 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">
-                            <table class="table align-items-center mb-0" id="product-table">
+                            <table class="table align-items-center mb-0" id="adjustment-table">
                                 <thead>
                                     <tr>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Nomor</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Tanggal</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kode Referensi</th>
+                                            Keterangan</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Departemen</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Deskripsi</th>
+                                            Total Barang</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>

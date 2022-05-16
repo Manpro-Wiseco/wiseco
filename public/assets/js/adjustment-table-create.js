@@ -69,28 +69,22 @@ submitBtn.addEventListener("click", function (e) {
         arrValues.push(arrObject);
     }
     let CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
-    let data_contact_id = $("#data_contact_id").find(":selected")[0].value;
     let total = arrValues.reduce((accumulator, object) => {
         return parseInt(accumulator) + parseInt(object.amount);
     }, 0);
-    let description = document.getElementById("description").value;
-    let invoice = document.getElementById("invoice").value;
-    let transaction_date = document.getElementById("transaction_date").value;
-    let warehouse_id = $("#warehouse_id").find(":selected")[0].value;
+    let keterangan = document.getElementById("keterangan").value;
+    let tanggal = document.getElementById("tanggal").value;
 
     console.log(arrValues);
     $.ajax({
-        url: `${window.url}/inventory/barang-konsinyasi`,
+        url: `${window.url}/inventory/penyesuaian-barang`,
         type: "POST",
         data: {
             _token: CSRF_TOKEN,
             detail: arrValues,
-            data_contact_id,
             total,
-            description,
-            invoice,
-            transaction_date,
-            warehouse_id,
+            keterangan,
+            tanggal,
         },
         dataType: "JSON",
         success: function (response) {
@@ -102,7 +96,7 @@ submitBtn.addEventListener("click", function (e) {
                     title: response.message,
                     showConfirmButton: true,
                 }).then((result) => {
-                    window.location.href = `${window.url}/inventory/barang-konsinyasi`;
+                    window.location.href = `${window.url}/inventory/penyesuaian-barang`;
                 });
             }
         },

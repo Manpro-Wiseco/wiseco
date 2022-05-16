@@ -31,4 +31,13 @@ class Konsinyasi extends Model
         return $this->belongsTo(DataContact::class);
     }
 
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'item_konsinyasi', 'konsinyasi_id', 'item_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal'])->withTimestamps();
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
 }

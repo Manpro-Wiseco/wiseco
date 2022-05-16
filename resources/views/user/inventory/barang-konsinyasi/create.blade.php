@@ -12,12 +12,12 @@
     <script src="{{ asset('assets/js/konsinyasi-table-create.js') }}"></script>
     {{-- Script for select 2 for Customer --}}
     <script>
-        $("#from_account_id").select2({
+        $("#warehouse_id").select2({
             placeholder: "- Pilih Salah Satu -",
             allowClear: true,
             theme: 'bootstrap-5',
             ajax: {
-                url: `{{ route('pengelolaan-kas.data-account.data-only-cash') }}`,
+                url: `{{ route('warehouse.data') }}`,
                 dataType: "json",
                 data: function(params) {
                     return {
@@ -72,12 +72,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Dari Gudang</label>
-                                        <select name="from_account_id" id="from_account_id"
-                                            class="form-control @error('from_account_id') is-invalid @enderror"
-                                            required>
+                                        <select name="warehouse_id" id="warehouse_id"
+                                            class="form-control @error('warehouse_id') is-invalid @enderror" required>
                                             <option>- Pilih Salah Satu -</option>
                                         </select>
-                                        @error('from_account_id')
+                                        @error('warehouse_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

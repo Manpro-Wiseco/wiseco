@@ -44,7 +44,7 @@ class BarangKonsinyasiController extends Controller
                 <a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                     <i class="fas fa-edit"></i>
                 </a>
-                <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-invoice="' . $row->invoice . '" type="button">
+                <button class="btn bg-gradient-danger btn-small btn-delete" data-id="' . $row->id . '" data-invoice="' . $row->invoiceKonsinyasi . '" type="button">
                     <i class="fas fa-trash"></i>
                 </button>';
                 return $actionBtn;
@@ -60,7 +60,7 @@ class BarangKonsinyasiController extends Controller
      */
     public function create()
     {
-        $dataContacts = DataContact::currentCompany()->get();
+        $dataContacts = DataContact::currentCompany()->where('status', 'Customer')->get();
         return view('user.inventory.barang-konsinyasi.create', compact('dataContacts'));
     }
 
@@ -72,7 +72,46 @@ class BarangKonsinyasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'warehouse_id' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.data_produk_id' => 'required|numeric',
+            'detail.*.priceItem' => 'required|numeric'
+        ]);
+
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        // dd($data);
+        DB::transaction(function () use ($data, $detail) {
+            $konsinyasi = Konsinyasi::create([
+                'dateKonsinyasi' => $data['transaction_date'],
+                'invoiceKonsinyasi' => $data['invoice'],
+                'data_contact_id' => $data['data_contact_id'],
+                'total_harga' => $data['total'],
+                'keterangan' => $data['description'],
+                'company_id' => $data['company_id'],
+                'warehouse_id' => $data['warehouse_id']
+            ]);
+            foreach ($detail as $key => $value) {
+                DB::table('item_konsinyasi')->insert([
+                    "konsinyasi_id" => $konsinyasi->id,
+                    "item_id" => $value["data_produk_id"],
+                    "jumlah_barang" => $value["jumlah_barang"],
+                    "harga_barang" => $value["priceItem"],
+                    "subtotal" => $value["amount"],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
+                ]);
+            }
+        });
+
+        return response()->json(['data' => ['konsinyasi' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data konsinyasi!']);
     }
 
     /**
@@ -94,7 +133,9 @@ class BarangKonsinyasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $konsinyasi = Konsinyasi::find($id);
+        $dataContacts = DataContact::currentCompany()->where('status', 'Customer')->get();
+        return view('user.inventory.barang-konsinyasi.edit', compact('konsinyasi', 'dataContacts'));
     }
 
     /**
@@ -106,7 +147,46 @@ class BarangKonsinyasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'invoice' => 'required',
+            'transaction_date' => 'required',
+            'warehouse_id' => 'required',
+            'description' => 'required',
+            'detail.*.amount' => 'required|numeric',
+            'detail.*.data_produk_id' => 'required|numeric',
+            'detail.*.priceItem' => 'required|numeric'
+        ]);
+
+        $konsinyasi = Konsinyasi::find($id);
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+
+        // create new array with item_id value as a key with array of amount, jumlah_barang, harga_barang as pair of key and value
+        $new_array = array_reduce($detail, function ($result, $item) {
+            $result[$item['data_produk_id']] = [
+                "jumlah_barang" => $item["jumlah_barang"],
+                "harga_barang" => $item["priceItem"],
+                "subtotal" => $item["amount"],
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ];
+            return $result;
+        }, []);
+
+        $konsinyasi->update([
+            'dateKonsinyasi' => $data['transaction_date'],
+            'invoiceKonsinyasi' => $data['invoice'],
+            'data_contact_id' => $data['data_contact_id'],
+            'total_harga' => $data['total'],
+            'keterangan' => $data['description'],
+            'company_id' => $data['company_id'],
+            'warehouse_id' => $data['warehouse_id']
+        ]);
+        $konsinyasi->items()->sync($new_array);
+        return response()->json(['data' => ['konsinyasi' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data konsinyasi!']);
     }
 
     /**
@@ -117,6 +197,9 @@ class BarangKonsinyasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $konsinyasi = Konsinyasi::find($id);
+        $konsinyasi->items()->detach();
+        $konsinyasi->delete();
+        return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data konsinyasi!']);
     }
 }

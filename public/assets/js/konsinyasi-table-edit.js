@@ -1,31 +1,7 @@
 let arrHead = new Array(); // array for header.
 arrHead = ["Item", "Qty", "Unit", "Unit Price", "Total Price", "#"];
-let tbody;
-
-// first create TABLE structure with the headers.
-function createTable() {
-    let empTable = document.createElement("table");
-    empTable.setAttribute("id", "empTable"); // table id.
-    // class : table align-items-center mb-0
-    empTable.classList.add("table", "align-items-center", "mb-0");
-    let header = empTable.createTHead();
-    tbody = empTable.createTBody();
-    let tr = header.insertRow(0);
-    for (let h = 0; h < arrHead.length; h++) {
-        let cell = tr.insertCell(h);
-        cell.innerHTML = arrHead[h];
-        cell.classList.add(
-            "text-uppercase",
-            "text-secondary",
-            "text-xs",
-            "text-center",
-            "font-weight-bolder",
-            "opacity-7"
-        );
-    }
-    let div = document.getElementById("cont");
-    div.appendChild(empTable); // add the TABLE to the container.
-}
+let tableElement = document.getElementById("empTable");
+let tbody = tableElement.getElementsByTagName("tbody")[0];
 
 // delete TABLE row function.
 function removeRow(oButton) {
@@ -40,6 +16,7 @@ const submitBtn = document.getElementById("bt");
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let myTab = document.getElementById("empTable");
+    let id = e.currentTarget.getAttribute("data-id");
     let arrValues = new Array();
     for (row = 1; row < myTab.rows.length; row++) {
         let arrObject = {};
@@ -73,17 +50,18 @@ submitBtn.addEventListener("click", function (e) {
     let total = arrValues.reduce((accumulator, object) => {
         return parseInt(accumulator) + parseInt(object.amount);
     }, 0);
-    let description = document.getElementById("description").value;
-    let invoice = document.getElementById("invoice").value;
-    let transaction_date = document.getElementById("transaction_date").value;
+    let description = document.getElementById("keterangan").value;
+    let invoice = document.getElementById("invoiceKonsinyasi").value;
+    let transaction_date = document.getElementById("dateKonsinyasi").value;
     let warehouse_id = $("#warehouse_id").find(":selected")[0].value;
 
     console.log(arrValues);
     $.ajax({
-        url: `${window.url}/inventory/barang-konsinyasi`,
+        url: `${window.url}/inventory/barang-konsinyasi/${id}`,
         type: "POST",
         data: {
             _token: CSRF_TOKEN,
+            _method: "PUT",
             detail: arrValues,
             data_contact_id,
             total,
@@ -193,7 +171,10 @@ addRowBtn.addEventListener("click", function (e) {
             input.setAttribute("data", "jumlah_barang");
             input.setAttribute("required", "required");
             input.setAttribute("placeholder", "0");
-            input.setAttribute("class", "form-control text-right");
+            input.setAttribute(
+                "class",
+                "form-control text-right jumlah_barang"
+            );
             td.appendChild(input);
             input.addEventListener("change", function (e) {
                 var row = $(this).closest("tr");
@@ -243,4 +224,36 @@ addRowBtn.addEventListener("click", function (e) {
     }
 });
 
-createTable();
+$(".data_produk").on("select2:select", function (e) {
+    var data = e.params.data;
+    var row = $(e.currentTarget).closest("tr");
+    var qtyItemInput = row.children("td:eq(1)")[0].children[0];
+    var unitItemText = row.children("td:eq(2)")[0].children[0];
+    var priceItemText = row.children("td:eq(3)")[0].children[0];
+    var priceItemInput = row.children("td:eq(3)")[0].children[1];
+    var amountText = row.children("td:eq(4)")[0].children[0];
+    var amountInput = row.children("td:eq(4)")[0].children[1];
+
+    price = data.price;
+    unitItemText.textContent = data.unit;
+
+    priceItemText.textContent = "Rp " + data.price;
+    priceItemInput.value = data.price;
+
+    amountText.textContent =
+        "Rp " + parseInt(qtyItemInput.value) * parseInt(data.price);
+    amountInput.value = parseInt(qtyItemInput.value) * parseInt(data.price);
+});
+
+document.querySelectorAll(".jumlah_barang").forEach((item) => {
+    item.addEventListener("change", (event) => {
+        var row = $(event.currentTarget).closest("tr");
+        var amountText = row.children("td:eq(4)")[0].children[0];
+        var amountInput = row.children("td:eq(4)")[0].children[1];
+        var price = row.children("td:eq(3)")[0].children[1];
+        amountText.textContent =
+            "Rp " + parseInt(event.target.value) * parseInt(price.value);
+        amountInput.value =
+            parseInt(event.target.value) * parseInt(price.value);
+    });
+});
