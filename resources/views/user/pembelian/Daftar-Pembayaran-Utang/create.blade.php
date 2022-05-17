@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-daftar-pembayaran-utang.js') }}"></script>
+    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -16,7 +16,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <label class="form-label">Nama Pelanggan</label>
+                                        <label class="form-label">Nama Pemasok</label>
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
@@ -28,6 +28,19 @@
                                             @endforeach
                                         </select>
                                         @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Akun</label>
+                                        <select name="from_account_id" id="from_account_id"
+                                            class="form-control @error('from_account_id') is-invalid @enderror"
+                                            required>
+                                            <option>- Pilih Salah Satu -</option>
+                                        </select>
+                                        @error('from_account_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -50,10 +63,10 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label mt-4">No. Pesanan</label>
+                                        <label class="form-label mt-4">No. Utang</label>
                                         <input type="text" class="form-control @error('invoice') is-invalid @enderror"
                                             id="invoice" name="invoice" value="{{ old('invoice') }}"
-                                            placeholder="No. Pesanan" required>
+                                            placeholder="No. Utang" required>
                                         @error('invoice')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -81,6 +94,32 @@
                                         </div>
 
 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="other-cost">Biaya Lain</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="other-cost" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="pajak">Total</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                            <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="pajak">Uang Muka</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mt-4">

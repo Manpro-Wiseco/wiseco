@@ -70,7 +70,6 @@ submitBtn.addEventListener("click", function (e) {
     let transaction_date = document.getElementById("transaction_date").value;
     let from_account_id = document.getElementById("from_account_id").value;
 
-    console.log(data_contact_id);
     $.ajax({
         url: `${window.url}/pengelolaan-kas/expense`,
         type: "POST",
@@ -100,6 +99,29 @@ submitBtn.addEventListener("click", function (e) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
+            let fields = [
+                "data_contact_id",
+                "invoice",
+                "transaction_date",
+                "from_account_id",
+                "description",
+            ];
+
+            fields.map((field) => {
+                $(`#${field}`).removeClass("is-invalid");
+                $(`.${field}-error`).html(``);
+            });
+
+            let errors = jqXHR.responseJSON.errors;
+            $.each(errors, function (key, value) {
+                $(`#${key}`).addClass("is-invalid");
+                $(`.${key}-error`).append(`
+                <span class="text-danger" style="font-size: 0.8rem">
+                    ${value.map((v) => "<strong>" + v + "</strong><br>")}
+                </span>
+                `);
+                console.log("Field : ", key);
+            });
             Swal.fire({
                 icon: "error",
                 type: "error",

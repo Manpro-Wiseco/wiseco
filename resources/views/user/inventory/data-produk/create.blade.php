@@ -1,18 +1,40 @@
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script scr="{{ asset('assets/js/dropzone-items.js') }}"></script> --}}
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
     <script>
-        /* Dengan Rupiah */
-        var dengan_rupiah = document.getElementById('dengan-rupiah');
-        dengan_rupiah.addEventListener('keyup', function(e)
-        {
-            dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+        var nameString = document.getElementById('nameItem');
+        nameString.addEventListener('change', function(e) {
+            var target = document.getElementById('codeItem');
+            var result = getInitials(nameString.value) + '-';
+            target.value = result;
         });
+
+        function getInitials(name) {
+            var names = name.split(' '),
+                initials = names[0].substring(0, 1).toUpperCase();
+            if (names.length > 1) {
+                initials += names[names.length - 1].substring(0, 1).toUpperCase();
+            }
+            return initials;
+        }
+
+        // /* Dengan Rupiah */
+        // var dengan_rupiah = document.getElementById('priceItem2');
+        // dengan_rupiah.addEventListener('keyup', function(e)
+        // {
+        //     dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+        // });
+        // var dengan_rupiah2 = document.getElementById('costItem2');
+        // dengan_rupiah2.addEventListener('keyup', function(e)
+        // {
+        //     dengan_rupiah2.value = formatRupiah(this.value, 'Rp. ');
+        // });
 
         /* Fungsi */
         function formatRupiah(angka, prefix)
@@ -32,6 +54,20 @@
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
     </script>
+
+    <script>
+        Dropzone.options.dropzone = {
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 2,
+            addRemoveLinks: true,
+            init: function() {
+                this.on("maxfilesexceeded", function(file) {
+                    this.removeAllFiles();
+                    this.addFile(file);
+                });
+            }
+        };
+    </script>
 @endpush
 
 <x-template-layout>
@@ -40,46 +76,64 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('inventory.data-produk.index') }}" class="btn bg-gradient-danger">
-                            <i class="fas fa-angle-left" style="font-size: 20px"></i>
-                        </a>
-                        <h3>Input Data Produk</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('inventory.data-produk.index') }}"
+                                class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Input Data Produk</h4>
+                        </div>
                         <div class="card-body pt-0">
-                            <form action="#" method="post">
+                            <form action="{{ route('inventory.data-produk.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="form-label">Nama Produk</label>
-                                        <input type="text" class="form-control @error('namaProduk') is-invalid @enderror"
-                                            id="namaProduk" name="namaProduk" value="{{ old('namaProduk') }}"
+                                        <input type="text" class="form-control @error('nameItem') is-invalid @enderror"
+                                            id="nameItem" name="nameItem" value="{{ old('nameItem') }}"
                                             placeholder="Masukan Nama Produk" required>
-                                        @error('namaProduk')
+                                        @error('nameItem')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+                                    
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Kode Produk</label>
                                         <input type="text"
-                                            class="form-control @error('kodeProduk') is-invalid @enderror"
-                                            id="kodeProduk" name="kodeProduk" value="{{ old('kodeProduk') }}"
+                                            class="form-control read-only @error('codeItem') is-invalid @enderror"
+                                            id="codeItem" name="codeItem" value="{{ old('codeItem') }}"
                                             placeholder="Kode Produk" required>
-                                        @error('kodeProduk')
+                                        @error('codeItem')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label mt-4">Kode Produk</label>
-                                        <select name="data-satuan" id="data-satuan" class="form-control">
+                                        <label class="form-label mt-4">Unit Produk</label>
+                                        <select name="unitItem" id="unitItem" class="form-control">
                                             <option>- Pilih Salah Satu -</option>
-                                            <option>Box</option>
-                                            <option>Kg</option>
-                                            <option>Pcs</option>
+                                            <option value="Box">Box</option>
+                                            <option value="Kg">Kg</option>
+                                            <option value="Pcs">Pcs</option>
+                                            <option value="Cup">Cup</option>
+                                            <option value="Unit">Unit</option>
                                         </select>
-                                        @error('kodeProduk')
+                                        @error('unitItem')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label mt-4">Deskripsi</label>
+                                        <input type="text"
+                                            class="form-control @error('descriptionItem') is-invalid @enderror"
+                                            id="descriptionItem" name="descriptionItem" value="{{ old('descriptionItem') }}"
+                                            placeholder="Deskripsi" required>
+                                        @error('descriptionItem')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -87,10 +141,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Harga Jual</label>
-                                        <div class="input-group input-group-alternative mb-4">
-                                          <input class="form-control" id="dengan-rupiah" placeholder="Rp. 00.00" type="text">
+                                        <div class="input-group input-group-alternative mb-4" @error('priceItem') is-invalid @enderror>
+                                            <input class="form-control" id="priceItem" name="priceItem" placeholder="Rp. 00.00" type="text" >
                                         </div>
-                                        @error('description')
+                                        @error('priceItem')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -98,23 +152,19 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Harga Beli</label>
-                                        <div class="input-group input-group-alternative mb-4">
-                                            <input class="form-control" id="dengan-rupiah" placeholder="Rp. 00.00" type="text">
+                                        <div class="input-group input-group-alternative mb-4" @error('costItem') is-invalid @enderror>
+                                            <input class="form-control" id="costItem" name="costItem" placeholder="Rp. 00.00" type="text" >
                                         </div>
-                                        @error('description')
+                                        @error('costItem')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label mt-4">Gambar Produk</label>
-                                        <form action="#" method="post" class="dropzone" id="dropzone" enctype="multipart/form-data"></form>
-                                        <div class="dz-default dz-message"><h4>Click here to upload images</h4></div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn bg-gradient-success">Submit</button>
+                                    <input type="submit" id="bt" value="Submit Data" class="btn bg-gradient-primary" />
                                 </div>
                             </form>
                         </div>
@@ -123,4 +173,6 @@
             </div>
         </div>
     </section>
+
+    
 </x-template-layout>

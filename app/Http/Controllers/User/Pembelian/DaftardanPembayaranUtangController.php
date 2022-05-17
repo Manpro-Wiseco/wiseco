@@ -26,7 +26,7 @@ class DaftardanPembayaranUtangController extends Controller
 
     public function list(Request $request)
     {
-        $data = FakturPembelian::latest()->get();
+        $data = DaftardanPembayaranUtang::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {

@@ -26,7 +26,7 @@
             /**
              * * Fungsi untuk Exporting Data tabel ke Excel
              * TODO: Refactor untuk menyesuaikan dengan tabel yang akan ditampilkan
-            */
+             */
             let table = $('#product-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
@@ -42,30 +42,35 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('inventory.data-produk.list') }}", //Fix Export Data di DataProdukController
+                ajax: "{{ route('inventory.data-produk.list') }}", //Fix List Data di DataProdukController
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'invoice',
-                        name: 'invoice',
+                        data: 'codeItem',
+                        name: 'codeItem',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'penerima',
-                        name: 'penerima',
+                        data: 'nameItem',
+                        name: 'nameItem',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'description',
-                        name: 'description',
+                        data: 'descriptionItem',
+                        name: 'descriptionItem',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'hargaJual',
+                        name: 'hargaJual',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'quantitasItem',
+                        name: 'quantitasItem',
                         className: 'align-middle text-center'
                     },
                     {
@@ -75,7 +80,6 @@
                         searchable: false,
                         className: 'align-middle text-center'
                     },
-
                 ]
             });
 
@@ -99,7 +103,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('expense') }}/" + id,
+                            url: "{{ url('inventory/data-produk') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -141,7 +145,12 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h3>Data Produk</h3>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('inventory.index') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <h4>Data Produk</h4>
+                        </div>
                         <a href="{{ route('inventory.data-produk.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
@@ -151,6 +160,8 @@
                             <table class="table align-items-center mb-0" id="product-table">
                                 <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Nomor</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Kode</th>
@@ -159,11 +170,11 @@
                                             Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Kategori</th>
+                                            Deskripsi</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Harga Jual</th>
-                                            <th
+                                            Harga Jual Item</th>
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Kuantitas Tersedia</th>
                                         <th class="text-secondary opacity-7"></th>

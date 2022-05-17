@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TicketCategory extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    protected $table = 'ticket_categories';
     protected $fillable = [
-        'category'
+        'category','created_at','updated_at'
     ];
 
     public function tickets()
