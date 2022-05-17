@@ -16,11 +16,14 @@ class CreatePenawaranHargaTable extends Migration
         Schema::create('penawaran_harga', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->integer('no_penawaran');
-            $table->string('nama_pelanggan');
+            $table->string('no_penawaran')->nullable();
             $table->string('deskripsi');
             $table->integer('nilai');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->foreign('pelanggan_id')->references('id')->on('data_contact');
+            $table->unsignedBigInteger('pelanggan_id');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

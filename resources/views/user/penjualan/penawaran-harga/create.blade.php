@@ -17,17 +17,17 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         <label class="form-label">Nama Pelanggan</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
+                                        <select name="pelanggan_id" id="pelanggan_id"
+                                            class="form-control @error('pelanggan_id') is-invalid @enderror"
                                             required>
                                             <option>- Pilih Salah Satu -</option>
                                             @foreach ($dataContacts as $contact)
                                                 <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
+                                                    @if (old('pelanggan_id') == $contact->id) selected @endif>
                                                     {{ $contact->name }} - {{ $contact->status }}</option>
                                             @endforeach
                                         </select>
-                                        @error('phone')
+                                        @error('pelanggan_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -39,11 +39,11 @@
                                     <div class="col-md-3">
                                         <label class="form-label mt-4">Tanggal Transaksi</label>
                                         <input type="date"
-                                            class="form-control @error('transaction_date') is-invalid @enderror"
-                                            id="transaction_date" name="transaction_date"
-                                            value="{{ old('transaction_date') }}"
+                                            class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal"
+                                            value="{{ old('tanggal') }}"
                                             required>
-                                        @error('transaction_date')
+                                        @error('tanggal')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -51,10 +51,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label mt-4">No. Penawaran</label>
-                                        <input type="text" class="form-control @error('invoice') is-invalid @enderror"
-                                            id="invoice" name="invoice" value="{{ old('invoice') }}"
+                                        <input type="text" class="form-control @error('no_penawaran') is-invalid @enderror"
+                                            id="no_penawaran" name="no_penawaran" value="{{ old('no_penawaran') }}"
                                             placeholder="No. Penawaran" required>
-                                        @error('invoice')
+                                        @error('no_penawaran')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -63,10 +63,10 @@
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Deskripsi</label>
                                         <input type="text"
-                                            class="form-control @error('description') is-invalid @enderror"
-                                            id="description" name="description" value="{{ old('description') }}"
+                                            class="form-control @error('deskripsi') is-invalid @enderror"
+                                            id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}"
                                             placeholder="Deskripsi" required>
-                                        @error('description')
+                                        @error('deskripsi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

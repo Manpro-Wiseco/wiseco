@@ -21,6 +21,8 @@ class CreateFakturPenjualanTable extends Migration
             $table->string('deskripsi');
             $table->integer('nilai');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
         });
     }
