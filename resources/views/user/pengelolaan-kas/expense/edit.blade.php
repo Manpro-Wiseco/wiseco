@@ -84,11 +84,8 @@
                                                     {{ $contact->name }} - {{ $contact->status }}</option>
                                             @endforeach
                                         </select>
-                                        @error('data_contact_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="data_contact_id-error">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Dari Akun Kas</label>
@@ -98,22 +95,16 @@
                                             <option value="{{ $expense->from_account_id }}">
                                                 {{ $expense->fromAccount->name }}</option>
                                         </select>
-                                        @error('from_account_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="from_account_id-error">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Invoice</label>
                                         <input type="text" class="form-control @error('invoice') is-invalid @enderror"
                                             id="invoice" name="invoice" value="{{ $expense->invoice }}"
                                             placeholder="Invoice" required>
-                                        @error('invoice')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="invoice-error">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Tanggal Transaksi</label>
@@ -121,11 +112,8 @@
                                             class="form-control @error('transaction_date') is-invalid @enderror"
                                             id="transaction_date" name="transaction_date"
                                             value="{{ $expense->transaction_date }}" required>
-                                        @error('transaction_date')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="transaction_date-error">
+                                        </div>
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label mt-4">Deskripsi</label>
@@ -133,11 +121,8 @@
                                             class="form-control @error('description') is-invalid @enderror"
                                             id="description" name="description" value="{{ $expense->description }}"
                                             placeholder="Deskripsi" required>
-                                        @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="description-error">
+                                        </div>
                                     </div>
                                     <div class="col-md-12 mt-5">
                                         <div id="cont">
