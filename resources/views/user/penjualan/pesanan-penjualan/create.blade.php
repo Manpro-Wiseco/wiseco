@@ -7,12 +7,12 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <a href="{{ route('penjualan.penawaran-harga.index') }}" class="btn bg-gradient-primary">
+                        <a href="{{ route('penjualan.pesanan-penjualan.index') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-angle-left" style="font-size: 20px"></i>
                         </a>
                         <h3>Buat Pesanan Penjualan</h3>
                         <div class="card-body pt-0">
-                            <form action="{{ route('penjualan.penawaran-harga.store') }}" method="post">
+                            <form action="{{ route('penjualan.pesanan-penjualan.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
@@ -33,24 +33,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">No. Penawaran</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
-                                            required>
-                                            <option>-  Pilih No.Penawaran  -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('phone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="row">

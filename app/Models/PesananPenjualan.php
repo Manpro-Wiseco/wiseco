@@ -11,4 +11,20 @@ class PesananPenjualan extends Model
 
     protected $guarded = [];
     protected $table = 'pesanan_penjualan';
+
+    public function scopeCurrentCompany($query)
+    {
+        return $query->where('company_id', '=', session()->get('company')->id);
+    }
+    
+    public function pelanggan()
+    {
+        return $this->belongsTo(DataContact::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+    
 }

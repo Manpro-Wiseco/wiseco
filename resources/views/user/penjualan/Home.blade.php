@@ -1,6 +1,6 @@
 <x-template-layout>
     <section class="content">        
-            <div class="row">
+            {{-- <div class="row"> 
                 <div class="col-md-4 mb-5">
                     <a href="{{ route('penjualan.penawaran-harga.index') }}">
                         <div class="card bg-gradient-success">
@@ -20,8 +20,9 @@
                             </div>
                         </div>
                     </a>
-                </div>
-            
+                </div> --}}
+
+            <div class="row">
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.pesanan-penjualan.index')}}">
                         <div class="card bg-gradient-info">
@@ -64,8 +65,8 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            <div class="row">
+            
+            
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.pengiriman-barang.index')}}">
                         <div class="card bg-gradient-warning">
@@ -88,7 +89,8 @@
                         </div>
                     </a>
                 </div>
-
+            </div>
+            <div class="row">
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.faktur-penjualan.index')}}">
                         <div class="card bg-gradient-primary">
@@ -130,8 +132,7 @@
                         </div>
                     </a>
                 </div>  
-            </div>
-            <div class="row">
+            
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.retur-penjualan.index')}}">
                         <div class="card bg-gradient-danger">

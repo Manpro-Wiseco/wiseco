@@ -21,9 +21,15 @@ class PesananPenjualanController extends Controller
 
     public function list(Request $request)
     {
-        $data = PesananPenjualan::latest()->get();
+        $data = PesananPenjualan::with(['pelanggan'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('nama_pelanggan', function ($row) {
+                return $row->pelanggan->name;
+            })
+            ->addColumn('nilai', function ($row) {
+                return "Rp " . number_format($row->nilai, 2, ',', '.');
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('penjualan.pesanan-penjualan.edit', $row->id);
                 $urlDelete = route('penjualan.pesanan-penjualan.destroy', $row->id);

@@ -67,7 +67,12 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                            <h3>Pesanan Penjualan</h3>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('penjualan.index') }}" class="btn bg-gradient-primary btn-small">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                                <h3>Pesanan Penjualan</h3>
+                            </div>
                             <a href="{{ route('penjualan.pesanan-penjualan.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>

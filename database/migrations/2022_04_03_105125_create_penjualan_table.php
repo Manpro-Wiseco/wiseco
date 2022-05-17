@@ -16,11 +16,13 @@ class CreatePenjualanTable extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->integer('no_penjualan');
+            $table->integer('no_penjualan')->nullable();;
             $table->string('nama_pelanggan');
             $table->string('deskripsi');
             $table->integer('nilai');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
         });
     }

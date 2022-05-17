@@ -26,9 +26,15 @@ class PenawaranHargaController extends Controller
 
     public function list(Request $request)
     {
-        $data = PenawaranHarga::latest()->get();
+        $data = PenawaranHarga::with(['pelanggan'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('nama_pelanggan', function ($row) {
+                return $row->pelanggan->name;
+            })
+            ->addColumn('nilai', function ($row) {
+                return "Rp " . number_format($row->nilai, 2, ',', '.');
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('penjualan.penawaran-harga.edit', $row->id);
                 $urlDelete = route('penjualan.penawaran-harga.destroy', $row->id);
@@ -58,18 +64,16 @@ class PenawaranHargaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
+            'pelanggan_id' => 'required|numeric',
+            'tanggal' => 'required',
+            'no_penawaran' => 'required',
+            'deskripsi' => 'required'
         ]);
         $data = Arr::except($request->all(), '_token');
         $data = Arr::except($request->all(), 'detail');
