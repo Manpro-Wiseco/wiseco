@@ -21,10 +21,10 @@ class PesananPembelianController extends Controller
 
     public function list(Request $request)
     {
-        $data = PesananPembelian::latest()->get();
+        $data = PesananPembelian::with(['dataContact'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('action', function ($row) {
+            ->addColumn('Nama Pemasok', function ($row) {
                 $urlEdit = route('pembelian.pesanan-pembelian.edit', $row->id);
                 $urlDelete = route('pembelian.pesanan-pembelian.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
