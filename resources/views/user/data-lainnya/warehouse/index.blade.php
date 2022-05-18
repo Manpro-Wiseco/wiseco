@@ -22,12 +22,7 @@
                     type: 'error'
                 })
             }
-
-            /**
-             * * Fungsi untuk Exporting Data tabel ke Excel
-             * TODO: Refactor untuk menyesuaikan dengan tabel yang akan ditampilkan
-             */
-            let table = $('#konsinyasi-table').DataTable({
+            let table = $('#warehouse-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 processing: true,
@@ -42,35 +37,20 @@
                         next: ">"
                     }
                 },
-                ajax: "{{ route('inventory.barang-konsinyasi.list') }}", //Fix List Data di DataProdukController
+                ajax: "{{ route('warehouse.list') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'dateKonsinyasi',
-                        name: 'dateKonsinyasi',
+                        data: 'name',
+                        name: 'name',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'invoiceKonsinyasi',
-                        name: 'invoiceKonsinyasi',
-                        className: 'align-middle text-center'
-                    },
-                    {
-                        data: 'nama_customer',
-                        name: 'nama_customer',
-                        className: 'align-middle text-center'
-                    },
-                    {
-                        data: 'keterangan',
-                        name: 'keterangan',
-                        className: 'align-middle text-center'
-                    },
-                    {
-                        data: 'total_rupiah',
-                        name: 'total_rupiah',
+                        data: 'status',
+                        name: 'status',
                         className: 'align-middle text-center'
                     },
                     {
@@ -80,6 +60,7 @@
                         searchable: false,
                         className: 'align-middle text-center'
                     },
+
                 ]
             });
 
@@ -87,13 +68,13 @@
                 table.ajax.reload(callback, resetPage); //reload datatable ajax 
             }
 
-            $('#konsinyasi-table').on('click', '.btn-delete', function(e) {
+            $('#warehouse-table').on('click', '.btn-delete', function(e) {
                 let id = $(this).data('id')
-                let invoice = $(this).data('invoice')
+                let nama = $(this).data('name')
                 e.preventDefault()
                 Swal.fire({
                     title: 'Apakah Yakin?',
-                    text: `Apakah Anda yakin ingin menghapus data konsinyasi dengan invoice ${invoice}`,
+                    text: `Apakah Anda yakin ingin menghapus data warehouse dengan nama ${nama}`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -103,7 +84,7 @@
                     if (result.isConfirmed) {
                         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{ url('inventory/barang-konsinyasi') }}/" + id,
+                            url: "{{ url('warehouse') }}/" + id,
                             type: 'POST',
                             data: {
                                 _token: CSRF_TOKEN,
@@ -113,7 +94,7 @@
                             success: function(response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    `Data konsinyasi dengan invoice ${invoice} berhasil terhapus.`,
+                                    `Data warehouse dengan nama ${nama} berhasil terhapus.`,
                                     'success'
                                 )
                                 reload_table(null, true)
@@ -145,38 +126,24 @@
                         <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
                     @endif
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <div class="d-flex gap-2">
-                            <a href="{{ route('inventory.index') }}" class="btn bg-gradient-primary btn-small">
-                                <i class="fas fa-chevron-left"></i>
-                            </a>
-                            <h4>Barang Konsinyasi</h4>
-                        </div>
-                        <a href="{{ route('inventory.barang-konsinyasi.create') }}" class="btn bg-gradient-primary">
+                        <h3>Data Gudang</h3>
+                        <a href="{{ route('warehouse.create') }}" class="btn bg-gradient-primary">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-3">
-                            <table class="table align-items-center mb-0" id="konsinyasi-table">
+                            <table class="table align-items-center mb-0" id="warehouse-table">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nomor</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Tangal</th>
+                                            Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Invoice</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Nama Kostumer</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Deskripsi</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Total Harga</th>
+                                            Status</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>

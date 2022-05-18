@@ -25,18 +25,23 @@ class DataProdukController extends Controller
 
     public function list(Request $request)
     {
-        $data = Item::currentCompany()->latest()->get();
+        $data = Item::with(['konsinyasi', 'adjustments'])->currentCompany()->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('quantitasItem', function ($row) {
-                if ($row->stockItem == null) {
+                if ($row->adjustments != null && $row->konsinyasi != null) {
+                    return ($row->adjustments->sum('pivot.jumlah_barang') - $row->konsinyasi->sum('pivot.jumlah_barang')) . " " . $row->unitItem;
+                } else if ($row->adjustments != null && $row->konsinyasi == null) {
+                    return $row->adjustments->sum('pivot.jumlah_barang') . " " . $row->unitItem;
+                } else if ($row->adjustments == null && $row->konsinyasi != null) {
+                    return "-" . $row->konsinyasi->sum('pivot.jumlah_barang') . " " . $row->unitItem;
+                } else {
                     return "0 " . $row->unitItem;
                 }
-                return $row->stockItem . " " . $row->unitItem;
-            })    
+            })
             ->addColumn('hargaJual', function ($row) {
                 return "Rp " . number_format($row->priceItem, 2, ',', '.');
-            })      
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('inventory.data-produk.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
@@ -50,6 +55,27 @@ class DataProdukController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Item::currentCompany()->get();
+        } else {
+            $data = Item::currentCompany()->where('nameItem', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->nameItem,
+                "price" => $d->priceItem,
+                "unit" => $d->unitItem
+            );
+        }
+        return response()->json($response);
+    }
+
 
     /**
      * Show the form for creating a new resource.

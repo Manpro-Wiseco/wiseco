@@ -17,19 +17,16 @@ class CreateKonsinyasisTable extends Migration
             $table->id();
             $table->date('dateKonsinyasi');
             $table->string('invoiceKonsinyasi');
-            $table->string('ReferenceNumber');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
             $table->unsignedBigInteger('data_contact_id');
-            $table->foreign('item_id')->references('id')->on('items');
-            $table->unsignedBigInteger('item_id');
-            $table->string('jumlah_barang');
-            $table->string('jumlah_diskon');
-            $table->string('total_harga');
+            $table->string('jumlah_diskon')->nullable();
+            $table->integer('total_harga');
             $table->string('keterangan');
-            $table->string('status');
+            $table->string('status')->nullable();
+            $table->foreign('warehouse_id')->references('id')->on('warehouses');
+            $table->unsignedBigInteger('warehouse_id');
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->unsignedBigInteger('company_id');  
-
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
         });
     }

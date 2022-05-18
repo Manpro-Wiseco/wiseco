@@ -19,6 +19,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assetsAdmin') }}/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{ asset('assetsAdmin') }}/img/favicon.png">
@@ -60,7 +61,7 @@
 
 <body class="g-sidenav-show  bg-gray-200">
     @include('admin.layouts.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg w3-container w3-animate-opacity">
         @include('admin.layouts.navbar')
         <!-- End Navbar -->
         <div class="container-fluid py-4">
@@ -86,9 +87,9 @@
     </main>
 
     <div class="fixed-plugin">
-        <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+        {{-- <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="material-icons py-2">settings</i>
-        </a>
+        </a> --}}
         <div class="card shadow-lg">
             <div class="card-header pb-0 pt-3">
                 <div class="float-start">
@@ -429,7 +430,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="{{ asset('assetsAdmin/js/plugins/datatables/datatables.js') }}"></script>
-
+    <script src="{{ asset('assetsAdmin/plugins/chartjs.min.js')}}"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js">
+    </script>
     @stack('scripts')
 </body>
 
