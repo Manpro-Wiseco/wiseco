@@ -430,7 +430,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="{{ asset('assetsAdmin/js/plugins/datatables/datatables.js') }}"></script>
-
+    <script src="{{ asset('assetsAdmin/plugins/chartjs.min.js')}}"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js">
+    </script>
     @stack('scripts')
 </body>
 
