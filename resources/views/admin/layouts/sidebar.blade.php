@@ -54,7 +54,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Manajemen Akun</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {}" href="#">
+                <a class="nav-link text-white <?php if (url()->current() == route('admin.profile.index')) {echo 'bg-gradient-primary';} ?>" href="{{ route('admin.profile.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">settings</i>
                     </div>

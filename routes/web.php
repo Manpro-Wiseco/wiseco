@@ -50,6 +50,10 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/ticketcategory/list', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'list'])->name('ticketcategory.list');
     Route::get('/ticketcategory/update', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'update'])->name('ticketcategory.update');
     Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
+
+    // Admin Profile
+    Route::get('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');
+    Route::resource('/profile', \App\Http\Controllers\Admin\AdminProfileController::class);
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
