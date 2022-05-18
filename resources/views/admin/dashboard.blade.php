@@ -48,16 +48,16 @@
         <div class="card">
             <div class="card-header p-3 pt-2">
                 <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person</i>
+                    <i class="material-icons opacity-10">credit_card</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Pengguna Hari Ini</p>
+                    <p class="text-sm mb-0 text-capitalize">Total Tiket</p>
                     <h4 class="mb-0">2,300</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span> dari hari kemarin</p>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span> status terbuka</p>
             </div>
         </div>
     </div>
@@ -97,10 +97,12 @@
     </div>
 </div>
 <div class="row mt-4">
-    <div class="card mb-3">
-        <div class="card-body p-3">
-            <div class="chart">
-                <canvas id="myChart" class="chart-canvas" height="100px"></canvas>
+    <div class="col-xl-12 col-sm-6">
+        <div class="card mb-3">
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="myChart" class="chart-canvas" height="100px"></canvas>
+                </div>
             </div>
         </div>
     </div>

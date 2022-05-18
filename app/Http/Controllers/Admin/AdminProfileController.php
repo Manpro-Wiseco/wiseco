@@ -16,6 +16,8 @@ class AdminProfileController extends Controller
 {
     public function index()
     {
-        return view('admin.profile.index');
+        $sessionCode = auth()->user()->id;
+        $nameProfil  = USER::where('id', $sessionCode)->get();
+        return view('admin.profile.index',compact('nameProfil'));
     }
 }
