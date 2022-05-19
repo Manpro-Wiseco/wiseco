@@ -147,13 +147,13 @@
                     </div>
                     <div style="text-align: right">
                         <?php if ($chat->user_id == (auth()->user()->id)) echo
-                        '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">
+                        '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal'.$chat->id.'">
                             <i class="fa fa-trash"></i>
                     </button>' ;
                     ?>
                     </div>
                     <!-- The Modal -->
-                    <div class="modal fade" id="myModal" style="text-align: center">
+                    <div class="modal fade" id="myModal<?php echo $chat->id; ?>" style="text-align: center">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!-- Modal Header -->

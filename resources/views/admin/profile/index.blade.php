@@ -71,17 +71,28 @@
                     </div>
                 </div>
                 <hr class="my-2" />
-                <form action="">
+                <form action="{{ route('admin.profile.update', $profil->id)}}" method="post">
+                    @method('PUT')
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="name">Nama</label>
-                            <input type="text" id="firstname" class="form-control" value="{{$profil->name}}" />
+                            <input name="name" type="text" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$profil->name}}" />
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group col-md-6 mb-4">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" value="{{$profil->email}}" />
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{$profil->email}}" />
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>

@@ -52,12 +52,13 @@
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Total Tiket</p>
-                    <h4 class="mb-0">2,300</h4>
+                    <h4 class="mb-0">{{$totalTicket}}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span> status terbuka</p>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">{{$openTicket}}</span> status terbuka</p>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">{{$closeTicket}}</span> status tertutup</p>
             </div>
         </div>
     </div>
@@ -68,13 +69,14 @@
                     <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Pengguna Baru</p>
-                    <h4 class="mb-0">3,462</h4>
+                    <p class="text-sm mb-0 text-capitalize">Pengguna</p>
+                    <h4 class="mb-0">{{$totalUser}}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> dari hari kemarin</p>
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">{{$adminUser}}</span> Admin</p>
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">{{$clientUser}}</span> Client</p>
             </div>
         </div>
     </div>
@@ -86,11 +88,12 @@
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Total UMKM</p>
-                    <h4 class="mb-0">1030</h4>
+                    <h4 class="mb-0">{{$totalUMKM}}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">&nbsp;</span> </p>
                 <p class="mb-0"><span class="text-success text-sm font-weight-bolder">&nbsp;</span> </p>
             </div>
         </div>

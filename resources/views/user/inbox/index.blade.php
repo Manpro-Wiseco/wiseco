@@ -136,7 +136,7 @@
                             <div class="card-header pb-0" style="font-size:12px;>">
                                 <small>{{Carbon\Carbon::parse($chat->updated_at)->format("d/m/Y")}}</small>
                                 <br>
-                                <small>by: {{$chat->name}}</small>
+                                <small>by: {{$chat->name}}{{$chat->id}}</small>
                                 &nbsp;
                                 <?php if ($chat->user_id == 1){ echo 
                         '<i class="fas fa-user-check"></i>';}else{
@@ -147,20 +147,42 @@
                             <div class="card-body" style="overflow:auto;">
                                 <?php  echo htmlspecialchars_decode($chat->chat);?>
                             </div>
-                            <form onsubmit="return confirm('Chat Anda Akan Dihapus, Apakah Anda Yakin ?');" action="{{ route('inbox.hapus', $chat->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <div style="text-align: right">
-                                    <?php if ($chat->user_id == (auth()->user()->id)) echo
-                        '<button type="submit" class="btn shadow"><i class="fas fa-trash"></i></button>' ;
-                    ?>
+                            <div style="text-align: right">
+                                <?php if ($chat->user_id == (auth()->user()->id)) echo
+                        '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal'.$chat->id.'">
+                                <i class="fa fa-trash"></i>
+                                </button>' ;
+                                ?>
+                            </div>
+                            <!-- The Modal -->
+                            <div class="modal fade" id="myModal<?php echo $chat->id; ?>" style="text-align: center">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Notifikasi</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body center">
+                                            Apakah anda yakin menghapus chat anda?
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <form action="{{ route('inbox.hapus', $chat->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger mt-1">Hapus</button>
+                                            </form>
+                                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Kembali</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
-
             </div>
             <form id="comment" action="{{ route('inbox.submit')}}" method="post">
                 @csrf
