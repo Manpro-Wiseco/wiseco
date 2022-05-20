@@ -124,7 +124,6 @@
     <i class="fas fa-angle-left" style="font-size: 20px"></i>
 </a>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="card" class="card">
     <div id="chat-box" class="chat-box card p-6 m-4 custom-scrollbar w3-animate-opacity" style="color:black;height: 600px; overflow: auto; background-color: rgba(173,173, 173, .7)">
         @foreach ($chats as $chat)
@@ -146,15 +145,40 @@
                     <div class="card-body" style="overflow:auto;">
                         <?php  echo htmlspecialchars_decode($chat->chat);?>
                     </div>
-                    <form onsubmit="return confirm('Chat Anda Akan Dihapus, Apakah Anda Yakin ?');" action="{{ route('admin.inbox.hapus', $chat->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <div style="text-align: right">
-                            <?php if ($chat->user_id == (auth()->user()->id)) echo
-                        '<button type="submit" class="btn shadow"><i class="fas fa-trash"></i></button>' ;
+                    <div style="text-align: right">
+                        <?php if ($chat->user_id == (auth()->user()->id)) echo
+                        '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal'.$chat->id.'">
+                            <i class="fa fa-trash"></i>
+                    </button>' ;
                     ?>
+                    </div>
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal<?php echo $chat->id; ?>" style="text-align: center">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Notifikasi</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body center">
+                                    Apakah anda yakin menghapus chat anda?
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <form action="{{ route('admin.inbox.hapus', $chat->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger mt-3">Hapus</button>
+                                    </form>
+                                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Kembali</button>
+                                </div>
+
+                            </div>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>

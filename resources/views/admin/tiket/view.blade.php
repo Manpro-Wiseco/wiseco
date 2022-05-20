@@ -82,13 +82,11 @@
                     <div class="card-body" style="overflow: auto">
                         <?php echo htmlspecialchars_decode($response->response); ?>
                     </div>
-                    <form onsubmit="return confirm('Komentar Anda Akan Dihapus, Apakah Anda Yakin ?');" action="{{ route('admin.ticket_response.destroy', $response->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                    <div style="text-align: right">
                         <?php if ($response->user_id == (auth()->user()->id)) echo
-                                '<button type="submit" class="btn shadow"><i class="fas fa-trash"></i></button>' ;
+                                '<button data-id="' . $response->id . '" type="button" class="delete-response btn shadow"><i class="fas fa-trash"></i></button>' ;
                             ?>
-                    </form>
+                    </div>
                 </div>
             </div>
             @endforeach
@@ -106,6 +104,51 @@
         config.uiColor = '#F7B42C';
         config.toolbarCanCollapse = true;
     };
+
+</script>
+<script>
+    $('.delete-response').on('click', function(e) {
+        let id = $(this).data('id')
+        e.preventDefault()
+        Swal.fire({
+            title: 'Apakah Yakin?'
+            , text: `Apakah Anda yakin ingin menghapus respon anda `
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonColor: '#3085d6'
+            , cancelButtonColor: '#d33'
+            , confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    url: "{{ url('admin/ticket_response') }}/" + id
+                    , type: 'POST'
+                    , data: {
+                        _token: CSRF_TOKEN
+                        , _method: "DELETE"
+                    , }
+                    , dataType: 'JSON'
+                    , success: function(response) {
+                        Swal.fire(
+                            'Deleted!'
+                            , `Data berhasil dihapus.`
+                            , 'success'
+                        )
+                        location.reload();
+                    }
+                    , error: function(jqXHR, textStatus, errorThrown) {
+                        Swal.fire({
+                            icon: 'error'
+                            , type: 'error'
+                            , title: 'Error saat delete data'
+                            , showConfirmButton: true
+                        })
+                    }
+                })
+            }
+        })
+    });
 
 </script>
 @endcomponent
