@@ -19,11 +19,14 @@ class CreatePesananPembeliansTable extends Migration
             $table->integer('no_pesanan');
             $table->unsignedBigInteger('data_contact_id');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
-            $table->string('nama_pelanggan');
+            //$table->foreign('item_id')->references('id')->on('items');
             $table->string('deskripsi');
-            $table->integer('nilai');
+            $table->integer('total');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
+            
         });
     }
 

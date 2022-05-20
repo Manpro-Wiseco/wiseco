@@ -97,12 +97,10 @@ class TicketResponseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TicketResponse $ticket_response)
     {
-        $response = TicketResponse::find($id);
-        
-        $data_id  = $response->ticket_id;
-        $response->delete();
-        return redirect()->route('ticket.view',$data_id);
+        $id_ticket_response = $ticket_response->id;
+        $ticket_response->delete();
+        return response()->json(['status' => TRUE]);
     }
 }
