@@ -67,7 +67,12 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                            <h3>Pesanan Pembelian</h3>
+                             <div class="d-flex gap-2">
+                                <a href="{{ route('pembelian.index') }}" class="btn bg-gradient-primary btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                                </a>
+                                <h3>Pesanan Pembelian</h3>
+                            </div>
                             <a href="{{ route('pembelian.pesanan-pembelian.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
