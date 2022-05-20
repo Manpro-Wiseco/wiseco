@@ -90,7 +90,7 @@
                                                 Nomor</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Nama Pelanggan</th>
+                                                Nama Pemasok</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Deskripsi</th>
