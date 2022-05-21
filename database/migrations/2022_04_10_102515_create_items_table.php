@@ -19,9 +19,9 @@ class CreateItemsTable extends Migration
             $table->string('codeItem')->nullable();
             $table->string('descriptionItem')->nullable();
             $table->enum('unitItem', ['Box', 'Pcs', 'Kg', 'Cup', 'Unit']);
-            $table->string('costItem')->nullable();
-            $table->string('priceItem')->nullable();
-            $table->string('stockItem')->nullable();
+            $table->integer('costItem')->nullable();
+            $table->integer('priceItem')->nullable();
+            $table->integer('stockItem')->nullable();
             $table->string('pajakPembelianItem')->nullable();
             $table->string('pajakPenjualanItem')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');

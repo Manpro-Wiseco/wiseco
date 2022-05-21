@@ -20,4 +20,9 @@ class DataContact extends Model
     {
         return $query->where('company_id', '=', session()->get('company')->id);
     }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', '=', $status);
+    }
 }

@@ -16,17 +16,16 @@ class CreatePesananPembeliansTable extends Migration
         Schema::create('pesanan_pembelians', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->integer('no_pesanan');
+            $table->string('no_pesanan');
             $table->unsignedBigInteger('data_contact_id');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
             //$table->foreign('item_id')->references('id')->on('items');
             $table->string('deskripsi');
             $table->integer('total');
-            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->enum('status', ['DITERIMA', 'DITOLAK', 'DRAFT']);
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
-            
         });
     }
 

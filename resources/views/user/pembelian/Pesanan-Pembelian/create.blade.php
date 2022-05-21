@@ -1,5 +1,13 @@
+@push('styles')
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+    </style>
+@endpush
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
+    <script src="{{ asset('assets/js/pembelian-table-create.js') }}"></script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -33,35 +41,14 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <!-- <div class="col-md-3">
-                                        <label class="form-label">No. Penawaran</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
-                                            required>
-                                            <option>-  Pilih No.Penawaran  -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('phone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div> -->
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label class="form-label mt-4">Tanggal Transaksi</label>
-                                        <input type="date"
-                                            class="form-control @error('transaction_date') is-invalid @enderror"
-                                            id="transaction_date" name="transaction_date"
-                                            value="{{ old('transaction_date') }}" placeholder="Nomor Telepon"
-                                            required>
-                                        @error('transaction_date')
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
+                                        @error('tanggal')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -69,10 +56,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label mt-4">No. Pesanan</label>
-                                        <input type="text" class="form-control @error('invoice') is-invalid @enderror"
-                                            id="invoice" name="invoice" value="{{ old('invoice') }}"
+                                        <input type="text"
+                                            class="form-control @error('no_pesanan') is-invalid @enderror"
+                                            id="no_pesanan" name="no_pesanan" value="{{ old('no_pesanan') }}"
                                             placeholder="No. Pesanan" required>
-                                        @error('invoice')
+                                        @error('no_pesanan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -80,11 +68,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-4">Deskripsi</label>
-                                        <input type="text"
-                                            class="form-control @error('description') is-invalid @enderror"
-                                            id="description" name="description" value="{{ old('description') }}"
+                                        <input type="text" class="form-control @error('deskripsi') is-invalid @enderror"
+                                            id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}"
                                             placeholder="Deskripsi" required>
-                                        @error('description')
+                                        @error('deskripsi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -107,9 +94,11 @@
                                         <div class="card-body">
                                             <hr>
                                             <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="jml-total">Total</label>
+                                                <label class="col-form-label col-6 col-md-4"
+                                                    for="jml-total">Total</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input disabled type="text" class="form-control" id="jml-total" placeholder="Rp.">
+                                                    <input disabled type="text" class="form-control" id="jml-total"
+                                                        placeholder="Rp.">
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +106,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <input type="button" id="bt" value="Submit" class="btn bg-gradient-primary" />
-                                    {{--<button type="submit" class="btn bg-gradient-primary">Submit</button> --}}
+                                    {{-- <button type="submit" class="btn bg-gradient-primary">Submit</button> --}}
                                 </div>
                             </form>
                         </div>
