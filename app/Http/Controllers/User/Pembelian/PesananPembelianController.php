@@ -95,12 +95,12 @@ class PesananPembelianController extends Controller
                     "updated_at" => Carbon::now()
                 ]);
                 // Get items table by id
-                $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
+                // $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
                 // Update stock
-                DB::table('items')->where('id', $value["data_produk_id"])->update([
-                    'stockItem' => $item->stockItem + $value["jumlah_barang"],
-                    'updated_at' => Carbon::now()
-                ]);
+                //     DB::table('items')->where('id', $value["data_produk_id"])->update([
+                //         'stockItem' => $item->stockItem + $value["jumlah_barang"],
+                //         'updated_at' => Carbon::now()
+                //     ]);
             }
         });
 
@@ -126,7 +126,9 @@ class PesananPembelianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = PesananPembelian::with(['dataContact'])->findOrFail($id);
+        $dataContacts = DataContact::currentCompany()->status('Supplier')->get();
+        return view('user.pembelian.pesanan-pembelian.edit', compact('data', 'dataContacts'));
     }
 
     /**
@@ -138,7 +140,54 @@ class PesananPembelianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'data_contact_id' => 'required|numeric',
+            'no_pesanan' => 'required',
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'detail.*.subtotal' => 'required|numeric',
+            'detail.*.data_produk_id' => 'required|numeric',
+            'detail.*.harga_barang' => 'required|numeric',
+            'detail.*.jumlah_barang' => 'required|numeric',
+        ]);
+
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $detail = $request->detail;
+        $pembelian = PesananPembelian::find($id);
+
+        // create new array with item_id value as a key with array of amount, jumlah_barang, harga_barang as pair of key and value
+        $new_array = array_reduce($detail, function ($result, $item) {
+            $result[$item['data_produk_id']] = [
+                "jumlah_barang" => $item["jumlah_barang"],
+                "harga_barang" => $item["harga_barang"],
+                "subtotal" => $item["subtotal"],
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ];
+            return $result;
+        }, []);
+        DB::transaction(function () use ($data, $pembelian, $new_array, $detail) {
+            $pembelian->update([
+                'tanggal' => $data['tanggal'],
+                'no_pesanan' => $data['no_pesanan'],
+                'data_contact_id' => $data['data_contact_id'],
+                'total' => $data['total'],
+                'deskripsi' => $data['deskripsi'],
+            ]);
+            $pembelian->items()->sync($new_array);
+            // Get items table by id
+            // foreach ($detail as $key => $value) {
+            //     $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
+            //     // Update stock item
+            //     DB::table('items')->where('id', $value["data_produk_id"])->update([
+            //         'stockItem' => $item->stockItem + $value["jumlah_barang"],
+            //         'updated_at' => Carbon::now()
+            //     ]);
+            // }
+        });
+        return response()->json(['data' => ['pembelian' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data pemesanan pembelian barang!']);
     }
 
     /**
@@ -149,16 +198,16 @@ class PesananPembelianController extends Controller
      */
     public function destroy($id)
     {
-        DB::transaction(function () use ($id) {
-            $pembelian = PesananPembelian::find($id);
-            foreach ($pembelian->items as $key => $item) {
-                $data_item = Item::find($item->id);
-                $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
-                $data_item->save();
-            }
-            $pembelian->items()->detach();
-            $pembelian->delete();
-        });
+        // DB::transaction(function () use ($id) {
+        //     $pembelian = PesananPembelian::find($id);
+        //     foreach ($pembelian->items as $key => $item) {
+        //         $data_item = Item::find($item->id);
+        //         $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
+        //         $data_item->save();
+        //     }
+        //     $pembelian->items()->detach();
+        //     $pembelian->delete();
+        // });
         return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pesanan pembelian!']);
     }
 }

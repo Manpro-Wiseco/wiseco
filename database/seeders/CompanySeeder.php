@@ -15,6 +15,7 @@ class CompanySeeder extends Seeder
     public function run()
     {
         Company::Create([
+            'id' => 1,
             'name' => 'Inventory Company',
             'business_type' => 'Persediaan barang pangan dan papan',
             'user_id' => 2,
