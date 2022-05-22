@@ -77,6 +77,9 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
 
     // Company Setting
     Route::get('/company-setting', [\App\Http\Controllers\User\CompanySettingController::class, 'index'])->name('company-setting');
+    Route::put('/company-setting/update-info', [\App\Http\Controllers\User\CompanySettingController::class, 'updateInfo'])->name('company-setting.update-info');
+    Route::put('/company-setting/update-status', [\App\Http\Controllers\User\CompanySettingController::class, 'updateStatus'])->name('company-setting.update-status');
+    Route::delete('/company-setting', [\App\Http\Controllers\User\CompanySettingController::class, 'destroy'])->name('company-setting.destroy');
 
     // Penjualan
     Route::prefix('penjualan')->name('penjualan.')->group(function () {
