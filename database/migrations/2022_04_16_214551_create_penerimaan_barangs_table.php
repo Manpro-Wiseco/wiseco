@@ -16,15 +16,16 @@ class CreatePenerimaanBarangsTable extends Migration
         Schema::create('penerimaan_barangs', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->integer('no_penerimaan');
+            $table->unsignedBigInteger('pesanan_id');
+            $table->foreign('pesanan_id')->references('id')->on('pesanan_pembelians');
+            $table->string('no_penerimaan');
             $table->unsignedBigInteger('data_contact_id');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
-            $table->unsignedBigInteger('pesanan_pembelian_id');
-            $table->foreign('pesanan_pembelian_id')->references('id')->on('pesanan_pembelians');
-            $table->string('nama_pelanggan');
             $table->string('deskripsi');
-            $table->integer('nilai');
-            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->integer('total');
+            $table->enum('status', ['Open', 'Closed', 'Diterima']);
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

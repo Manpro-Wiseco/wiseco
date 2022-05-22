@@ -156,12 +156,12 @@ addRowBtn.addEventListener("click", function (e) {
                 var unitItemText = row.children("td:eq(2)")[0].children[0];
                 var harga_barangText = row.children("td:eq(3)")[0].children[0];
                 var harga_barangInput = row.children("td:eq(3)")[0].children[1];
-
-                price = data.price;
+                console.log(data);
+                price = data.cost;
                 unitItemText.textContent = data.unit;
 
-                harga_barangText.textContent = "Rp " + data.price;
-                harga_barangInput.value = data.price;
+                harga_barangText.textContent = "Rp " + price;
+                harga_barangInput.value = price;
             });
         } else if (cell == 1) {
             let input = document.createElement("input");

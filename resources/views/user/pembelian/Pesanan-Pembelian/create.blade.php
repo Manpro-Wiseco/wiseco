@@ -8,6 +8,30 @@
 @endpush
 @push('scripts')
     <script src="{{ asset('assets/js/pembelian-table-create.js') }}"></script>
+    <script>
+        $("#data_contact_id").select2({
+            placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            // dropdownParent: $(`#container-select-${cell}`),
+            theme: "bootstrap-5",
+            ajax: {
+                url: `${window.url}/data-contact/data`,
+                dataType: "json",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                        filter: 'Supplier'
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response,
+                    };
+                },
+                cache: true,
+            },
+        });
+    </script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -28,12 +52,7 @@
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
-                                            <option>- Pilih Salah Satu -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
+                                            <option></option>
                                         </select>
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">

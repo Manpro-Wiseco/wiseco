@@ -39,6 +39,27 @@ class PesananPembelianController extends Controller
             ->make(true);
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = PesananPembelian::with(['dataContact', 'items'])->currentCompany()->where('status', 'Open')->get();
+        } else {
+            $data = PesananPembelian::with(['dataContact', 'items'])->currentCompany()->where('status', 'Open')->where('nameItem', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $d) {
+
+            $response[] = array(
+                "id" => $d->id,
+                "text" => $d->no_pesanan,
+                "data" => $d,
+                "item_count" => $d->items->count()
+            );
+        }
+        return response()->json($response);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -51,6 +51,7 @@ class DataProdukController extends Controller
     public function data(Request $request)
     {
         $search = $request->search;
+        $selected_id = $request->selected_id;
         if ($search == '') {
             $data = Item::currentCompany()->get();
         } else {
@@ -62,7 +63,9 @@ class DataProdukController extends Controller
                 "id" => $d->id,
                 "text" => $d->nameItem,
                 "price" => $d->priceItem,
-                "unit" => $d->unitItem
+                "cost" => $d->costItem,
+                "unit" => $d->unitItem,
+                "selected" => (!$selected_id) ?  false : (($selected_id == $d->id) ? true : false),
             );
         }
         return response()->json($response);

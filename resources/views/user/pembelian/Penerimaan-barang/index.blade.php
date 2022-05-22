@@ -8,15 +8,14 @@
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
-                 language: {
-                   paginate: {
+                language: {
+                    paginate: {
                         previous: "<",
                         next: ">"
                     }
                 },
                 ajax: "{{ route('pembelian.penerimaan-barang.list') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'tanggal',
                         name: 'tanggal',
                         className: 'align-middle text-center'
@@ -27,8 +26,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'nama_pelanggan',
-                        name: 'nama_pelanggan',
+                        data: 'data_contact.name',
+                        name: 'data_contact.name',
                         className: 'align-middle text-center'
                     },
                     {
@@ -37,8 +36,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'nilai',
-                        name: 'nilai',
+                        data: 'total',
+                        name: 'total',
                         className: 'align-middle text-center'
                     },
                     {
@@ -67,14 +66,15 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                        <div class="d-flex gap-2">
+                            <div class="d-flex gap-2">
                                 <a href="{{ route('pembelian.index') }}" class="btn bg-gradient-primary btn-small">
-                                <i class="fas fa-chevron-left"></i>
+                                    <i class="fas fa-chevron-left"></i>
                                 </a>
                                 <h3>Penerimaan Barang</h3>
                             </div>
-                           
-                            <a href="{{ route('pembelian.penerimaan-barang.create') }}" class="btn bg-gradient-primary">
+
+                            <a href="{{ route('pembelian.penerimaan-barang.create') }}"
+                                class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
@@ -97,7 +97,7 @@
                                                 Deskripsi</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nilai</th>    
+                                                Nilai</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Status</th>

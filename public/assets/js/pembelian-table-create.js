@@ -119,7 +119,8 @@ submitBtn.addEventListener("click", function (e) {
 // add row BUTTON function.
 addRowBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    let rowCnt = tbody.rows.length; // table row count.
+    let rowCnt = tbody.rows.length;
+    console.log("rowCnt", rowCnt); // table row count.
     let tr = tbody.insertRow(rowCnt); // the table row.
 
     for (let cell = 0; cell < arrHead.length; cell++) {
@@ -177,12 +178,11 @@ addRowBtn.addEventListener("click", function (e) {
                 var unitItemText = row.children("td:eq(2)")[0].children[0];
                 var harga_barangText = row.children("td:eq(3)")[0].children[0];
                 var harga_barangInput = row.children("td:eq(3)")[0].children[1];
-
-                price = data.price;
+                price = data.cost;
                 unitItemText.textContent = data.unit;
 
-                harga_barangText.textContent = "Rp " + data.price;
-                harga_barangInput.value = data.price;
+                harga_barangText.textContent = "Rp " + price;
+                harga_barangInput.value = price;
             });
         } else if (cell == 1) {
             let input = document.createElement("input");

@@ -8,6 +8,30 @@
 @endpush
 @push('scripts')
     <script src="{{ asset('assets/js/pembelian-table-edit.js') }}"></script>
+    <script>
+        $("#data_contact_id").select2({
+            placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            // dropdownParent: $(`#container-select-${cell}`),
+            theme: "bootstrap-5",
+            ajax: {
+                url: `${window.url}/data-contact/data`,
+                dataType: "json",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                        filter: 'Supplier'
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response,
+                    };
+                },
+                cache: true,
+            },
+        });
+    </script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -28,12 +52,9 @@
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
-                                            <option>- Pilih Salah Satu -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if ($data->data_contact_id == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
+                                            <option value="{{ $data->dataContact->id }}">
+                                                {{ $data->dataContact->name . ' - ' . $data->dataContact->status }}
+                                            </option>
                                         </select>
                                         @error('data_contact_id')
                                             <span class="invalid-feedback" role="alert">
@@ -72,8 +93,8 @@
                                         <label class="form-label mt-4">Deskripsi</label>
                                         <input type="text" class="form-control @error('deskripsi') is-invalid @enderror"
                                             id="deskripsi" name="deskripsi"
-                                            value="{{ old('deskripsi') ?? $data->deskripsi }}"
-                                            placeholder="Deskripsi" required>
+                                            value="{{ old('deskripsi') ?? $data->deskripsi }}" placeholder="Deskripsi"
+                                            required>
                                         @error('deskripsi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
