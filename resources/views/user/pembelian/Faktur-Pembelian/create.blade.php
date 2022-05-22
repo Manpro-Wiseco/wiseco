@@ -51,6 +51,19 @@
                                             </span>
                                         @enderror
                                     </div> 
+                                    <div class="col-md-3">
+                                        <label class="form-label">Status</label>
+                                        <select name="unitItem" id="unitItem" class="form-control">
+                                            <option>- Pilih Salah Satu -</option>
+                                            <option value="Box">Lunas</option>
+                                            <option value="Kg">Penerimaan Barang</option>
+                                        </select>
+                                        @error('unitItem')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="row">

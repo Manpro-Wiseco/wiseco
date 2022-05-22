@@ -5,7 +5,7 @@
             
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('pembelian.pesanan-pembelian.index')}}">
-                        <div class="card bg-gradient-success">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Pesanan Pembelian</h4>
@@ -19,7 +19,7 @@
 
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('pembelian.penerimaan-barang.index')}}">
-                        <div class="card bg-gradient-info">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Penerimaan Barang</h4>
@@ -33,7 +33,7 @@
             
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('pembelian.faktur-pembelian.index')}}">
-                        <div class="card bg-gradient-secondary">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Faktur Pembelian</h4>
@@ -47,7 +47,7 @@
             
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('pembelian.retur-pembelian.index')}}">
-                        <div class="card bg-gradient-warning">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Retur Pembelian</h4>
