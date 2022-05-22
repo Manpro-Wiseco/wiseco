@@ -31,4 +31,9 @@ class Item extends Model
     {
         return $this->belongsToMany(Adjustment::class, 'item_adjustment', 'item_id', 'adjustment_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
     }
+
+    public function pembelian()
+    {
+        return $this->belongsToMany(PesananPembelian::class, 'item_pembelian', 'item_id', 'pembelian_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
+    }
 }

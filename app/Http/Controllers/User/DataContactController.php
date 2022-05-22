@@ -45,6 +45,38 @@ class DataContactController extends Controller
             ->make(true);
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        $filter = $request->filter;
+        if ($filter) {
+            if ($search == '') {
+                $data = DataContact::currentCompany()->where('status', $filter)->get();
+            } else {
+                $data = DataContact::currentCompany()->where('status', $filter)->where('name', 'like', '%' . $search . '%')->get();
+            }
+        } else {
+            if ($search == '') {
+                $data = DataContact::currentCompany()->get();
+            } else {
+                $data = DataContact::currentCompany()->where('name', 'like', '%' . $search . '%')->get();
+            }
+        }
+
+        $response = array();
+        foreach ($data as $d) {
+            $response[] = [
+                'id' => $d->id,
+                'text' => $d->name . ' - ' . $d->status,
+                'status' => $d->status,
+                'email' => $d->email,
+                'phone' => $d->phone,
+                'company' => $d->company->name,
+            ];
+        }
+        return response()->json($response);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

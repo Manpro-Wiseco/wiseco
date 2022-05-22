@@ -160,28 +160,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/', [\App\Http\Controllers\User\pembelian\HomeController::class, 'index'])->name('index');
 
         //pesanan pembelian
-        Route::prefix('pesanan-pembelian')->name('pesanan-pembelian.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\PesananPembelianController::class, 'destroy'])->name('destroy');
-            Route::get('/list', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'list'])->name('list');
-            //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
-        });
+        Route::get('/pesanan-pembelian/list', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'list'])->name('pesanan-pembelian.list');
+        Route::get('/pesanan-pembelian/data', [\App\Http\Controllers\User\Pembelian\PesananPembelianController::class, 'data'])->name('pesanan-pembelian.data');
+        Route::resource('/pesanan-pembelian', App\Http\Controllers\User\Pembelian\PesananPembelianController::class);
 
         //penerimaan barang
-        Route::prefix('penerimaan-barang')->name('penerimaan-barang.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'edit'])->name('edit');
-            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Pembelian\PenerimaanBarangController::class, 'destroy'])->name('destroy');
-            Route::get('/list', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'list'])->name('list');
-            //Route::get('/export', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'export'])->name('export');
-        });
+        Route::get('/penerimaan-barang/list', [\App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class, 'list'])->name('penerimaan-barang.list');
+        Route::resource('/penerimaan-barang', App\Http\Controllers\User\Pembelian\PenerimaanBarangController::class);
 
         //faktur pembelian
         Route::prefix('faktur-pembelian')->name('faktur-pembelian.')->group(function () {
@@ -288,6 +273,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::resource('/data-bank', \App\Http\Controllers\User\DataBankController::class);
     // Data Lainnya - Data Contact 
     Route::get('/data-contact/list', [\App\Http\Controllers\User\DataContactController::class, 'list'])->name('data-contact.list');
+    Route::get('/data-contact/data', [\App\Http\Controllers\User\DataContactController::class, 'data'])->name('data-contact.data');
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
     // Data Lainnya - Classification
     Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');

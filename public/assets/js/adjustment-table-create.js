@@ -189,7 +189,7 @@ addRowBtn.addEventListener("click", function (e) {
             input.setAttribute("placeholder", "0");
             input.setAttribute("class", "form-control text-right");
             td.appendChild(input);
-            input.addEventListener("change", function (e) {
+            input.addEventListener("keyup", function (e) {
                 var row = $(this).closest("tr");
                 var amountText = row.children("td:eq(4)")[0].children[0];
                 var amountInput = row.children("td:eq(4)")[0].children[1];
