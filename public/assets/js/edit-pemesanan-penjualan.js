@@ -1,6 +1,8 @@
 let arrHead = new Array(); // array for header.
 arrHead = ["Barang", "Qty", "Harga Unit", "Total", "#"];
-let tbody;
+let tbody, oc, disc, pajak;
+const addRowBtn = document.getElementById("addRow");
+
 // first create TABLE structure with the headers.
 function createTable() {
     let empTable = document.createElement("table");
@@ -59,87 +61,6 @@ function removeRow(oButton) {
     let empTab = document.getElementById("empTable");
     empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
 }
-
-const addRowBtn = document.getElementById("addRow");
-// const submitBtn = document.getElementById("bt");
-
-// submitBtn.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     let myTab = document.getElementById("empTable");
-//     let arrValues = new Array();
-//     // loop through each row of the table.
-//     for (row = 1; row < myTab.rows.length; row++) {
-//         let arrObject = {};
-//         // loop through each cell in a row.
-//         // console.log(myTab.rows[row].cells.length, "Cell length");
-//         for (
-//             cellIndex = 0;
-//             cellIndex < myTab.rows[row].cells.length - 1;
-//             cellIndex++
-//         ) {
-//             let element = myTab.rows.item(row).cells[cellIndex];
-//             let elementChild = element.childNodes[0];
-//             if (elementChild.getAttribute("data") == "amount") {
-//                 arrObject.amount = elementChild.value;
-//             } else if (
-//                 elementChild.getAttribute("class") == "bank_account_container"
-//             ) {
-//                 arrObject.bank_account_id = parseInt(
-//                     $(".bank_account :selected")[row - 1].value
-//                 );
-//             }
-//         }
-//         arrValues.push(arrObject);
-//     }
-
-//     // let CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
-
-//     // let data_contact_id = $("#data_contact_id").find(":selected")[0].value;
-//     // let total = arrValues.reduce((accumulator, object) => {
-//     //     return parseInt(accumulator) + parseInt(object.amount);
-//     // }, 0);
-//     // let description = document.getElementById("description").value;
-//     // let invoice = document.getElementById("invoice").value;
-//     // let transaction_date = document.getElementById("transaction_date").value;
-
-//     // console.log(arrValues);
-    
-//     // $.ajax({
-//     //     url: `${window.url}/pengelolaan-kas/expense`,
-//     //     type: "POST",
-//     //     data: {
-//     //         _token: CSRF_TOKEN,
-//     //         detail: arrValues,
-//     //         data_contact_id,
-//     //         total,
-//     //         description,
-//     //         invoice,
-//     //         transaction_date,
-//     //     },
-//     //     dataType: "JSON",
-//     //     success: function (response) {
-//     //         console.log(response);
-//     //         if (response.status) {
-//     //             Swal.fire({
-//     //                 icon: "success",
-//     //                 type: "success",
-//     //                 title: response.message,
-//     //                 showConfirmButton: true,
-//     //             }).then((result) => {
-//     //                 window.location.href = `${window.url}/pengelolaan-kas/expense`;
-//     //             });
-//     //         }
-//     //     },
-//     //     error: function (jqXHR, textStatus, errorThrown) {
-//     //         Swal.fire({
-//     //             icon: "error",
-//     //             type: "error",
-//     //             title: "Pastikan semua data terisi!",
-//     //             showConfirmButton: true,
-//     //         });
-//     //     },
-//     // });
-// });
 
 addRowBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -211,8 +132,7 @@ addRowBtn.addEventListener("click", function (e) {
             ele.onkeyup=function(){Total(this.id, rowCnt)};
             ele.classList.add("qty" ,"form-control");
             td.appendChild(ele);
-        }
-        else if (cell == 2){
+        }else if (cell == 2){
             let ele = document.createElement("input");
             ele.setAttribute("type", "number");
             ele.setAttribute("data", "harga-unit");
@@ -223,8 +143,7 @@ addRowBtn.addEventListener("click", function (e) {
             ele.onkeyup=function(){Total(this.id, rowCnt)};
             ele.classList.add("hargaunit","form-control");
             td.appendChild(ele);
-        }
-        else if (cell == 3){
+        }else if (cell == 3){
             let ele = document.createElement("input");
             ele.setAttribute("readonly", true);
             ele.setAttribute("type", "number");
@@ -239,27 +158,11 @@ addRowBtn.addEventListener("click", function (e) {
     }
 });
 
-// $(".harga-unit").on('input',function(e){
-//     var total = $(this).val();
-//     console.log(total);
-//    });
-
-// $(".hargaunit").keyup(function (e) { 
-//     var harga = $(this).val();
-//     console.log(harga);
-// });
-
-//$(".harga-unit").change(function (e) { 
-  //  var total = $(this).val();
-    //console.log(total);
-//});
-createTable();
-
 function getTotalItem() {
-    var total = 0;
-    let oc = parseInt($('#other-cost').val());
-    let disc = parseInt($('#discount').val());
-    let pajak = parseInt($('#pajak').val());
+    let total = 0;
+    oc = parseInt($('#other-cost').val());
+    disc = parseInt($('#discount').val());
+    pajak = parseInt($('#pajak').val());
     
     $('.total').each(function(){
         total += parseInt(this.value);
@@ -276,7 +179,6 @@ function getTotalItem() {
         // console.log('disc ada');
     }else{
         $("#potongan").val(0);
-
     }
 
     if(pajak){
@@ -310,6 +212,107 @@ function Total(target, row) {
     getTotalItem();
 }
 
+$(document).ready(function() {
+    // oc = parseInt($('#other-cost').val());
+    // disc = parseInt($('#discount').val());
+    // pajak = parseInt($('#pajak').val());
+    // total = parseInt($('#jml-total').val());
+    createTable()
+    let formID = $("#form_id").attr("data-id");
+    // console.log(formID);
+    setTimeout(function() {
+         //load data item
+         $.ajax({
+            type: "GET",
+            url: `${window.url}/penjualan/pesanan-penjualan/get-item-detail/${formID}`,
+            dataType: 'json',
+            beforeSend: function() {
+                $('#loader').removeClass('hidden')
+            },
+            success: function(data){
+                // console.log(data);
+                data.forEach((data, index) => {
+                    let rowCnt = tbody.rows.length; // table row count.
+                    let tr = tbody.insertRow(rowCnt); // the table row.
+
+                    for (let cell = 0; cell < arrHead.length; cell++) {
+                        let td = document.createElement("td"); // table definition.
+                        td = tr.insertCell(cell);
+
+                        if (cell == 4) {
+                            let button = document.createElement("input");
+                            button.setAttribute("type", "button");
+                            button.setAttribute("value", "Delete");
+                            button.classList.add("btn", "bg-gradient-danger", "btn-small");
+                            button.setAttribute("onclick", "removeRow(this)");
+                            td.classList.add("align-middle", "text-center");
+                            td.appendChild(button);
+                        } else if (cell == 0) {
+                            let container = document.createElement("div");
+                            let select = document.createElement("select");
+                            let optionDefault = document.createElement("option");
+                            select.setAttribute("required", "required");
+                            select.setAttribute("data", "items");
+                            select.setAttribute("name", "items["+rowCnt+"][id]");
+                            select.classList.add("form-control", "items-list");
+                            container.classList.add("item_container");
+                            container.setAttribute("id", `container-select-${cell}`);
+                            optionDefault.innerHTML = data.item.nameItem;
+                            select.appendChild(optionDefault);
+                            container.appendChild(select);
+                            td.appendChild(container);
+                            
+                        } else if (cell == 1){
+                            let ele = document.createElement("input");
+                            ele.setAttribute("type", "number");
+                            ele.setAttribute("data", "qty");
+                            ele.setAttribute("required", "required");
+                            ele.setAttribute("name", "items["+rowCnt+"][qty]");
+                            ele.setAttribute("id", "qty"+rowCnt);
+                            ele.value = data.jumlah_barang;
+                            // ele.setAttribute("onKeyup", "Total("+rowCnt+")");
+                            ele.onkeyup=function(){Total(this.id, rowCnt)};
+                            ele.classList.add("qty" ,"form-control");
+                            td.appendChild(ele);
+                        }
+                        else if (cell == 2){
+                            let ele = document.createElement("input");
+                            ele.setAttribute("type", "number");
+                            ele.setAttribute("data", "harga-unit");
+                            ele.setAttribute("placeholder", "Rp");
+                            ele.setAttribute("required", "required");
+                            ele.setAttribute("name", "items["+rowCnt+"][harga_unit]");
+                            ele.setAttribute("id", "hu"+rowCnt);
+                            ele.value = data.harga_barang;
+                            ele.onkeyup=function(){Total(this.id, rowCnt)};
+                            ele.classList.add("hargaunit","form-control");
+                            td.appendChild(ele);
+                        }
+                        else if (cell == 3){
+                            let ele = document.createElement("input");
+                            ele.setAttribute("readonly", true);
+                            ele.setAttribute("type", "number");
+                            ele.setAttribute("data", "total");
+                            ele.setAttribute("placeholder", "Rp");
+                            ele.setAttribute("required", "required");
+                            ele.setAttribute("name", "items["+rowCnt+"][total]");
+                            ele.setAttribute("id", "total"+rowCnt);
+                            ele.value = data.subtotal;
+                            ele.classList.add("total","form-control");
+                            td.appendChild(ele);
+                        }
+                    }
+                });
+            },
+          complete: function(){
+                $('#loader').addClass('hidden')
+                $('#addRow').removeClass('hidden')
+                getTotalItem();
+            },
+        });
+    }, 1500);
+});
+
 $( "#other-cost" ).keyup(function() {
     getTotalItem();
 });
@@ -319,20 +322,3 @@ $( "#discount" ).keyup(function() {
 $( "#pajak" ).keyup(function() {
     getTotalItem();
 });
-
-function invcreate(no) {
-    let cust = $('#data_contact_id option:selected').text();
-    if (cust) {
-        cust = cust.replace(/^\s+|\s+$/gm,'');
-        // let kode = $('#transaction_date').val().replace(/[^\w\s]/gi, '');
-        let kode = moment().format('DMYYss');
-        // console.log(cust[0].toLowerCase()+"-"+kode+Math.floor(Math.random() * 1000));
-        $('#invoice').val(kode+Math.floor(Math.random() * 101));
-        // $('#addRow').show();
-    }else{
-        alert('Anda belum memilih pelanggan');
-        $("input[type=date]").val("");
-    }
-}
-
-
