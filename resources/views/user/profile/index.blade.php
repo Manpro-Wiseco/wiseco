@@ -1,7 +1,34 @@
+@push('scripts')
+    <script>
+        let flashdatasukses = $('.success-session').data('flashdata');
+        if (flashdatasukses) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: flashdatasukses,
+                type: 'success'
+            })
+        }
+        let flashdatadanger = $('.danger-session').data('flashdata');
+        if (flashdatadanger) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: flashdatadanger,
+                type: 'error'
+            })
+        }
+    </script>
+@endpush
 <x-template-layout>
     <div class="container-fluid my-3 py-3">
         <div class="row mb-5">
             <h3 class="mb-3">Profile Setting</h3>
+            @if (session('success'))
+                <div class="success-session" data-flashdata="{{ session('success') }}"></div>
+            @elseif(session('danger'))
+                <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
+            @endif
             <div class="col-lg-3">
                 <div class="card position-sticky top-1">
                     <ul class="nav flex-column bg-white border-radius-lg p-3">
@@ -194,48 +221,41 @@
                             those that you do not recognize.</p>
                     </div>
                     <div class="card-body pt-0">
-                        <div class="d-flex align-items-center">
-                            <div class="text-center w-5">
-                                <i class="fas fa-desktop text-lg opacity-6" aria-hidden="true"></i>
-                            </div>
-                            <div class="my-auto ms-3">
-                                <div class="h-100">
-                                    <p class="text-sm mb-1">
-                                        Bucharest 68.133.163.201
-                                    </p>
-                                    <p class="mb-0 text-xs">
-                                        Your current session
-                                    </p>
+                        @foreach ($sessions as $session)
+                            <div class="d-flex align-items-center">
+                                <div class="text-center w-5">
+                                    @if ($session->agent->isDesktop())
+                                        <i class="fas fa-desktop text-lg opacity-6" aria-hidden="true"></i>
+                                    @else
+                                        <i class="fas fa-mobile text-lg opacity-6" aria-hidden="true"></i>
+                                    @endif
                                 </div>
+                                <div class="my-auto ms-3">
+                                    <div class="h-100">
+                                        <p class=" mb-1">
+                                            {{ $session->agent->platform() ? $session->agent->platform() : 'Unknown' }}
+                                            -
+                                            {{ $session->agent->browser() ? $session->agent->browser() : 'Unknown' }}
+                                        </p>
+                                        <p class="mb-0 fw-bold">
+                                            {{ $session->ip_address }} -
+
+                                            @if ($session->is_current_device)
+                                                <span class="text-success">Current Device</span>
+                                            @else
+                                                {{ __('Last active') }} {{ $session->last_active }}
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                                <span class="badge badge-success badge-sm my-auto ms-auto me-3">Active</span>
+                                <button class="btn btn-sm bg-gradient-danger mb-0" type=" button" name="button">Delete
+                                    Session</button>
                             </div>
-                            <span class="badge badge-success badge-sm my-auto ms-auto me-3">Active</span>
-                            <p class="text-secondary text-sm my-auto me-3">EU</p>
-                            <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <hr class="horizontal dark">
-                        <div class="d-flex align-items-center">
-                            <div class="text-center w-5">
-                                <i class="fas fa-desktop text-lg opacity-6" aria-hidden="true"></i>
-                            </div>
-                            <p class="my-auto ms-3">Chrome on macOS</p>
-                            <p class="text-secondary text-sm ms-auto my-auto me-3">US</p>
-                            <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <hr class="horizontal dark">
-                        <div class="d-flex align-items-center">
-                            <div class="text-center w-5">
-                                <i class="fas fa-mobile text-lg opacity-6" aria-hidden="true"></i>
-                            </div>
-                            <p class="my-auto ms-3">Safari on iPhone</p>
-                            <p class="text-secondary text-sm ms-auto my-auto me-3">US</p>
-                            <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-                            </a>
-                        </div>
+                            <hr class="horizontal dark">
+                        @endforeach
+
+
                     </div>
                 </div>
 
