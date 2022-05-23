@@ -29,15 +29,7 @@ class DataProdukController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('quantitasItem', function ($row) {
-                if ($row->adjustments != null && $row->konsinyasi != null) {
-                    return ($row->adjustments->sum('pivot.jumlah_barang') - $row->konsinyasi->sum('pivot.jumlah_barang')) . " " . $row->unitItem;
-                } else if ($row->adjustments != null && $row->konsinyasi == null) {
-                    return $row->adjustments->sum('pivot.jumlah_barang') . " " . $row->unitItem;
-                } else if ($row->adjustments == null && $row->konsinyasi != null) {
-                    return "-" . $row->konsinyasi->sum('pivot.jumlah_barang') . " " . $row->unitItem;
-                } else {
-                    return "0 " . $row->unitItem;
-                }
+                return "$row->stockItem " . $row->unitItem;
             })
             ->addColumn('hargaJual', function ($row) {
                 return "Rp " . number_format($row->priceItem, 2, ',', '.');
@@ -59,6 +51,7 @@ class DataProdukController extends Controller
     public function data(Request $request)
     {
         $search = $request->search;
+        $selected_id = $request->selected_id;
         if ($search == '') {
             $data = Item::currentCompany()->get();
         } else {
@@ -70,7 +63,9 @@ class DataProdukController extends Controller
                 "id" => $d->id,
                 "text" => $d->nameItem,
                 "price" => $d->priceItem,
-                "unit" => $d->unitItem
+                "cost" => $d->costItem,
+                "unit" => $d->unitItem,
+                "selected" => (!$selected_id) ?  false : (($selected_id == $d->id) ? true : false),
             );
         }
         return response()->json($response);
@@ -105,6 +100,7 @@ class DataProdukController extends Controller
         ]);
         $data = Arr::except($request->all(), '_token');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $data = Arr::add($data, 'stockItem', 0);
         Item::create($data);
         return redirect()->route('inventory.data-produk.index')->with('success', 'Berhasil Menambahkan Data Item Baru!');
     }

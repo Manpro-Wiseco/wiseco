@@ -108,6 +108,13 @@ class BarangKonsinyasiController extends Controller
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
                 ]);
+                // Get items table by id
+                $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
+                // Update stock
+                DB::table('items')->where('id', $value["data_produk_id"])->update([
+                    'stockItem' => $item->stockItem - $value["jumlah_barang"],
+                    'updated_at' => Carbon::now()
+                ]);
             }
         });
 

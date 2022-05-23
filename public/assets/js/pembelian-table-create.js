@@ -1,7 +1,31 @@
 let arrHead = new Array(); // array for header.
 arrHead = ["Item", "Qty", "Unit", "Unit Price", "Total Price", "#"];
-let tableElement = document.getElementById("empTable");
-let tbody = tableElement.getElementsByTagName("tbody")[0];
+let tbody;
+
+// first create TABLE structure with the headers.
+function createTable() {
+    let empTable = document.createElement("table");
+    empTable.setAttribute("id", "empTable"); // table id.
+    // class : table align-items-center mb-0
+    empTable.classList.add("table", "align-items-center", "mb-0");
+    let header = empTable.createTHead();
+    tbody = empTable.createTBody();
+    let tr = header.insertRow(0);
+    for (let h = 0; h < arrHead.length; h++) {
+        let cell = tr.insertCell(h);
+        cell.innerHTML = arrHead[h];
+        cell.classList.add(
+            "text-uppercase",
+            "text-secondary",
+            "text-xs",
+            "text-center",
+            "font-weight-bolder",
+            "opacity-7"
+        );
+    }
+    let div = document.getElementById("cont");
+    div.appendChild(empTable); // add the TABLE to the container.
+}
 
 // delete TABLE row function.
 function removeRow(oButton) {
@@ -16,7 +40,6 @@ const submitBtn = document.getElementById("bt");
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let myTab = document.getElementById("empTable");
-    let id = e.currentTarget.getAttribute("data-id");
     let arrValues = new Array();
     for (row = 1; row < myTab.rows.length; row++) {
         let arrObject = {};
@@ -29,10 +52,10 @@ submitBtn.addEventListener("click", function (e) {
             console.log(`Element ${cellIndex}`, element);
             let elementChild0 = element.children[0];
             let elementChild1 = element.children[1];
-            if (elementChild1?.getAttribute("data") == "amount") {
-                arrObject.amount = elementChild1.value;
-            } else if (elementChild1?.getAttribute("data") == "priceItem") {
-                arrObject.priceItem = elementChild1.value;
+            if (elementChild1?.getAttribute("data") == "subtotal") {
+                arrObject.subtotal = elementChild1.value;
+            } else if (elementChild1?.getAttribute("data") == "harga_barang") {
+                arrObject.harga_barang = elementChild1.value;
             } else if (elementChild0?.getAttribute("data") == "jumlah_barang") {
                 arrObject.jumlah_barang = elementChild0.value;
             } else if (
@@ -47,21 +70,25 @@ submitBtn.addEventListener("click", function (e) {
     }
     let CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
     let total = arrValues.reduce((accumulator, object) => {
-        return parseInt(accumulator) + parseInt(object.amount);
+        return parseInt(accumulator) + parseInt(object.subtotal);
     }, 0);
-    let keterangan = document.getElementById("keterangan").value;
+    let data_contact_id = $("#data_contact_id").find(":selected")[0].value;
+    let deskripsi = document.getElementById("deskripsi").value;
     let tanggal = document.getElementById("tanggal").value;
+    let no_pesanan = document.getElementById("no_pesanan").value;
+
     console.log(arrValues);
     $.ajax({
-        url: `${window.url}/inventory/penyesuaian-barang/${id}`,
+        url: `${window.url}/pembelian/pesanan-pembelian`,
         type: "POST",
         data: {
             _token: CSRF_TOKEN,
-            _method: "PUT",
             detail: arrValues,
+            data_contact_id,
             total,
-            keterangan,
+            deskripsi,
             tanggal,
+            no_pesanan,
         },
         dataType: "JSON",
         success: function (response) {
@@ -73,7 +100,7 @@ submitBtn.addEventListener("click", function (e) {
                     title: response.message,
                     showConfirmButton: true,
                 }).then((result) => {
-                    window.location.href = `${window.url}/inventory/penyesuaian-barang`;
+                    window.location.href = `${window.url}/pembelian/pesanan-pembelian`;
                 });
             }
         },
@@ -92,7 +119,8 @@ submitBtn.addEventListener("click", function (e) {
 // add row BUTTON function.
 addRowBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    let rowCnt = tbody.rows.length; // table row count.
+    let rowCnt = tbody.rows.length;
+    console.log("rowCnt", rowCnt); // table row count.
     let tr = tbody.insertRow(rowCnt); // the table row.
 
     for (let cell = 0; cell < arrHead.length; cell++) {
@@ -148,34 +176,31 @@ addRowBtn.addEventListener("click", function (e) {
                 var data = e.params.data;
                 var row = $(this).closest("tr");
                 var unitItemText = row.children("td:eq(2)")[0].children[0];
-                var priceItemText = row.children("td:eq(3)")[0].children[0];
-                var priceItemInput = row.children("td:eq(3)")[0].children[1];
-
-                price = data.price;
+                var harga_barangText = row.children("td:eq(3)")[0].children[0];
+                var harga_barangInput = row.children("td:eq(3)")[0].children[1];
+                price = data.cost;
                 unitItemText.textContent = data.unit;
 
-                priceItemText.textContent = "Rp " + data.price;
-                priceItemInput.value = data.price;
+                harga_barangText.textContent = "Rp " + price;
+                harga_barangInput.value = price;
             });
         } else if (cell == 1) {
             let input = document.createElement("input");
-            input.setAttribute("type", "text");
+            input.setAttribute("type", "number");
             input.setAttribute("name", "jumlah_barang[]");
             input.setAttribute("data", "jumlah_barang");
             input.setAttribute("required", "required");
             input.setAttribute("placeholder", "0");
-            input.setAttribute(
-                "class",
-                "form-control text-right jumlah_barang"
-            );
+            input.setAttribute("class", "form-control text-right");
             td.appendChild(input);
             input.addEventListener("keyup", function (e) {
                 var row = $(this).closest("tr");
-                var amountText = row.children("td:eq(4)")[0].children[0];
-                var amountInput = row.children("td:eq(4)")[0].children[1];
-                amountText.textContent =
+                var subtotalText = row.children("td:eq(4)")[0].children[0];
+                var subtotalInput = row.children("td:eq(4)")[0].children[1];
+                subtotalText.textContent =
                     "Rp " + parseInt(e.target.value) * parseInt(price);
-                amountInput.value = parseInt(e.target.value) * parseInt(price);
+                subtotalInput.value =
+                    parseInt(e.target.value) * parseInt(price);
             });
         } else if (cell == 2) {
             let input = document.createElement("p");
@@ -188,65 +213,33 @@ addRowBtn.addEventListener("click", function (e) {
             td.appendChild(input);
         } else if (cell == 3) {
             let p = document.createElement("p");
-            p.setAttribute("class", "text-center priceItem-text");
+            p.setAttribute("class", "text-center harga_barang-text");
             p.innerText = "Rp 0";
             td.appendChild(p);
 
             let input = document.createElement("input");
-            input.setAttribute("name", "priceItem[]");
-            input.setAttribute("data", "priceItem");
+            input.setAttribute("name", "harga_barang[]");
+            input.setAttribute("data", "harga_barang");
             input.setAttribute("required", "required");
-            input.setAttribute("class", "priceItem-input");
+            input.setAttribute("class", "harga_barang-input");
             input.setAttribute("type", "hidden");
             td.appendChild(input);
         } else {
             let p = document.createElement("p");
-            p.setAttribute("class", "text-center amount-text");
+            p.setAttribute("class", "text-center subtotal-text");
             p.innerText = "Rp 0";
             td.appendChild(p);
 
             let input = document.createElement("input");
             input.setAttribute("type", "hidden");
-            input.setAttribute("name", "amount[]");
-            input.setAttribute("data", "amount");
+            input.setAttribute("name", "subtotal[]");
+            input.setAttribute("data", "subtotal");
             input.setAttribute("placeholder", "Rp");
             input.setAttribute("required", "required");
-            input.classList.add("text-center", "amount-input");
+            input.classList.add("text-center", "subtotal-input");
             td.appendChild(input);
         }
     }
 });
 
-$(".data_produk").on("select2:select", function (e) {
-    var data = e.params.data;
-    var row = $(e.currentTarget).closest("tr");
-    var qtyItemInput = row.children("td:eq(1)")[0].children[0];
-    var unitItemText = row.children("td:eq(2)")[0].children[0];
-    var priceItemText = row.children("td:eq(3)")[0].children[0];
-    var priceItemInput = row.children("td:eq(3)")[0].children[1];
-    var amountText = row.children("td:eq(4)")[0].children[0];
-    var amountInput = row.children("td:eq(4)")[0].children[1];
-
-    price = data.price;
-    unitItemText.textContent = data.unit;
-
-    priceItemText.textContent = "Rp " + data.price;
-    priceItemInput.value = data.price;
-
-    amountText.textContent =
-        "Rp " + parseInt(qtyItemInput.value) * parseInt(data.price);
-    amountInput.value = parseInt(qtyItemInput.value) * parseInt(data.price);
-});
-
-document.querySelectorAll(".jumlah_barang").forEach((item) => {
-    item.addEventListener("keyup", (event) => {
-        var row = $(event.currentTarget).closest("tr");
-        var amountText = row.children("td:eq(4)")[0].children[0];
-        var amountInput = row.children("td:eq(4)")[0].children[1];
-        var price = row.children("td:eq(3)")[0].children[1];
-        amountText.textContent =
-            "Rp " + parseInt(event.target.value) * parseInt(price.value);
-        amountInput.value =
-            parseInt(event.target.value) * parseInt(price.value);
-    });
-});
+createTable();

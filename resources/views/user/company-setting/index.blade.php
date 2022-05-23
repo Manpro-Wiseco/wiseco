@@ -1,5 +1,25 @@
 @push('scripts')
     <script>
+        let flashdatasukses = $('.success-session').data('flashdata');
+        if (flashdatasukses) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: flashdatasukses,
+                type: 'success'
+            })
+        }
+        let flashdatadanger = $('.danger-session').data('flashdata');
+        if (flashdatadanger) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: flashdatadanger,
+                type: 'error'
+            })
+        }
+    </script>
+    <script>
         const statusSelect = document.getElementById('status')
         let value = statusSelect.options[statusSelect.selectedIndex].value;
         const displayFormByStatus = (status) => {
@@ -106,6 +126,11 @@
     <div class="container-fluid my-3 py-3">
         <div class="row mb-5">
             <h3 class="mb-3">Company Setting</h3>
+            @if (session('success'))
+                <div class="success-session" data-flashdata="{{ session('success') }}"></div>
+            @elseif(session('danger'))
+                <div class="danger-session" data-flashdata="{{ session('danger') }}"></div>
+            @endif
             <div class="col-lg-3">
                 <div class="card position-sticky top-1">
                     <ul class="nav flex-column bg-white border-radius-lg p-3">
@@ -172,8 +197,10 @@
                         <h5>Company Info</h5>
                     </div>
                     <div class="card-body pt-0">
-                        <form action="" method="post">
+                        <form action="{{ route('company-setting.update-info') }}" method="post"
+                            class="mb-5">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label class="form-label">Name</label>
@@ -215,7 +242,15 @@
                                             onfocus="focused(this)" onfocusout="defocused(this)">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                            </div>
+                            <button type="submit" class="btn bg-gradient-dark btn-sm float-end mt-3 mb-0">Update
+                                Info</button>
+                        </form>
+                        <form action="" method="post" class="mt-4">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col-md-12">
                                     <label class="form-label">Status</label>
                                     <select class="form-control" id="status" required>
                                         <option value="">- Pilih Salah Satu -</option>
@@ -233,7 +268,9 @@
 
                                 </div>
                             </div>
-                            <button class="btn bg-gradient-dark btn-sm float-end mt-3 mb-0">Update Info</button>
+
+                            <button type="submit" class="btn bg-gradient-dark btn-sm float-end mt-3 mb-0">Update
+                                Status</button>
                         </form>
                     </div>
                 </div>
@@ -243,20 +280,25 @@
                         <p class="text-sm mb-0">Once you delete your company, there is no going back. Please be
                             certain.</p>
                     </div>
-                    <div class="card-body d-sm-flex pt-0">
-                        <div class="d-flex align-items-center mb-sm-0 mb-4">
-                            <div>
-                                <div class="form-check form-switch mb-0">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault0">
+                    <div class="card-body pt-0">
+                        <form method="POST" action="{{ route('company-setting.destroy') }}" class="d-sm-flex">
+                            @csrf
+                            @method('DELETE')
+                            <div class="d-flex align-items-center mb-sm-0 mb-4">
+                                <div>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" required
+                                            id="flexSwitchCheckDefault0">
+                                    </div>
+                                </div>
+                                <div class="ms-2">
+                                    <span class="text-dark font-weight-bold d-block text-sm">Confirm</span>
+                                    <span class="text-xs d-block">I want to delete my company.</span>
                                 </div>
                             </div>
-                            <div class="ms-2">
-                                <span class="text-dark font-weight-bold d-block text-sm">Confirm</span>
-                                <span class="text-xs d-block">I want to delete my company.</span>
-                            </div>
-                        </div>
-                        <button class="btn bg-gradient-danger mb-0 ms-auto" type="button" name="button">Delete
-                            Company</button>
+                            <button class="btn bg-gradient-danger mb-0 ms-auto" type="submit" name="button">Delete
+                                Company</button>
+                        </form>
                     </div>
                 </div>
             </div>

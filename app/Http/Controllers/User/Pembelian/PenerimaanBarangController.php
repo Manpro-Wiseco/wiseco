@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\PenerimaanBarang;
 use App\Models\Expense;
+use App\Models\Item;
+use App\Models\PesananPembelian;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use LengthException;
 use Yajra\DataTables\DataTables;
 
 class PenerimaanBarangController extends Controller
@@ -21,25 +24,27 @@ class PenerimaanBarangController extends Controller
 
     public function list(Request $request)
     {
-        $data = PenerimaanBarang::latest()->get();
+        $data = PenerimaanBarang::with(['items', 'dataContact'])->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('item_count', function ($row) {
+                return $row->items->count();
+            })
             ->addColumn('action', function ($row) {
-                $urlEdit = route('pembelian.Penerimaan-barang.edit', $row->id);
-                $urlDelete = route('pembelian.Penerimaan-barang.destroy', $row->id);
+                $urlEdit = route('pembelian.penerimaan-barang.edit', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
+                    <button class="btn bg-gradient-danger btn-small btn-delete" type="button">
                         <i class="fas fa-trash"></i>
                     </button>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
-            ->make(true);   
+            ->make(true);
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +52,7 @@ class PenerimaanBarangController extends Controller
      */
     public function create()
     {
-        $dataContacts = DataContact::currentCompany()->get();
+        $dataContacts = DataContact::currentCompany()->status('Supplier')->get();
         return view('user.pembelian.Penerimaan-barang.create', compact('dataContacts'));
     }
 
@@ -61,30 +66,68 @@ class PenerimaanBarangController extends Controller
     {
         $request->validate([
             'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
+            'pesanan_id' => 'required',
+            'no_penerimaan' => 'required',
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'subtotal.*' => 'required|numeric',
+            'data_produk_id.*' => 'required|numeric',
+            'harga_barang.*' => 'required|numeric',
+            'jumlah_barang.*' => 'required|numeric',
         ]);
+
         $data = Arr::except($request->all(), '_token');
         $data = Arr::except($request->all(), 'detail');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        $detail = $request->detail;
+        $detail = [
+            'data_produk_id' => $request->data_produk_id,
+            'harga_barang' => $request->harga_barang,
+            'jumlah_barang' => $request->jumlah_barang,
+            'subtotal' => $request->subtotal,
+        ];
         DB::transaction(function () use ($data, $detail) {
-            $expense = Expense::create($data);
-            foreach ($detail as $key => $value) {
-                DB::table('detail_expenses')->insert([
-                    "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
-                    "amount" => $value["amount"],
+            $penerimaan = PenerimaanBarang::create([
+                'tanggal' => $data['tanggal'],
+                'pesanan_id' => $data['pesanan_id'],
+                'data_contact_id' => $data['data_contact_id'],
+                'no_penerimaan' => $data['no_penerimaan'],
+                'total' => array_sum($detail['subtotal']),
+                'deskripsi' => $data['deskripsi'],
+                'company_id' => $data['company_id'],
+                'status' => 'Open',
+            ]);
+            $pesanan = PesananPembelian::find($data['pesanan_id']);
+            $pesanan->update([
+                'status' => 'Diterima',
+            ]);
+            for ($i = 0; $i < count($detail['data_produk_id']); $i++) {
+                DB::table('item_penerimaan')->insert([
+                    "penerimaan_id" => $penerimaan->id,
+                    "item_id" => $detail["data_produk_id"][$i],
+                    "jumlah_barang" => $detail["jumlah_barang"][$i],
+                    "harga_barang" => $detail["harga_barang"][$i],
+                    "subtotal" => $detail["subtotal"][$i],
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
                 ]);
+                $item = Item::find($detail["data_produk_id"][$i]);
+                $item->update([
+                    'stockItem' => $item->stockItem + $detail["jumlah_barang"][$i],
+                    'updated_at' => Carbon::now()
+                ]);
             }
+
+            // Get items table by id
+            // $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
+            // Update stock
+            //     DB::table('items')->where('id', $value["data_produk_id"])->update([
+            //         'stockItem' => $item->stockItem + $value["jumlah_barang"],
+            //         'updated_at' => Carbon::now()
+            //     ]);
+
         });
-        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+
+        return redirect()->route('pembelian.penerimaan-barang.index');
     }
 
     /**

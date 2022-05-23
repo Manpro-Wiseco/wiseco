@@ -21,10 +21,12 @@ class CreateFakturPembeliansTable extends Migration
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
             $table->unsignedBigInteger('pesanan_pembelian_id');
             $table->foreign('pesanan_pembelian_id')->references('id')->on('pesanan_pembelians');
-            $table->string('nama_pelanggan');
+
             $table->string('deskripsi');
             $table->integer('nilai');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

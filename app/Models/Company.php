@@ -26,4 +26,14 @@ class Company extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

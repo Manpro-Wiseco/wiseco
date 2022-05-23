@@ -21,4 +21,8 @@ class PesananPembelian extends Model
         return $this->belongsTo(DataContact::class);
     }
 
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'item_pembelian', 'pembelian_id', 'item_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
+    }
 }

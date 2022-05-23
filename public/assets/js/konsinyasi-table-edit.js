@@ -176,7 +176,7 @@ addRowBtn.addEventListener("click", function (e) {
                 "form-control text-right jumlah_barang"
             );
             td.appendChild(input);
-            input.addEventListener("change", function (e) {
+            input.addEventListener("keyup", function (e) {
                 var row = $(this).closest("tr");
                 var amountText = row.children("td:eq(4)")[0].children[0];
                 var amountInput = row.children("td:eq(4)")[0].children[1];
@@ -246,7 +246,7 @@ $(".data_produk").on("select2:select", function (e) {
 });
 
 document.querySelectorAll(".jumlah_barang").forEach((item) => {
-    item.addEventListener("change", (event) => {
+    item.addEventListener("keyup", (event) => {
         var row = $(event.currentTarget).closest("tr");
         var amountText = row.children("td:eq(4)")[0].children[0];
         var amountInput = row.children("td:eq(4)")[0].children[1];
