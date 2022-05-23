@@ -120,6 +120,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'list'])->name('list');
+            Route::get('/list/get-no-pesanan/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'listPesanan'])->name('list-pesanan');
+            Route::get('/list/get-detail-pesanan/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'detailPesanan'])->name('detail-pesanan');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
         });
 

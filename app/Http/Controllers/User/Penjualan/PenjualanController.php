@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\Penjualan;
 use App\Models\Expense;
+use App\Models\ItemPenjualan;
+use App\Models\PesananPenjualan;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -130,5 +132,22 @@ class PenjualanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function listPesanan($id)
+    {
+        $data = PesananPenjualan::select(['id', 'no_pesanan'])->where('pelanggan_id', $id)->get();
+        return response()->json($data);
+    }
+
+    public function detailPesanan($id)
+    {
+        $data = PesananPenjualan::with('item')->where('id', $id)->first();
+        $items = ItemPenjualan::with('item')->where('penjualan_id', $id)->get();
+        $respone = array(
+            'data' => $data,
+            'item' => $items,
+        );
+        return response()->json($respone);
     }
 }

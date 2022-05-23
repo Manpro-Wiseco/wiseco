@@ -75,8 +75,9 @@ addRowBtn.addEventListener("click", function (e) {
             let button = document.createElement("input");
             button.setAttribute("type", "button");
             button.setAttribute("value", "Delete");
+            button.setAttribute("id", "Delete-btn");
             button.classList.add("btn", "bg-gradient-danger", "btn-small");
-            button.setAttribute("onclick", "removeRow(this)");
+            button.setAttribute("onclick", "removeRow(this); getTotalItem();");
             td.classList.add("align-middle", "text-center");
             td.appendChild(button);
         } else if (cell == 0) {
@@ -222,7 +223,7 @@ $(document).ready(function() {
     // console.log(formID);
     setTimeout(function() {
          //load data item
-         $.ajax({
+        $.ajax({
             type: "GET",
             url: `${window.url}/penjualan/pesanan-penjualan/get-item-detail/${formID}`,
             dataType: 'json',
@@ -243,8 +244,9 @@ $(document).ready(function() {
                             let button = document.createElement("input");
                             button.setAttribute("type", "button");
                             button.setAttribute("value", "Delete");
+                            button.setAttribute("id", "delete-btn");
                             button.classList.add("btn", "bg-gradient-danger", "btn-small");
-                            button.setAttribute("onclick", "removeRow(this)");
+                            button.setAttribute("onclick", "removeRow(this); getTotalItem();");
                             td.classList.add("align-middle", "text-center");
                             td.appendChild(button);
                         } else if (cell == 0) {
@@ -253,14 +255,45 @@ $(document).ready(function() {
                             let optionDefault = document.createElement("option");
                             select.setAttribute("required", "required");
                             select.setAttribute("data", "items");
+                            select.setAttribute("id", `items${rowCnt}`);
                             select.setAttribute("name", "items["+rowCnt+"][id]");
                             select.classList.add("form-control", "items-list");
                             container.classList.add("item_container");
                             container.setAttribute("id", `container-select-${cell}`);
-                            optionDefault.innerHTML = data.item.nameItem;
+                            // optionDefault.innerHTML = data.item.nameItem;
                             select.appendChild(optionDefault);
                             container.appendChild(select);
                             td.appendChild(container);
+
+                            $(".items-list").select2({ 
+                                //Database
+                                placeholder: "- Pilih Salah Satu -",
+                                allowClear: true,
+                                // minimumInputLength: 3,
+                                // dropdownParent: $(`#container-select-${cell}`),
+                                ajax: {
+                                    //ngambil dari data barang
+                                    url: `${window.url}/penjualan/pesanan-penjualan/get-item`,  
+                                    dataType: "json",
+                                    delay: 250,
+                                    data: function (params) {
+                                        // console.log(params);
+                                        return {
+                                            search: params.term,
+                                        };
+                                    },
+                                    processResults: function (response) {
+                                        // console.log(response);
+                                        return {
+                                            results: response,
+                                        };
+                                    },
+                                    cache: true,
+                                },
+                            });
+
+                            var $newOption = $("<option selected='selected'></option>").val(data.item.id).text(data.item.nameItem)
+                            $(`#items${rowCnt}`).append($newOption).trigger('change');
                             
                         } else if (cell == 1){
                             let ele = document.createElement("input");
@@ -302,9 +335,13 @@ $(document).ready(function() {
                             td.appendChild(ele);
                         }
                     }
+                    
+                    // $(".items-list").val(data.item.id).trigger('change');
+
+                    
                 });
             },
-          complete: function(){
+            complete: function(){
                 $('#loader').addClass('hidden')
                 $('#addRow').removeClass('hidden')
                 getTotalItem();
@@ -316,9 +353,16 @@ $(document).ready(function() {
 $( "#other-cost" ).keyup(function() {
     getTotalItem();
 });
+
 $( "#discount" ).keyup(function() {
     getTotalItem();
 });
+
 $( "#pajak" ).keyup(function() {
     getTotalItem();
 });
+
+// $( "#delete-btn").keyup(function() {
+//     // getTotalItem();
+//     console.log('clicked');
+// });

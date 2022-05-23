@@ -131,9 +131,35 @@ class PesananPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PesananPenjualanRequest $request, $id)
     {
-        //
+        print_r($request->all());
+
+        $data = Arr::except($request->all(), '_token');
+        $data = Arr::except($request->all(), 'items');
+        $data = Arr::add($data, 'company_id', session()->get('company')->id);
+        $data = Arr::add($data, 'status', 'DRAFT');
+        $detailOrder = $request->items;
+        // print_r($detailOrder[0]);
+        DB::transaction(function () use ($data, $detailOrder, $id) {
+            ItemPenjualan::where('penjualan_id', $id)->delete();
+            $pesanan = PesananPenjualan::findOrFail($id);
+            $pesanan->update($data);
+
+            foreach ($detailOrder as $order => $item) {
+                DB::table('item_penjualan')->insert([
+                    "item_id" => $item['id'],
+                    "penjualan_id" => $pesanan->id,
+                    "jumlah_barang" => $item['qty'],
+                    "harga_barang" => $item['harga_unit'],
+                    "subtotal" => (int)$item['harga_unit'] * (int) $item['qty'],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
+                ]);
+            }
+        });
+        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**

@@ -155,7 +155,7 @@ addRowBtn.addEventListener("click", function (e) {
             button.setAttribute("type", "button");
             button.setAttribute("value", "Delete");
             button.classList.add("btn", "bg-gradient-danger", "btn-small");
-            button.setAttribute("onclick", "removeRow(this)");
+            button.setAttribute("onclick", "removeRow(this); getTotalItem();");
             td.classList.add("align-middle", "text-center");
             td.appendChild(button);
         } else if (cell == 0) {
@@ -276,7 +276,6 @@ function getTotalItem() {
         // console.log('disc ada');
     }else{
         $("#potongan").val(0);
-
     }
 
     if(pajak){

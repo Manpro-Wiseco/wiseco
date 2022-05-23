@@ -26,5 +26,10 @@ class PesananPenjualan extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function item()
+    {
+        return $this->hasMany(ItemPenjualan::class, 'penjualan_id', 'id');
+    }
     
 }
