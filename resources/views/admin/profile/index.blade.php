@@ -58,70 +58,77 @@
 
 </script>
 @endpush
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
-            <div class="my-4">
-                @foreach ($nameProfil as $profil)
-                <div class="row mt-5 align-items-center">
-                    <div class="col-md-3 text-center mb-5">
-                        <div class="avatar avatar-xl">
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="..." class="avatar-img rounded-circle" />
+<div class="card">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+                <div class="my-4">
+                    @foreach ($nameProfil as $profil)
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-md-3 text-center mb-5">
+                            <div class="avatar avatar-xl">
+                                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="..." class="avatar-img rounded-circle" />
+                            </div>
                         </div>
                     </div>
+                    <hr class="my-2" />
+                    <form action="{{ route('admin.profile.update', $profil->id)}}" method="post">
+                        @method('PUT')
+                        @csrf
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-6 mb-xl-0">
+                                <label for="name">Nama</label>
+                                <input name="name" type="text" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$profil->name}}" />
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="col-xl-6 col-sm-6 mb-xl-0">
+                                <label for="inputEmail4">Email</label>
+                                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{$profil->email}}" />
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4"><small>Simpan</small></button>
+                    </form>
+                    <hr class="my-4" />
+                    <form>
+                        @csrf
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-6 mb-xl-0">
+                                <div class="form-group">
+                                    <label for="inputPassword4">Sandi Lama</label>
+                                    <input type="password" class="form-control" id="inputPassword5" />
+                                    <input style="margin-top:4px;" class="d-inline-block form-check-input" type="checkbox" onclick="myFunction()"><small> Show password</small>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-sm-6 mb-xl-0">
+                                <div class="form-group">
+                                    <label for="inputPassword5">Sandi Baru</label>
+                                    <input type="password" class="form-control" id="inputPassword6" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword6">Konfirmasi Sandi</label>
+                                    <input type="password" class="form-control" id="inputPassword7" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-sm-6 mb-xl-0">
+                                    <button type="submit" class="btn btn-primary mt-4"><small>Ubah Sandi</small></button>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </form>
                 </div>
-                <hr class="my-2" />
-                <form action="{{ route('admin.profile.update', $profil->id)}}" method="post">
-                    @method('PUT')
-                    @csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="name">Nama</label>
-                            <input name="name" type="text" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$profil->name}}" />
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6 mb-4">
-                        <label for="inputEmail4">Email</label>
-                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{$profil->email}}" />
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-                <hr class="my-4" />
-                <form>
-                    @csrf
-                    <div class="row mb-4">
-                        <div class="col-md-12">
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Sandi Lama</label>
-                                <input type="password" class="form-control" id="inputPassword5" />
-                                <small><input class="d-inline-block" type="checkbox" onclick="myFunction()"> Show password</small>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword5">Sandi Baru</label>
-                                <input type="password" class="form-control" id="inputPassword6" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword6">Konfirmasi Sandi</label>
-                                <input type="password" class="form-control" id="inputPassword7" />
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Ubah Sandi</button>
-                    @endforeach
-                </form>
             </div>
         </div>
     </div>
-
 </div>
 @endcomponent
