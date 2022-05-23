@@ -10,6 +10,10 @@ use App\Models\Company;
 use App\Models\TicketResponse;
 use App\Models\Chat;
 use App\Models\Expense;
+use App\Models\Income;
+use App\Models\Penjualan;
+use App\Models\PenerimaanBarang;
+use App\Models\DataContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Yajra\DataTables\DataTables;
@@ -49,22 +53,45 @@ class AdminUmkmController extends Controller
                 return ($time_);
             })
             ->addColumn('status', function ($row) {
-                $data = Expense::where('company_id',$row->id)->orderBy('id', 'desc')->first();
-                if ($data === null) {
+                $arrayStatus   = array();
+                $dataExpense   = Expense::where('company_id',$row->id)->orderBy('id', 'desc')->first();
+                $dataIncome    = Income::where('company_id',$row->id)->orderBy('id', 'desc')->first();
+                $dataContact   = DataContact::where('company_id',$row->id)->orderBy('id', 'desc')->first();
+                $dataPenjualan = Penjualan::where('company_id',$row->id)->orderBy('id', 'desc')->first();
+                $dataPembelian = PenerimaanBarang::where('company_id',$row->id)->orderBy('id', 'desc')->first();
+
+                $dataStatus    = array($dataExpense, $dataIncome, $dataPenjualan, $dataPembelian,$dataContact);
+                
+                if (($dataExpense === null) && ($dataIncome === null) && ($dataContact === null) && ($dataPenjualan === null) && ($dataPembelian === null))  {
                     $status = '<h5 class="btn bg-gradient-danger btn-small mt-2 disabled">red</h5>';
                 }else{
-                    $time = $data->created_at;
-                    $now  = new DateTime('now');
-                    $interval = $now->diff($time);
-                    $days = $interval->format('%a');
-                    if($days>=0 && $days<=7){
+                    foreach ($dataStatus as $statusVar) {
+                        if($statusVar !== null) {
+                                $time     = $statusVar->created_at;
+                                $now      = new DateTime('now');
+                                $interval = $now->diff($time);
+                                $days     = $interval->format('%a');
+                                if($days>=0 && $days<=7) {
+                                    $arrayStatus[] = 7; 
+                                }
+                                else if($days>7 and $days<=30){
+                                    $arrayStatus[] = 30;
+                                }
+                                else{
+                                    $arrayStatus[] = 31;
+                                }
+                            }
+                    }
+                    $day = (min($arrayStatus));
+                    if($day === 7) {
                         $status = '<h5 class="btn bg-gradient-success btn-small mt-2 disabled">green</h5>';
-                    }
-                    else if($days>7 and $days<=30){
+                            }
+                    else if($day === 30) {
                         $status = '<h5 class="btn bg-gradient-warning btn-small mt-2 disabled">yellow</h5>';
-                    }else{
+                            }
+                    else if($day === 31) {
                         $status = '<h5 class="btn bg-gradient-danger btn-small mt-2 disabled">red</h5>';
-                    }
+                            }
                 }
                 return ($status);
             })
