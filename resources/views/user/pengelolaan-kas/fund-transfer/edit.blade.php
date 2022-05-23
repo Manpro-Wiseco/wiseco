@@ -108,7 +108,7 @@
                                         <select name="fromBank" id="fromBank"
                                             class="form-control @error('fromBank') is-invalid @enderror" required>
                                             <option value="{{ $fundTransfer->from_bank_account }}" selected>
-                                                {{ $fundTransfer->fromBankAccounts->name }}</option>
+                                                {{ $fundTransfer->fromDataAccounts->name }}</option>
                                         </select>
                                         @error('fromBank')
                                             <span class="invalid-feedback" role="alert">
@@ -121,7 +121,7 @@
                                         <select name="toBank" id="toBank"
                                             class="form-control @error('toBank') is-invalid @enderror" required>
                                             <option value="{{ $fundTransfer->to_bank_account }}" selected>
-                                                {{ $fundTransfer->toBankAccounts->name }}</option>
+                                                {{ $fundTransfer->toDataAccounts->name }}</option>
                                         </select>
                                         @error('toBank')
                                             <span class="invalid-feedback" role="alert">
