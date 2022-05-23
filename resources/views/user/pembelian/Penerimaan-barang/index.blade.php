@@ -88,7 +88,7 @@
                                                 Tanggal</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">
-                                                Nomor</th>
+                                                No Penerimaan</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Pemasok</th>

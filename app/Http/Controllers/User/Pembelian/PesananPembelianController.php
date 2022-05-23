@@ -136,7 +136,7 @@ class PesananPembelianController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('user.pembelian.pesanan-pembelian.show', compact('data', 'dataContacts'));
     }
 
     /**
