@@ -19,7 +19,7 @@
             }
             , title: {
                 display: true
-                , text: "World Wine Production 2018"
+                , text: "(Demo Chart) World Wine Production 2018"
             }
         }
     });
