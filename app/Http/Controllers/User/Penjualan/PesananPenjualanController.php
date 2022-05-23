@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PesananPenjualanRequest;
 use App\Models\DataContact;
 use App\Models\PesananPenjualan;
 use App\Models\Expense;
+use App\Models\Item;
+use App\Models\ItemPenjualan;
+use App\Models\Penjualan;
 use Carbon\Carbon;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class PesananPenjualanController extends Controller
@@ -36,9 +42,9 @@ class PesananPenjualanController extends Controller
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
+                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" data-id>
                         <i class="fas fa-trash"></i>
-                    </button>';
+                    </a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -53,6 +59,7 @@ class PesananPenjualanController extends Controller
      */
     public function create()
     {
+        // print_r (Auth::user());
         $dataContacts = DataContact::currentCompany()->get();
         return view('user.penjualan.pesanan-penjualan.create', compact('dataContacts'));
     }
@@ -63,34 +70,33 @@ class PesananPenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PesananPenjualanRequest $request)
     {
-        $request->validate([
-            'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
-        ]);
+        // print_r($request->all());
+        
         $data = Arr::except($request->all(), '_token');
-        $data = Arr::except($request->all(), 'detail');
+        $data = Arr::except($request->all(), 'items');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        $detail = $request->detail;
-        DB::transaction(function () use ($data, $detail) {
-            $expense = Expense::create($data);
-            foreach ($detail as $key => $value) {
-                DB::table('detail_expenses')->insert([
-                    "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
-                    "amount" => $value["amount"],
+        $data = Arr::add($data, 'status', 'DRAFT');
+        $detailOrder = $request->items;
+        // print_r($detailOrder[0]);
+        DB::transaction(function () use ($data, $detailOrder) {
+            $pesanan = PesananPenjualan::create($data);
+
+            foreach ($detailOrder as $order => $item) {
+                DB::table('item_penjualan')->insert([
+                    "item_id" => $item['id'],
+                    "penjualan_id" => $pesanan->id,
+                    "jumlah_barang" => $item['qty'],
+                    "harga_barang" => $item['harga_unit'],
+                    "subtotal" => (int)$item['harga_unit'] * (int) $item['qty'],
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
                 ]);
             }
         });
-        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -101,7 +107,7 @@ class PesananPenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -112,7 +118,10 @@ class PesananPenjualanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = PesananPenjualan::with(['pelanggan'])->where('id', $id)->first();
+        $dataContacts = DataContact::currentCompany()->get();
+        // print_r($data);
+        return view('user.penjualan.pesanan-penjualan.edit', compact('data','dataContacts'));
     }
 
     /**
@@ -135,6 +144,37 @@ class PesananPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ItemPenjualan::where('penjualan_id', $id)->delete();
+
+        $order = PesananPenjualan::findOrFail($id);
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
+    }
+
+    public function getItem(Request $request)
+    {
+        $search = $request->search;
+
+      if($search == ''){
+          $data = Item::currentCompany()->get();
+        }else{
+          $data = Item::currentCompany()->where('nameItem', 'like', '%' .$search . '%')->orderby('nameItem','asc')->get();
+      }
+        $results = [];
+        foreach ($data as $d) {
+            $results[] = array(
+                'id' => $d->id,
+                'text' => $d->nameItem,
+            );
+        }
+        return response()->json($results);
+        // return "data";
+    }
+
+    public function getItemDetail($id)
+    {
+        $data = ItemPenjualan::query()->with(['item'])->where('penjualan_id', $id)->get();
+        return response()->json($data);
     }
 }

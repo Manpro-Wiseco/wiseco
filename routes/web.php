@@ -98,11 +98,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::prefix('pesanan-penjualan')->name('pesanan-penjualan.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::post('/store', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'list'])->name('list');
+            Route::get('/get-item', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'getItem'])->name('get-item-penjualan');
+            Route::get('/get-item-detail/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'getItemDetail'])->name('get-item-penjualan-detail');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
         });
 
