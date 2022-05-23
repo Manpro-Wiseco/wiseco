@@ -1,4 +1,4 @@
-@push('scripts')
+@push('style')
     <link rel="stylesheet" href="{{ asset('assets/css/spinner.css') }}">
 @endpush
 @push('scripts')
@@ -32,7 +32,7 @@
                             </div>
                         @endif
                         <div class="card-body pt-0">
-                            <form action="{{ route('penjualan.pesanan-penjualan.store') }}" method="post">
+                            <form action="{{ route('penjualan.pesanan-penjualan.update', ['id' => $data->id]) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" id="form_id" data-id="{{ $data->id }}" value="{{ $data->id }}">
                                 <div class="row">
@@ -49,7 +49,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <input type="hidden" name="data_contact_id" value="{{ $data->pelanggan_id }}">
+                                        <input type="hidden" name="pelanggan_id" value="{{ $data->pelanggan_id }}">
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
