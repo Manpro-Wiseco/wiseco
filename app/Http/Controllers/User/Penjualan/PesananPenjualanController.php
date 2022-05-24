@@ -42,7 +42,7 @@ class PesananPenjualanController extends Controller
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" data-id>
+                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false">
                         <i class="fas fa-trash"></i>
                     </a>';
                 return $actionBtn;

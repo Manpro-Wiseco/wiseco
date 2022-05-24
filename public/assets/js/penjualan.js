@@ -161,11 +161,15 @@ $('#no_pesanan').on('change', function() {
                 dataType: 'json',
                 beforeSend: function() {
                     $('#loader').removeClass('hidden')
+                    $('#bayar').val(0);
+                    $('#sisa').val(0);
+                    
                 },
                 success: function(resp){
                     let items = resp.item;
                     let data = resp.data;
                     console.log(resp);
+                    $('#penjualan_id').val(data.id);
                     $('#transaction_date').val(data.tanggal);
                     $('#description').val(data.deskripsi);
                     $('#other-cost').val(data.other_cost);
@@ -174,6 +178,7 @@ $('#no_pesanan').on('change', function() {
                     $('#potongan').val(data.potongan);
                     $('#jml-total').val(data.nilai);
                     $('#invoice').val(invcreate());
+                    $( "table" ).remove();
                     createTable()
                     items.forEach((items, index) => {
                         let rowCnt = tbody.rows.length; // table row count.

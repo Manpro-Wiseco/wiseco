@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PenjualanRequest;
+use App\Models\DataBank;
 use App\Models\DataContact;
 use App\Models\Penjualan;
 use App\Models\Expense;
@@ -32,9 +34,9 @@ class PenjualanController extends Controller
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
+                    <a  href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false";>
                         <i class="fas fa-trash"></i>
-                    </button>';
+                    </a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -50,7 +52,8 @@ class PenjualanController extends Controller
     public function create()
     {
         $dataContacts = DataContact::currentCompany()->get();
-        return view('user.penjualan.penjualan.create', compact('dataContacts'));
+        $banks = DataBank::all();
+        return view('user.penjualan.penjualan.create', compact('dataContacts', 'banks'));
     }
 
     /**
@@ -59,34 +62,32 @@ class PenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PenjualanRequest $request)
     {
-        $request->validate([
-            'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
-        ]);
-        $data = Arr::except($request->all(), '_token');
-        $data = Arr::except($request->all(), 'detail');
-        $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        $detail = $request->detail;
-        DB::transaction(function () use ($data, $detail) {
-            $expense = Expense::create($data);
-            foreach ($detail as $key => $value) {
-                DB::table('detail_expenses')->insert([
-                    "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
-                    "amount" => $value["amount"],
-                    "created_at" => Carbon::now(),
-                    "updated_at" => Carbon::now()
-                ]);
-            }
+        // print_r($request->all());
+        
+        $pelanggan = DataContact::select('name')->where('id', $request->pelanggan_id)->first();
+        $data = [
+            'tanggal' => $request->tanggal,
+            'no_penjualan' => $request->no_penjualan,
+            'nama_pelanggan' => $pelanggan->name,
+            'deskripsi' => $request->deskripsi,
+            'nilai' => $request->nilai,
+            'status' => "DITERIMA",
+            'company_id' => session()->get('company')->id,
+            'data_bank_id' => $request->data_bank_id,
+            'total_pembayaran' => $request->total_pembayaran,
+            'sisa_pembayaran' => $request->sisa_pembayaran,
+            'status_pembayaran' => $request->status_pembayaran,
+            'Penjualan_id' => $request->penjualan_id,
+        ];
+        // print_r($data);
+
+        DB::transaction(function () use ($data) {
+            Penjualan::create($data);
         });
-        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -131,7 +132,10 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Penjualan::findOrFail($id);
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
     }
 
     public function listPesanan($id)

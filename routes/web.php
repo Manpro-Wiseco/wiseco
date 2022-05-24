@@ -115,10 +115,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::post('/store', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'edit'])->name('edit');
             //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'list'])->name('list');
             Route::get('/list/get-no-pesanan/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'listPesanan'])->name('list-pesanan');
             Route::get('/list/get-detail-pesanan/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'detailPesanan'])->name('detail-pesanan');
