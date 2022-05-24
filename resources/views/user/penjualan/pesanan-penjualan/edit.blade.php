@@ -1,4 +1,4 @@
-@push('style')
+@push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/spinner.css') }}">
 @endpush
 @push('scripts')

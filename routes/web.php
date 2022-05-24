@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\User\Penjualan\PiutangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Row;
@@ -109,6 +110,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/get-item', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'getItem'])->name('get-item-penjualan');
             Route::get('/get-item-detail/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'getItemDetail'])->name('get-item-penjualan-detail');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+            Route::get('/get-harga-item/{id}', [\App\Http\Controllers\User\Penjualan\PesananPenjualanController::class, 'getHarga'])->name('get-harga');
         });
 
         // Penjualan
@@ -129,10 +131,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::prefix('pengiriman-barang')->name('pengiriman-barang.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'store'])->name('store');
+            Route::post('/store', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'edit'])->name('edit');
             //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PengirimanBarangHargaController::class, 'destroy'])->name('destroy');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'export'])->name('export');
         });
@@ -159,6 +161,18 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\ReturPenjualanHargaController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
+        });
+
+         //daftar piutang
+         Route::prefix('daftar-piutang')->name('daftar-piutang.')->group(function () {
+            Route::get('/', [PiutangController::class, 'index'])->name('index');
+            Route::get('/create', [PiutangController::class, 'create'])->name('create');
+            Route::post('/store', [PiutangController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [PiutangController::class, 'edit'])->name('edit');
+            //Route::post('/update/{id}', [PiutangController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [PiutangController::class, 'destroy'])->name('destroy');
+            Route::get('/list', [PiutangController::class, 'list'])->name('list');
+            //Route::get('/export', [PiutangController::class, 'export'])->name('export');
         });
     });
 

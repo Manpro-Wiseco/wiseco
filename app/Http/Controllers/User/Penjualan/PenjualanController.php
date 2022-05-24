@@ -154,4 +154,9 @@ class PenjualanController extends Controller
         );
         return response()->json($respone);
     }
+
+    public function getHarga($id)
+    {
+        # code...
+    }
 }

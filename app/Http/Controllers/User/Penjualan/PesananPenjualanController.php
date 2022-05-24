@@ -51,7 +51,6 @@ class PesananPenjualanController extends Controller
             ->make(true);   
     }
 
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -201,6 +200,12 @@ class PesananPenjualanController extends Controller
     public function getItemDetail($id)
     {
         $data = ItemPenjualan::query()->with(['item'])->where('penjualan_id', $id)->get();
+        return response()->json($data);
+    }
+
+    public function getHarga($id)
+    {
+        $data = Item::currentCompany()->select('priceItem')->where('id', $id)->first();
         return response()->json($data);
     }
 }
