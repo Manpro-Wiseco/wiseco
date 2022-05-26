@@ -52,11 +52,11 @@
                                         @enderror
                                     </div> 
                                     <div class="col-md-3">
-                                        <label class="form-label">Status</label>
+                                        <label class="form-label">Jenis</label>
                                         <select name="unitItem" id="unitItem" class="form-control">
                                             <option>- Pilih Salah Satu -</option>
-                                            <option value="Box">Lunas</option>
-                                            <option value="Kg">Penerimaan Barang</option>
+                                            <option >Lunas</option>
+                                            <option >Penerimaan Barang</option>
                                         </select>
                                         @error('unitItem')
                                             <span class="invalid-feedback" role="alert">
