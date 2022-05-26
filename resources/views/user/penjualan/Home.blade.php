@@ -134,7 +134,7 @@
                 </div>  
             
                 <div class="col-md-4 mb-5">
-                    <a class="link" href="{{route('penjualan.retur-penjualan.index')}}">
+                    <a class="link" href="{{route('penjualan.daftar-piutang.index')}}">
                         <div class="card bg-gradient-danger">
                             <div class="card-body pt-3">
                                 <div class="text-center">

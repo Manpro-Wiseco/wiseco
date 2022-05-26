@@ -11,4 +11,14 @@ class PengirimanBarang extends Model
 
     protected $guarded = [];
     protected $table = 'pengiriman_barang';
+
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class, 'penjualan_id', 'id');
+    }
+
+    public function scopeCurrentCompany($query)
+    {
+        return $query->where('company_id', '=', session()->get('company')->id);
+    }
 }

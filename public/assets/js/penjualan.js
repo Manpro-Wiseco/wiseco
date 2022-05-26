@@ -153,6 +153,7 @@ $('#data_contact_id').on('change', function() {
 $('#no_pesanan').on('change', function() {
     // console.log(this.value);
     let id = this.value;
+    $('#loader').removeClass('hidden')
     if (id) {
         setTimeout(function() {
             $.ajax({
@@ -160,12 +161,14 @@ $('#no_pesanan').on('change', function() {
                 url: `${window.url}/penjualan/penjualan/list/get-detail-pesanan/${id}`,
                 dataType: 'json',
                 beforeSend: function() {
-                    $('#loader').removeClass('hidden')
+                    $('#bayar').val(0);
+                    $('#sisa').val(0);
                 },
                 success: function(resp){
                     let items = resp.item;
                     let data = resp.data;
                     console.log(resp);
+                    $('#penjualan_id').val(data.id);
                     $('#transaction_date').val(data.tanggal);
                     $('#description').val(data.deskripsi);
                     $('#other-cost').val(data.other_cost);
@@ -174,6 +177,7 @@ $('#no_pesanan').on('change', function() {
                     $('#potongan').val(data.potongan);
                     $('#jml-total').val(data.nilai);
                     $('#invoice').val(invcreate());
+                    $( "table" ).remove();
                     createTable()
                     items.forEach((items, index) => {
                         let rowCnt = tbody.rows.length; // table row count.

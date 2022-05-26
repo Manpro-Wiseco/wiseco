@@ -11,4 +11,11 @@ class Penjualan extends Model
 
     protected $guarded = [];
     protected $table = 'penjualan';
+
+    public function scopeCurrentCompany($query)
+    {
+        return $query->where('company_id', '=', session()->get('company')->id);
+    }
+
+    
 }

@@ -42,7 +42,7 @@ class PesananPenjualanController extends Controller
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" data-id>
+                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false">
                         <i class="fas fa-trash"></i>
                     </a>';
                 return $actionBtn;
@@ -51,7 +51,6 @@ class PesananPenjualanController extends Controller
             ->make(true);   
     }
 
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -201,6 +200,12 @@ class PesananPenjualanController extends Controller
     public function getItemDetail($id)
     {
         $data = ItemPenjualan::query()->with(['item'])->where('penjualan_id', $id)->get();
+        return response()->json($data);
+    }
+
+    public function getHarga($id)
+    {
+        $data = Item::currentCompany()->select('priceItem')->where('id', $id)->first();
         return response()->json($data);
     }
 }

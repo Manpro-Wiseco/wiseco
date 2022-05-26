@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\User\Penjualan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PengirimanRequest;
 use App\Models\DataContact;
 use App\Models\PengirimanBarang;
 use App\Models\Expense;
+use App\Models\Penjualan;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -24,15 +26,21 @@ class PengirimanBarangController extends Controller
         $data = PengirimanBarang::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('invoice', function ($row) {
+                return $row->penjualan->no_penjualan;
+            })
+            ->addColumn('nama_pelanggan', function ($row) {
+                return $row->penjualan->nama_pelanggan;
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('penjualan.pengiriman-barang.edit', $row->id);
                 $urlDelete = route('penjualan.pengiriman-barang.destroy', $row->id);
                 $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
+                    <a  href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false";>
                         <i class="fas fa-trash"></i>
-                    </button>';
+                    </a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -47,8 +55,8 @@ class PengirimanBarangController extends Controller
      */
     public function create()
     {
-        $dataContacts = DataContact::currentCompany()->get();
-        return view('user.penjualan.pengiriman-barang.create', compact('dataContacts'));
+        $dataPenjualan = Penjualan::currentCompany()->where('status_pembayaran', 1)->get();
+        return view('user.penjualan.pengiriman-barang.create', compact('dataPenjualan'));
     }
 
     /**
@@ -57,34 +65,20 @@ class PengirimanBarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PengirimanRequest $request)
     {
-        $request->validate([
-            'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
-        ]);
+        // print_r($request->all());
+      
         $data = Arr::except($request->all(), '_token');
-        $data = Arr::except($request->all(), 'detail');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        $detail = $request->detail;
-        DB::transaction(function () use ($data, $detail) {
-            $expense = Expense::create($data);
-            foreach ($detail as $key => $value) {
-                DB::table('detail_expenses')->insert([
-                    "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
-                    "amount" => $value["amount"],
-                    "created_at" => Carbon::now(),
-                    "updated_at" => Carbon::now()
-                ]);
-            }
+        $data = Arr::add($data, 'status', 'DIKIRIM');
+        // $data = Arr::except($request->all(), 'detail');
+        // $detail = $request->detail;
+        DB::transaction(function () use ($data) {
+            $expense = PengirimanBarang::create($data);
         });
-        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -129,6 +123,9 @@ class PengirimanBarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = PengirimanBarang::findOrFail($id);
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
     }
 }

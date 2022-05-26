@@ -158,13 +158,26 @@ addRowBtn.addEventListener("click", function (e) {
             button.setAttribute("onclick", "removeRow(this); getTotalItem();");
             td.classList.add("align-middle", "text-center");
             td.appendChild(button);
+        }  else if (cell == 2){
+            let ele = document.createElement("input");
+            ele.setAttribute("type", "number");
+            ele.setAttribute("data", "harga-unit");
+            ele.setAttribute("placeholder", "Rp");
+            ele.setAttribute("required", "required");
+            ele.setAttribute("name", "items["+rowCnt+"][harga_unit]");
+            ele.setAttribute("id", "hu"+rowCnt);
+            ele.onkeyup=function(){Total(this.id, rowCnt)};
+            ele.classList.add("hargaunit","form-control");
+            td.appendChild(ele);
         } else if (cell == 0) {
             let container = document.createElement("div");
             let select = document.createElement("select");
             let optionDefault = document.createElement("option");
             select.setAttribute("required", "required");
             select.setAttribute("data", "items");
+            select.setAttribute("data-id-row", rowCnt);
             select.setAttribute("name", "items["+rowCnt+"][id]");
+            select.setAttribute("id", "items"+rowCnt);
             select.classList.add("form-control", "items-list");
             container.classList.add("item_container");
             container.setAttribute("id", `container-select-${cell}`);
@@ -211,20 +224,7 @@ addRowBtn.addEventListener("click", function (e) {
             ele.onkeyup=function(){Total(this.id, rowCnt)};
             ele.classList.add("qty" ,"form-control");
             td.appendChild(ele);
-        }
-        else if (cell == 2){
-            let ele = document.createElement("input");
-            ele.setAttribute("type", "number");
-            ele.setAttribute("data", "harga-unit");
-            ele.setAttribute("placeholder", "Rp");
-            ele.setAttribute("required", "required");
-            ele.setAttribute("name", "items["+rowCnt+"][harga_unit]");
-            ele.setAttribute("id", "hu"+rowCnt);
-            ele.onkeyup=function(){Total(this.id, rowCnt)};
-            ele.classList.add("hargaunit","form-control");
-            td.appendChild(ele);
-        }
-        else if (cell == 3){
+        } else if (cell == 3){
             let ele = document.createElement("input");
             ele.setAttribute("readonly", true);
             ele.setAttribute("type", "number");
@@ -239,20 +239,31 @@ addRowBtn.addEventListener("click", function (e) {
     }
 });
 
-// $(".harga-unit").on('input',function(e){
-//     var total = $(this).val();
-//     console.log(total);
-//    });
+// $('.items-list').on("change", function(e) { 
+//     console.log(this.value);
+//  });
 
-// $(".hargaunit").keyup(function (e) { 
-//     var harga = $(this).val();
-//     console.log(harga);
+// $('.items-list').on("select2:selecting", function(e) { 
+//     console.log(this.value);
 // });
 
-//$(".harga-unit").change(function (e) { 
-  //  var total = $(this).val();
-    //console.log(total);
-//});
+$(document.body).on("change",".items-list",function(){
+    let row = $(this).data('id-row')
+    // console.log(this.value, row);
+    $.ajax({
+        type: "GET",
+        url: `${window.url}/penjualan/pesanan-penjualan/get-harga-item/${this.value}`,
+        dataType: 'json',
+        success: function(data){
+            // console.log(data.priceItem);
+            $("#hu"+row).val(data.priceItem);
+        },
+        complete: function(){
+            // $("#no_pesanan").attr('disabled', false);
+        },
+    });
+});
+
 createTable();
 
 function getTotalItem() {
