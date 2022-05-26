@@ -159,8 +159,9 @@ class FundTransferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FundTransfer $fundTransfer)
+    public function edit($id)
     {
+        $fundTransfer = FundTransfer::with(['fromDataAccounts', 'toDataAccounts'])->findOrFail($id);
         return view('user.pengelolaan-kas.fund-transfer.edit', compact('fundTransfer'));
     }
 

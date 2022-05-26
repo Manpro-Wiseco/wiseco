@@ -22,6 +22,7 @@ class ChartPenjualan extends Component
             ->whereMonth('tanggal',$bulan)
             ->whereYear('tanggal',$tahun)
             ->where('status','DITERIMA')
+            ->where('company_id',session()->get('company')->id)
             ->get();
 
             $hari_per_bulan = Carbon::parse($this->bulan_tahun)->daysInMonth;

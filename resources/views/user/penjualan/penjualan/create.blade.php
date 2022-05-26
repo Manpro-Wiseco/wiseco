@@ -1,5 +1,10 @@
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/moment-min.js') }}"></script>
+    <script src="{{ asset('assets/js/penjualan.js') }}"></script>
+    @endpush
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/spinner.css') }}">
 @endpush
 <x-template-layout>
     <section class="content">
@@ -20,7 +25,7 @@
                                         <select name="data_contact_id" id="data_contact_id"
                                             class="form-control @error('data_contact_id') is-invalid @enderror"
                                             required>
-                                            <option>- Pilih Salah Satu -</option>
+                                            <option value="">- Pilih Salah Satu -</option>
                                             @foreach ($dataContacts as $contact)
                                                 <option value="{{ $contact->id }}"
                                                     @if (old('data_contact_id') == $contact->id) selected @endif>
@@ -35,15 +40,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">No. Pesanan</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
-                                            required>
+                                        <select name="no_pesanan" id="no_pesanan"
+                                            class="form-control @error('no_pesanan') is-invalid @enderror"
+                                            required disabled>
                                             <option>-  Pilih No.Pesanan  -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
                                         </select>
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
@@ -59,8 +59,7 @@
                                         <input type="date"
                                             class="form-control @error('transaction_date') is-invalid @enderror"
                                             id="transaction_date" name="transaction_date"
-                                            value="{{ old('transaction_date') }}" placeholder="Nomor Telepon"
-                                            required>
+                                            value="{{ old('transaction_date') }}" required readonly>
                                         @error('transaction_date')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -71,7 +70,7 @@
                                         <label class="form-label mt-4">No. Penjualan</label>
                                         <input type="text" class="form-control @error('invoice') is-invalid @enderror"
                                             id="invoice" name="invoice" value="{{ old('invoice') }}"
-                                            placeholder="No. Penjualan" required>
+                                            placeholder="No. Penjualan" required readonly>
                                         @error('invoice')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -93,9 +92,10 @@
                                     <div class="col-md-12 mt-2">
                                         <div id="cont"></div> <!-- the container to add the TABLE -->
                                         <div class="d-grid gap-3">
-                                            <button class="btn bg-gradient-secondary" type="button" id="addRow">
+                                            {{-- <button class="btn bg-gradient-secondary" type="button" id="addRow">
                                                 <i class="fas fa-plus"></i> Add New Row
-                                            </button>
+                                            </button> --}}
+                                            <div id="loader" class="lds-dual-ring overlay hidden">
                                         </div>
                                         <hr>
                                     </div>

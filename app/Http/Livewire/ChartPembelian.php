@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Penjualan;
+use App\Models\PenerimaanBarang;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -16,11 +16,12 @@ class ChartPembelian extends Component
         if ($this->bulan_tahun) {
             $bulan = substr($this->bulan_tahun,-2);
             $tahun = substr($this->bulan_tahun,0,4);
-            $penjualan = Penjualan::select(DB::raw('count(*) as count, tanggal'))
+            $pembelian = PenerimaanBarang::select(DB::raw('count(*) as count, tanggal'))
             ->groupBy('tanggal')
             ->whereMonth('tanggal',$bulan)
             ->whereYear('tanggal',$tahun)
-            ->where('status','DITERIMA')
+            ->where('status','Diterima')
+            ->where('company_id',session()->get('company')->id)
             ->get();
 
             $hari_per_bulan = Carbon::parse($this->bulan_tahun)->daysInMonth;
@@ -28,10 +29,10 @@ class ChartPembelian extends Component
             $tanggal = [];
 
             for ($i=1; $i <= $hari_per_bulan ; $i++) { 
-                for ($j=0; $j < count($penjualan) ; $j++) { 
-                    if (substr($penjualan[$j]->tanggal,-2)==$i) {
-                        $tanggal[$i] = substr($penjualan[$j]->tanggal,-2);
-                        $count[$i] = $penjualan[$j]->count;
+                for ($j=0; $j < count($pembelian) ; $j++) { 
+                    if (substr($pembelian[$j]->tanggal,-2)==$i) {
+                        $tanggal[$i] = substr($pembelian[$j]->tanggal,-2);
+                        $count[$i] = $pembelian[$j]->count;
                         break;
                     } else {
                         $tanggal[$i] = $i;
