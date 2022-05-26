@@ -42,6 +42,16 @@
                         className: 'align-middle text-center'
                     },
                     {
+                        data: 'sisa_pembayaran',
+                        name: 'nilai',
+                        className: 'align-middle text-center'
+                    },
+                    {
+                        data: 'status_pembayaran',
+                        name: 'nilai',
+                        className: 'align-middle text-center'
+                    },
+                    {
                         data: 'status',
                         name: 'status',
                         className: 'align-middle text-center'
@@ -91,7 +101,13 @@
                                                 Deskripsi</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nilai</th>    
+                                                Pembayaran</th>    
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Sisa</th>    
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Status Pembayaran</th>    
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Status</th>

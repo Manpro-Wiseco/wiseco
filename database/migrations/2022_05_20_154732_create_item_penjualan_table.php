@@ -17,12 +17,13 @@ class CreateItemPenjualanTable extends Migration
             $table->id();
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('penjualan_id')->references('id')->on('pesanan_penjualan');
-            $table->unsignedBigInteger('penjualan_id');
+            $table->foreign('pesanan_penjualan_id')->references('id')->on('pesanan_penjualan')->onDelete('set null');
+            $table->unsignedBigInteger('pesanan_penjualan_id')->nullable();
             $table->integer('jumlah_barang');
             $table->integer('harga_barang');
             $table->integer('subtotal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

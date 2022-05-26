@@ -21,20 +21,22 @@ class PiutangController extends Controller
 
     public function list(Request $request)
     {
-        $data = Penjualan::where('status_pembayaran', 2)->get();
+        $data = Penjualan::where('status_pembayaran', 'KREDIT')->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('nama_pelanggan', function ($row) {
                 return $row->nama_pelanggan;
             })
-            ->addColumn('status_pembayaran', function ($row) {
-                if ($row->status_pembayaran == 2) {
-                    return 'Kredit';
-                }else{
-                    return 'Lunas';
-                }
-            })
             ->addColumn('nilai', function ($row) {
+                return "Rp " . number_format($row->nilai, 2, ',', '.');
+            })
+            ->addColumn('sisa_pembayaran', function ($row) {
+                if ($row->sisa_pembayaran == 0) {
+                    $sisa = $row->total_pembayaran;
+                }else if($row->sisa_pembayaran < 0){
+                    // $sisa = +1$row->sisa_pembayaran;
+                }
+
                 return "Rp " . number_format($row->nilai, 2, ',', '.');
             })
             ->addColumn('action', function ($row) {

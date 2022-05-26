@@ -4,13 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PengirimanBarang extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
     protected $table = 'pengiriman_barang';
+
+    protected static function booted()
+    {
+        static::deleted(function($account) {
+            // $account->services()->delete();
+        });
+    }
 
     public function penjualan()
     {

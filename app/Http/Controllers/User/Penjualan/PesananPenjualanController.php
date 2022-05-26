@@ -37,14 +37,23 @@ class PesananPenjualanController extends Controller
                 return "Rp " . number_format($row->nilai, 2, ',', '.');
             })
             ->addColumn('action', function ($row) {
-                $urlEdit = route('penjualan.pesanan-penjualan.edit', $row->id);
                 $urlDelete = route('penjualan.pesanan-penjualan.destroy', $row->id);
-                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false">
-                        <i class="fas fa-trash"></i>
-                    </a>';
+                if ($row->status != "DITERIMA" ) {
+                    $urlEdit = route('penjualan.pesanan-penjualan.edit', $row->id);
+                    $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false">
+                            <i class="fas fa-trash"></i>
+                        </a>';
+                }else{
+                    $actionBtn = '<a href="#" class="btn bg-gradient-info btn-small" onclick="alert(`Status sudah diterima!`)">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false">
+                            <i class="fas fa-trash"></i>
+                        </a>';
+                }
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -85,16 +94,16 @@ class PesananPenjualanController extends Controller
             foreach ($detailOrder as $order => $item) {
                 DB::table('item_penjualan')->insert([
                     "item_id" => $item['id'],
-                    "penjualan_id" => $pesanan->id,
+                    "pesanan_penjualan_id" => $pesanan->id,
                     "jumlah_barang" => $item['qty'],
                     "harga_barang" => $item['harga_unit'],
-                    "subtotal" => (int)$item['harga_unit'] * (int) $item['qty'],
+                    "subtotal" => $item['total'],
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
                 ]);
             }
         });
-        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        
         return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
@@ -132,7 +141,7 @@ class PesananPenjualanController extends Controller
      */
     public function update(PesananPenjualanRequest $request, $id)
     {
-        print_r($request->all());
+        // print_r($request->all());
 
         $data = Arr::except($request->all(), '_token');
         $data = Arr::except($request->all(), 'items');
@@ -148,16 +157,16 @@ class PesananPenjualanController extends Controller
             foreach ($detailOrder as $order => $item) {
                 DB::table('item_penjualan')->insert([
                     "item_id" => $item['id'],
-                    "penjualan_id" => $pesanan->id,
+                    "pesanan_penjualan_id" => $pesanan->id,
                     "jumlah_barang" => $item['qty'],
                     "harga_barang" => $item['harga_unit'],
-                    "subtotal" => (int)$item['harga_unit'] * (int) $item['qty'],
+                    "subtotal" => $item['total'],
                     "created_at" => Carbon::now(),
                     "updated_at" => Carbon::now()
                 ]);
             }
         });
-        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+
         return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
@@ -169,8 +178,13 @@ class PesananPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        ItemPenjualan::where('penjualan_id', $id)->delete();
-
+        // print_r($data->penjualan->pengiriman->count());
+        $data = PesananPenjualan::with('penjualan.pengiriman', 'penjualan.retur')->first();
+        if ($data->penjualan->pengiriman->count() > 0 || $data->penjualan->retur->count() > 0) {
+            return redirect()->back()->with('fail', 'Data dipakai pada tabel lain!');
+        }
+        
+        ItemPenjualan::where('pesanan_penjualan_id', $id)->delete();
         $order = PesananPenjualan::findOrFail($id);
         $order->delete();
 
@@ -199,7 +213,7 @@ class PesananPenjualanController extends Controller
 
     public function getItemDetail($id)
     {
-        $data = ItemPenjualan::query()->with(['item'])->where('penjualan_id', $id)->get();
+        $data = ItemPenjualan::query()->with(['item'])->where('pesanan_penjualan_id', $id)->get();
         return response()->json($data);
     }
 

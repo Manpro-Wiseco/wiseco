@@ -176,6 +176,7 @@ $('#no_pesanan').on('change', function() {
                     $('#pajak').val(data.pajak);
                     $('#potongan').val(data.potongan);
                     $('#jml-total').val(data.nilai);
+                    $('#sisa').val(parseInt(data.nilai)*- 1);
                     $('#invoice').val(invcreate());
                     $( "table" ).remove();
                     createTable()
@@ -204,6 +205,7 @@ $('#no_pesanan').on('change', function() {
                                 select.setAttribute("data", "items");
                                 select.setAttribute("id", `items${rowCnt}`);
                                 select.setAttribute("name", "items["+rowCnt+"][id]");
+                                select.setAttribute("disabled", "disabled");
                                 select.classList.add("form-control", "items-list");
                                 container.classList.add("item_container");
                                 container.setAttribute("id", `container-select-${cell}`);
@@ -241,6 +243,15 @@ $('#no_pesanan').on('change', function() {
 
                                 var $newOption = $("<option selected='selected'></option>").val(items.id).text(items.item.nameItem)
                                 $(`#items${rowCnt}`).append($newOption).trigger('change');
+
+                                let ele = document.createElement("input");
+                                ele.setAttribute("type", "hidden");
+                                ele.setAttribute("data", "items");
+                                ele.setAttribute("required", "required");
+                                ele.setAttribute("name", "items["+rowCnt+"][id]");
+                                ele.value = items.id;
+                                ele.classList.add("item" ,"form-control");
+                                td.appendChild(ele);
                                 
                             } else if (cell == 1){
                                 let ele = document.createElement("input");
@@ -253,6 +264,7 @@ $('#no_pesanan').on('change', function() {
                                 // ele.setAttribute("onKeyup", "Total("+rowCnt+")");
                                 ele.onkeyup=function(){Total(this.id, rowCnt)};
                                 ele.classList.add("qty" ,"form-control");
+                                ele.readOnly = true;
                                 td.appendChild(ele);
                             }
                             else if (cell == 2){
@@ -266,6 +278,7 @@ $('#no_pesanan').on('change', function() {
                                 ele.value = items.harga_barang;
                                 ele.onkeyup=function(){Total(this.id, rowCnt)};
                                 ele.classList.add("hargaunit","form-control");
+                                ele.readOnly = true;
                                 td.appendChild(ele);
                             }
                             else if (cell == 3){

@@ -119,7 +119,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'edit'])->name('edit');
-            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'update'])->name('update');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'list'])->name('list');
             Route::get('/list/get-no-pesanan/{id}', [\App\Http\Controllers\User\Penjualan\PenjualanController::class, 'listPesanan'])->name('list-pesanan');

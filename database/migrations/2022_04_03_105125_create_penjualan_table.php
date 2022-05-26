@@ -15,15 +15,16 @@ class CreatePenjualanTable extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
+            $table->string('no_penjualan',100)->nullable();
             $table->date('tanggal');
-            $table->integer('no_penjualan')->nullable();;
-            $table->string('nama_pelanggan');
-            $table->string('deskripsi');
+            $table->string('nama_pelanggan',400);
+            $table->string('deskripsi')->nullable();
             $table->integer('nilai');
-            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT','DIKIRIM','RETUR','DIPROSES', 'SELESAI'])->default('DRAFT');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

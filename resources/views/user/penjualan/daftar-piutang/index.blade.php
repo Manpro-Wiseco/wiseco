@@ -42,6 +42,11 @@
                         className: 'align-middle text-center'
                     },
                     {
+                        data: 'nilai',
+                        name: 'nilai',
+                        className: 'align-middle text-center'
+                    },
+                    {
                         data: 'status_pembayaran',
                         name: 'status',
                         className: 'align-middle text-center'
@@ -98,6 +103,9 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nilai</th>    
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Sisa Piutang</th>    
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Status</th>

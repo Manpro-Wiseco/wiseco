@@ -24,11 +24,11 @@ class PengirimanRequest extends FormRequest
     public function rules()
     {
         return [
-            'penjualan_id' => 'required',
-            'kurir' => 'required|string|max:100',
             'tanggal_pengiriman' => 'required',
             'no_pengiriman' => 'required',
+            'kurir' => 'required|string|max:100',
             'deskripsi' => 'required|max:200',
+            'penjualan_id' => 'required',
         ];
     }
 }

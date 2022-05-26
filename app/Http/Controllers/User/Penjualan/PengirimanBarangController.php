@@ -27,7 +27,11 @@ class PengirimanBarangController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('invoice', function ($row) {
-                return $row->penjualan->no_penjualan;
+                if ($row->penjualan->no_penjualan) {
+                    return $row->penjualan->no_penjualan;
+                }else{
+                    return false;
+                }
             })
             ->addColumn('nama_pelanggan', function ($row) {
                 return $row->penjualan->nama_pelanggan;
@@ -55,7 +59,11 @@ class PengirimanBarangController extends Controller
      */
     public function create()
     {
-        $dataPenjualan = Penjualan::currentCompany()->where('status_pembayaran', 1)->get();
+        $dataPenjualan = Penjualan::currentCompany()->where([
+            ['status_pembayaran','=', 1], //lunas
+            ['status','=',3], //draft
+            ])
+            ->get();
         return view('user.penjualan.pengiriman-barang.create', compact('dataPenjualan'));
     }
 
@@ -72,12 +80,13 @@ class PengirimanBarangController extends Controller
         $data = Arr::except($request->all(), '_token');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
         $data = Arr::add($data, 'status', 'DIKIRIM');
-        // $data = Arr::except($request->all(), 'detail');
+        // $data = Arr::except($request->all(), 'detail');  
         // $detail = $request->detail;
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data, $request) {
+            Penjualan::findOrFail($request->penjualan_id)->update(['status' => 4]);
             $expense = PengirimanBarang::create($data);
         });
-        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+
         return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 

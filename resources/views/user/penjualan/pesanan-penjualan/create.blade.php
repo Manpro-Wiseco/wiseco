@@ -2,6 +2,19 @@
     <script src="{{ asset('assets/js/moment-min.js') }}"></script>
     <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
 @endpush
+@push('styles')
+<style>
+    input[type='number'] {
+        -moz-appearance:textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+</style>
+@endpush
+
 <x-template-layout>
     <section class="content">
         <div class="row">

@@ -16,15 +16,16 @@ class CreatePesananPenjualanTable extends Migration
         Schema::create('pesanan_penjualan', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->integer('no_pesanan')->nullable();
-            $table->string('deskripsi');
+            $table->string('no_pesanan', 100)->nullable();
+            $table->string('deskripsi', 400)->nullable();
             $table->integer('nilai');
-            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);
+            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT','UNKNOWN'])->default('DRAFT');
             $table->foreign('pelanggan_id')->references('id')->on('data_contact');
             $table->unsignedBigInteger('pelanggan_id');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

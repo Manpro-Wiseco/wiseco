@@ -5,6 +5,16 @@
     @endpush
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/spinner.css') }}">
+    <style>
+        input[type='number'] {
+            -moz-appearance:textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -49,7 +59,7 @@
                                                     {{ $contact->name }} - {{ $contact->status }}</option>
                                             @endforeach
                                         </select>
-                                        @error('phone')
+                                        @error('data_contact_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
