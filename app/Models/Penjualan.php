@@ -40,5 +40,10 @@ class Penjualan extends Model
         return $this->hasOne(ReturPenjualan::class, 'penjualan_id', 'id');
     }
 
+    public function piutang()
+    {
+        return $this->hasOne(ReturPenjualan::class, 'penjualan_id', 'id');
+    }
+
     
 }
