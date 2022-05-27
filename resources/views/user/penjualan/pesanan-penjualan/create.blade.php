@@ -57,7 +57,7 @@
                                                     {{ $contact->name }} - {{ $contact->status }}</option>
                                             @endforeach
                                         </select>
-                                        @error('phone')
+                                        @error('pelanggan_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

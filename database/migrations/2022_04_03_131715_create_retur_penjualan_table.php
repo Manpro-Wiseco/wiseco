@@ -16,9 +16,9 @@ class CreateReturPenjualanTable extends Migration
         Schema::create('retur_penjualan', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_retur');
-            $table->string('no_retur',100);
-            $table->string('deskripsi',400)->nullable();
-            $table->enum('status', ['PENDING','DIPROSES','DIKIRIM','DITERIMA','DITOLAK'])->default('PENDING');
+            $table->string('no_retur', 100);
+            $table->string('deskripsi', 400)->nullable();
+            $table->enum('status', ['PENDING','DIPROSES','DIKIRIM','DITERIMA','DITOLAK','BATAL'])->default('PENDING');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('company_id');
             $table->foreign('penjualan_id')->references('id')->on('penjualan');

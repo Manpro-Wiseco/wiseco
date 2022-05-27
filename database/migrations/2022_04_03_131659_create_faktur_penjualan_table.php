@@ -15,8 +15,10 @@ class CreateFakturPenjualanTable extends Migration
     {
         Schema::create('faktur_penjualan', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal_cetak');
+            $table->date('tanggal_cetak_terbaru');
             $table->string('no_faktur');
+            $table->integer('jumlah_dicetak')->default(0);
+            $table->string('user_pencetak')->nullable();
             $table->enum('status', ['DICETAK','BELUM DICETAK'])->default('BELUM DICETAK');
             $table->foreign('penjualan_id')->references('id')->on('penjualan')->onDelete('cascade');
             $table->unsignedBigInteger('penjualan_id');

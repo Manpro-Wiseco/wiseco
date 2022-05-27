@@ -12,4 +12,19 @@ class ReturPenjualan extends Model
 
     protected $guarded = [];
     protected $table = 'retur_penjualan';
+
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class, 'penjualan_id', 'id');
+    }
+
+    public function pelanggan()
+    {
+        return $this->belongsTo(DataContact::class, 'pelanggan_id', 'id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

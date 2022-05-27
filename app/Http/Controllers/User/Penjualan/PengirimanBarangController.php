@@ -39,9 +39,9 @@ class PengirimanBarangController extends Controller
             ->addColumn('action', function ($row) {
                 $urlEdit = route('penjualan.pengiriman-barang.edit', $row->id);
                 $urlDelete = route('penjualan.pengiriman-barang.destroy', $row->id);
-                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
+                $actionBtn = '<button id="editPengiriman" class="btn bg-gradient-info btn-small" data-id="'.$row->id.'">
                         <i class="fas fa-edit"></i>
-                    </a>
+                    </button>
                     <a  href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false";>
                         <i class="fas fa-trash"></i>
                     </a>';
@@ -61,7 +61,7 @@ class PengirimanBarangController extends Controller
     {
         $dataPenjualan = Penjualan::currentCompany()->where([
             ['status_pembayaran','=', 1], //lunas
-            ['status','=',3], //draft
+            ['status','=',1], //draft
             ])
             ->get();
         return view('user.penjualan.pengiriman-barang.create', compact('dataPenjualan'));
@@ -83,7 +83,7 @@ class PengirimanBarangController extends Controller
         // $data = Arr::except($request->all(), 'detail');  
         // $detail = $request->detail;
         DB::transaction(function () use ($data, $request) {
-            Penjualan::findOrFail($request->penjualan_id)->update(['status' => 4]);
+            Penjualan::findOrFail($request->penjualan_id)->update(['status' => 4]);//status => dikirim
             $expense = PengirimanBarang::create($data);
         });
 
@@ -121,7 +121,39 @@ class PengirimanBarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // print_r($request->all());
+        $request->validate([
+            'tanggal_pengiriman'    => 'required',
+            'kurir'                 => 'required|string|max:100',
+            'deskripsi'             => 'required|string|max:200',
+            'status'                => 'required',
+          ]);
+  
+        $data = Arr::except($request->all(), ['_token','penjualan_id']);
+        $id_penjualan = $request->penjualan_id;
+        try {
+            DB::transaction(function () use ($data, $id, $request, $id_penjualan) {
+                PengirimanBarang::findOrFail($id)->update($data);
+                $penjualan = Penjualan::findOrFail($id_penjualan);
+                if ($request->status == 'DITERIMA') {
+                    $penjualan->update(['status' => 'DITERIMA']);
+                }else if($request->status == 'DIKIRIM'){
+                    $penjualan->update(['status' => 'DIKIRIM']);
+                }else if($request->status == 'RETUR'){
+                    $penjualan->update(['status' => 'RETUR']);
+                }else if($request->status == 'PENDING'){
+                    $penjualan->update(['status' => 'DIPROSES']);
+                }else if($request->status == 'BATAL'){
+                    Penjualan::findOrFail($id_penjualan)->update(['status' => 'DITOLAK']);
+                }else if($request->status == 'HILANG' || $request->status == 'UNKNOWN'){
+                    $penjualan->update(['status' => 'SELESAI']);
+                }
+            });          
+            // redirect the page
+            return response()->json(['success'=>'Ajax request submitted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error'=> $e->getMessage()]);
+        }
     }
 
     /**
@@ -136,5 +168,11 @@ class PengirimanBarangController extends Controller
         $order->delete();
 
         return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
+    }
+
+    public function getData($id)
+    {
+        $pengiriman = PengirimanBarang::with(['penjualan', 'penjualan.pesanan'])->findOrFail($id);
+        return response()->json($pengiriman);
     }
 }

@@ -20,7 +20,7 @@ class CreatePenjualanTable extends Migration
             $table->string('nama_pelanggan',400);
             $table->string('deskripsi')->nullable();
             $table->integer('nilai');
-            $table->enum('status', ['DITERIMA','DITOLAK','DRAFT','DIKIRIM','RETUR','DIPROSES', 'SELESAI'])->default('DRAFT');
+            $table->enum('status', ['DRAFT','DITERIMA','DITOLAK','DIKIRIM','RETUR','DIPROSES', 'SELESAI'])->default('DRAFT');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();

@@ -1,4 +1,4 @@
-    .lds-dual-ring.hidden, .bg-gradient-secondary.hidden { 
+    .lds-dual-ring.hidden, .bg-gradient-secondary.hidden, #edit-data-pengiriman.hidden, #edit-data-retur.hidden { 
         display: none;
     }
     .lds-dual-ring {

@@ -133,9 +133,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'edit'])->name('edit');
-            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'update'])->name('update');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'list'])->name('list');
+            Route::get('/get-data/{id}', [\App\Http\Controllers\User\Penjualan\PengirimanBarangController::class, 'getData'])->name('get-data');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\PengirimanBarangController::class, 'export'])->name('export');
         });
 
@@ -155,11 +156,12 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::prefix('retur-penjualan')->name('retur-penjualan.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'index'])->name('index');
             Route::get('/create', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'store'])->name('store');
+            Route::post('/store', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'edit'])->name('edit');
-            //Route::post('/update/{id}', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\ReturPenjualanHargaController::class, 'destroy'])->name('destroy');
+            Route::post('/update/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'list'])->name('list');
+            Route::get('/get-data/{id}', [\App\Http\Controllers\User\Penjualan\ReturPenjualanController::class, 'getData'])->name('get-data');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
 
