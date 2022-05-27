@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ItemPenjualan extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
     protected $table = 'item_penjualan';
@@ -19,6 +20,6 @@ class ItemPenjualan extends Model
 
     public function penjualan()
     {
-        return $this->belongsTo(PesananPenjualan::class, 'penjualan_id', 'id');
+        return $this->belongsTo(PesananPenjualan::class, 'pesanan_penjualan_id', 'id');
     }
 }

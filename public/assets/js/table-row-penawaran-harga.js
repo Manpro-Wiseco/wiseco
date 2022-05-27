@@ -221,7 +221,7 @@ addRowBtn.addEventListener("click", function (e) {
             ele.setAttribute("name", "items["+rowCnt+"][qty]");
             ele.setAttribute("id", "qty"+rowCnt);
             // ele.setAttribute("onKeyup", "Total("+rowCnt+")");
-            ele.onkeyup=function(){Total(this.id, rowCnt)};
+            ele.onkeyup = function() {Total(this.id, rowCnt)} ;
             ele.classList.add("qty" ,"form-control");
             td.appendChild(ele);
         } else if (cell == 3){
@@ -329,6 +329,14 @@ $( "#discount" ).keyup(function() {
 $( "#pajak" ).keyup(function() {
     getTotalItem();
 });
+// $( ".hargaunit" ).keyup(function() {
+//     getTotalItem();
+//     console.log('harga unit');
+// });
+// $( ".qty" ).keyup(function() {
+//     getTotalItem();
+//     console.log('qty');
+// });
 
 function invcreate(no) {
     let cust = $('#data_contact_id option:selected').text();

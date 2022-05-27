@@ -26,7 +26,7 @@ class PesananPenjualanRequest extends FormRequest
         return [
             'pelanggan_id' => 'required',
             'tanggal' => 'required',
-            'no_pesanan' => 'required',
+            'no_pesanan' => 'required|max:100',
             'deskripsi' => 'required|max:400',
             'other_cost' => 'required|integer',
             'discount' => 'required|integer',

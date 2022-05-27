@@ -4,13 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PesananPenjualan extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
     protected $table = 'pesanan_penjualan';
+
+    protected static function booted()
+    {
+        static::deleted(function($pesanan) {
+            $pesanan->penjualan()->delete();
+            $pesanan->item()->delete();
+        });
+    }
 
     public function scopeCurrentCompany($query)
     {
@@ -29,7 +38,12 @@ class PesananPenjualan extends Model
 
     public function item()
     {
-        return $this->hasMany(ItemPenjualan::class, 'penjualan_id', 'id');
+        return $this->hasMany(ItemPenjualan::class, 'pesanan_penjualan_id', 'id');
+    }
+
+    public function penjualan()
+    {
+        return $this->hasOne(penjualan::class, 'pesanan_id', 'id');
     }
     
 }

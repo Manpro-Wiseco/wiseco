@@ -79,6 +79,22 @@
                             </a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
+                            @if(Session::has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{ Session::get('fail') }}</strong>
+                                    {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button> --}}
+                                </div>
+                            @endif
+                            @if(Session::has('fail'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ Session::get('fail') }}</strong>
+                                    {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button> --}}
+                                </div>
+                            @endif
                             <div class="table-responsive p-3">
                                 <table class="table align-items-center mb-0" id="pesanan-penjualan-table">
                                     <thead>

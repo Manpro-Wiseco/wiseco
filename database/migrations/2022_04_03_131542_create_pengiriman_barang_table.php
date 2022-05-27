@@ -16,13 +16,13 @@ class CreatePengirimanBarangTable extends Migration
         Schema::create('pengiriman_barang', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_pengiriman');
-            $table->string('no_pengiriman',100);
-            $table->string('kurir',100);
-            $table->string('deskripsi',400);
-            $table->enum('status', ['DIKIRIM','RETURN','BATAL', 'HILANG']);
+            $table->string('no_pengiriman', 100);
+            $table->string('kurir', 100);
+            $table->string('deskripsi', 400);
+            $table->enum('status', ['PENDING','DIKIRIM','DITERIMA','RETUR','BATAL','HILANG','UNKNOWN'])->default('PENDING');
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('penjualan_id')->references('id')->on('penjualan');
+            $table->unsignedBigInteger('company_id')->onDelete('cascade');
+            $table->foreign('penjualan_id')->references('id')->on('penjualan')->onDelete('cascade');
             $table->unsignedBigInteger('penjualan_id');
             $table->timestamps();
         });

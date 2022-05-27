@@ -1,10 +1,12 @@
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/spinner.css') }}">
 @endpush
 
 @push('scripts')
     <script>
+        let table;
         $(document).ready(function() {
-            let table = $('#pengiriman-barang-table').DataTable({
+            table = $('#pengiriman-barang-table').DataTable({
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
@@ -61,8 +63,97 @@
 
                 ]
             });
-        })
+        });
+
+        //Edit modal window
+        $('body').on('click', '#editPengiriman', function (event) {
+            event.preventDefault();
+            var id = $(this).data('id');
+            $('#modal-id').modal('show');
+            $('#loader').removeClass('hidden')
+            $('#edit-data-pengiriman').addClass('hidden')
+            
+            setTimeout(function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${window.url}/penjualan/pengiriman-barang/get-data/${id}`,
+                    dataType: 'json',
+                    beforeSend: function() {
+                    },
+                    success: function(data){
+                        // console.log(data);
+                        $('#no_penjaulan').val(data.penjualan.no_penjualan);
+                        $('#tanggal_pengiriman').val(data.tanggal_pengiriman);
+                        $('#no_pengiriman').val(data.no_pengiriman);
+                        $('#deskripsi').val(data.deskripsi);
+                        $('#pengiriman_id').val(id);
+                        $('#kurir').val(data.kurir);
+                        $('#status').val(data.status);
+                        $('#penjualan_id').val(data.penjualan_id);
+                    },
+                    complete: function(){
+                        $('#loader').addClass('hidden')
+                        $('#edit-data-pengiriman').removeClass('hidden')
+                    },
+                });
+            }, 1500);
+
+        });
+
+        //Save data into database
+        $('body').on('click', '#submit', function (event) {
+            event.preventDefault()
+            var id = $("#pengiriman_id").val();
+            var kurir = $("#kurir").val();
+            var status = $("#status").val();
+            var tanggal = $("#tanggal_pengiriman").val();
+            var deskripsi = $("#deskripsi").val();
+            var penjualan = $("#penjualan_id").val();
+            var token = $('meta[name="csrf-token"]').attr('content'); ;
+            
+            $.ajax({
+                url: `${window.url}/penjualan/pengiriman-barang/update/${id}`,
+                type: "POST",
+                data: {
+                    kurir: kurir,
+                    tanggal_pengiriman: tanggal,
+                    deskripsi: deskripsi,
+                    status: status,
+                    penjualan_id: penjualan,
+                    _token: token
+                },
+                dataType: 'json',
+                success: function (data) {
+                    // console.log(data);
+                    // $('#companydata').trigger("reset");
+                    // $('#modal-id').modal('hide');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Sukses',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $('#modal-id').modal('hide');
+                    table.ajax.reload();
+                },
+                error: function (data) {
+                    console.log($data);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Gagal',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
     </script>
+@endpush
+
+@push('modals')
+    @include('user.penjualan.modal.modal')
 @endpush
 
 <x-template-layout>

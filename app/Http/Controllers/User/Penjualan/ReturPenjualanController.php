@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\ReturPenjualan;
 use App\Models\Expense;
+use App\Models\Penjualan;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -26,18 +27,24 @@ class ReturPenjualanController extends Controller
 
     public function list(Request $request)
     {
-        $data = ReturPenjualan::latest()->get();
+        $data = ReturPenjualan::with('penjualan')->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('nama_pelanggan', function ($row) {
+                return $row->pelanggan->name;
+            })
+            ->addColumn('perusahaan', function ($row) {
+                return $row->company->name;
+            })
             ->addColumn('action', function ($row) {
                 $urlEdit = route('penjualan.retur-penjualan.edit', $row->id);
                 $urlDelete = route('penjualan.retur-penjualan.destroy', $row->id);
-                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
+                $actionBtn = '<button id="editRetur" class="btn bg-gradient-info btn-small" data-id="'.$row->id.'">
+                <i class="fas fa-edit"></i>
+            </button>
+                    <a  href="' . $urlDelete . '" class="btn bg-gradient-danger btn-small" type="button" onclick="if(!confirm(`Apakah anda yakin?`)) return false";>
                         <i class="fas fa-trash"></i>
-                    </button>';
+                    </a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -52,8 +59,10 @@ class ReturPenjualanController extends Controller
      */
     public function create()
     {
-        $dataContacts = DataContact::currentCompany()->get();
-        return view('user.penjualan.retur-penjualan.create', compact('dataContacts'));
+        // $dataContacts = DataContact::currentCompany()->get();
+        $dataRetur = Penjualan::currentCompany()->where('status', 'RETUR')->get();
+        // print_r($dataRetur);
+        return view('user.penjualan.retur-penjualan.create', compact('dataRetur'));
     }
 
     /**
@@ -64,32 +73,21 @@ class ReturPenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'data_contact_id' => 'required|numeric',
-            'invoice' => 'required',
-            'transaction_date' => 'required',
-            'description' => 'required',
-            'detail.*.amount' => 'required|numeric',
-            'detail.*.bank_account_id' => 'required|numeric'
-        ]);
+      
         $data = Arr::except($request->all(), '_token');
-        $data = Arr::except($request->all(), 'detail');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
-        $detail = $request->detail;
-        DB::transaction(function () use ($data, $detail) {
-            $expense = Expense::create($data);
-            foreach ($detail as $key => $value) {
-                DB::table('detail_expenses')->insert([
-                    "expense_id" => $expense->id,
-                    "bank_account_id" => $value["bank_account_id"],
-                    "amount" => $value["amount"],
-                    "created_at" => Carbon::now(),
-                    "updated_at" => Carbon::now()
-                ]);
-            }
+        $data = Arr::add($data, 'status', 'DIPROSES');
+        // $data = Arr::except($request->all(), 'detail');  
+        // $detail = $request->detail;
+        DB::transaction(function () use ($data, $request) {
+            $penjualan = Penjualan::with(['pesanan'])->findOrFail($request->penjualan_id);
+            $data = Arr::add($data, 'pelanggan_id', $penjualan->pesanan->pelanggan_id);
+            $penjualan->update(['status' => 6]); //status => DIPROSES
+            $expense = ReturPenjualan::create($data);
         });
-        return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
-        // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
+
+        // return response()->json(['data' => ['expenses' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data pengeluaran!']);
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Data!');
     }
 
     /**
@@ -123,7 +121,35 @@ class ReturPenjualanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tanggal_retur'         => 'required',
+            'deskripsi'             => 'required|string|max:400',
+            'status'                => 'required',
+          ]);
+  
+        $data = Arr::except($request->all(), ['_token','penjualan_id']);
+        $id_penjualan = $request->penjualan_id;
+        try {
+            DB::transaction(function () use ($data, $id, $request, $id_penjualan) {
+                ReturPenjualan::findOrFail($id)->update($data);
+                $penjualan = Penjualan::findOrFail($id_penjualan);
+                if ($request->status == 'PENDING') {
+                    $penjualan->update(['status' => 'DIPROSES']);
+                }else if($request->status == 'DIPROSES'){
+                    $penjualan->update(['status' => 'DIPROSES']);
+                }else if($request->status == 'DIKIRIM'){
+                    $penjualan->update(['status' => 'DIPROSES']);
+                }else if($request->status == 'DITOLAK'){
+                    $penjualan->update(['status' => 'DITOLAK']);
+                }else if($request->status == 'DITERIMA'){
+                    $penjualan->update(['status' => 'SELESAI']);
+                }
+            });          
+            // redirect the page
+            return response()->json(['success'=>'Ajax request submitted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error'=> $e->getMessage()]);
+        }
     }
 
     /**
@@ -134,6 +160,15 @@ class ReturPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = ReturPenjualan::findOrFail($id);
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
+    }
+
+    public function getData($id)
+    {
+        $retur = ReturPenjualan::with(['penjualan'])->findOrFail($id);
+        return response()->json($retur);
     }
 }
