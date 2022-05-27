@@ -11,4 +11,16 @@ class FakturPembelian extends Model
 
     protected $guarded = [];
     protected $table = 'faktur_pembelians';
+
+    public function scopeCurrentCompany($query)
+    {
+        return $query->where('company_id', '=', session()->get('company')->id);
+    }
+
+    public function dataContact()
+    {
+        return $this->belongsTo(DataContact::class);
+    }
+
+    
 }
