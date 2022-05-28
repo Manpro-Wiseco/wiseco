@@ -8,27 +8,26 @@
                 fixedHeader: true,
                 pageLength: 25,
                 responsive: true,
-                 language: {
-                   paginate: {
+                language: {
+                    paginate: {
                         previous: "<",
                         next: ">"
                     }
                 },
                 ajax: "{{ route('pembelian.retur-pembelian.list') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'tanggal',
                         name: 'tanggal',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'no_retur',
-                        name: 'no_retur',
+                        data: 'no_pesanan',
+                        name: 'no_pesanan',
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'nama_pelanggan',
-                        name: 'nama_pelanggan',
+                        data: 'data_contact.name',
+                        name: 'data_contact.name',
                         className: 'align-middle text-center'
                     },
                     {
@@ -37,8 +36,8 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'nilai',
-                        name: 'nilai',
+                        data: 'total',
+                        name: 'total',
                         className: 'align-middle text-center'
                     },
                     {
@@ -56,6 +55,54 @@
 
                 ]
             });
+
+            function reload_table(callback, resetPage = false) {
+                table.ajax.reload(callback, resetPage); //reload datatable ajax 
+            }
+
+            $('#retur-pembelian-table').on('click', '.btn-delete', function(e) {
+                let id = $(this).data('id')
+                let no_pesanan = $(this).data('no_pesanan')
+                e.preventDefault()
+                Swal.fire({
+                    title: 'Apakah Yakin?',
+                    text: `Apakah Anda yakin ingin menghapus data pembelian dengan no_pesanan ${no_pesanan}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                        $.ajax({
+                            url: "{{ url('pembelian/retur-pembelian') }}/" + id,
+                            type: 'POST',
+                            data: {
+                                _token: CSRF_TOKEN,
+                                _method: "delete",
+                            },
+                            dataType: 'JSON',
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    `Data pembelian dengan no_pesanan ${no_pesanan} berhasil terhapus.`,
+                                    'success'
+                                )
+                                reload_table(null, true)
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    type: 'error',
+                                    title: 'Error saat delete data',
+                                    showConfirmButton: true
+                                })
+                            }
+                        })
+                    }
+                })
+            })
         })
     </script>
 @endpush
@@ -67,14 +114,14 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
-                        <div class="d-flex gap-2">
+                            <div class="d-flex gap-2">
                                 <a href="{{ route('pembelian.index') }}" class="btn bg-gradient-primary btn-small">
-                                <i class="fas fa-chevron-left"></i>
+                                    <i class="fas fa-chevron-left"></i>
                                 </a>
                                 <h3>Retur Pembelian</h3>
                             </div>
-                            
-                            <a href="{{ route('pembelian.retur-pembelian.create') }}" class="btn bg-gradient-primary">
+                            <a href="{{ route('pembelian.retur-pembelian.create') }}"
+                                class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
@@ -88,7 +135,7 @@
                                                 Tanggal</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">
-                                                No Retur</th>
+                                                No Pesanan</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Pemasok</th>
@@ -97,7 +144,7 @@
                                                 Deskripsi</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nilai</th>    
+                                                Nilai</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Status</th>
