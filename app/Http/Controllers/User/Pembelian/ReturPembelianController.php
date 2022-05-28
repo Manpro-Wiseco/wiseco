@@ -21,7 +21,7 @@ class ReturPembelianController extends Controller
      */
     public function index(Request $request)
     {
-        return view('user.pembelian.Retur-Pembelian.index');
+        return view('user.pembelian.retur-pembelian.index');
     }
 
     public function list(Request $request)
@@ -74,7 +74,7 @@ class ReturPembelianController extends Controller
     public function create()
     {
         $dataContacts = DataContact::currentCompany()->status('Supplier')->get();
-        return view('user.pembelian.Retur-Pembelian.create', compact('dataContacts'));
+        return view('user.pembelian.retur-pembelian.create', compact('dataContacts'));
     }
 
     /**
@@ -129,7 +129,7 @@ class ReturPembelianController extends Controller
                 //     ]);
             }
         });
-        return response()->json(['data' => ['pembelian' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data retur pembelian!']);
+        return response()->json(['data' => ['retur' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil menambahkan data retur pembelian!']);
         // return redirect()->route('pengelolaan-kas.bank-account.index')->with('success', 'Berhasil Menambahkan Data!');
     }
 
@@ -152,7 +152,7 @@ class ReturPembelianController extends Controller
      */
     public function edit($id)
     {
-        $data = PesananPembelian::with(['dataContact'])->findOrFail($id);
+        $data = ReturPembelian::with(['dataContact'])->findOrFail($id);
         $dataContacts = DataContact::currentCompany()->status('Supplier')->get();
         return view('user.pembelian.retur-pembelian.edit', compact('data', 'dataContacts'));
     
