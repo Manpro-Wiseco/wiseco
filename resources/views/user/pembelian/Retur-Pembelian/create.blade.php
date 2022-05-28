@@ -1,5 +1,37 @@
+@push('styles')
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+    </style>
+@endpush
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
+    <script src="{{ asset('assets/js/pembelian-table-create.js') }}"></script>
+    <script>
+        $("#data_contact_id").select2({
+            placeholder: "- Pilih Salah Satu -",
+            allowClear: true,
+            // dropdownParent: $(`#container-select-${cell}`),
+            theme: "bootstrap-5",
+            ajax: {
+                url: `${window.url}/data-contact/data`,
+                dataType: "json",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                        filter: 'Supplier'
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response,
+                    };
+                },
+                cache: true,
+            },
+        });
+    </script>
 @endpush
 <x-template-layout>
     <section class="content">
@@ -106,24 +138,14 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-body">
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="other-cost">Biaya Lain</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="other-cost" placeholder="Rp.">
-                                                </div>
-                                            </div>
+                                           
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4" for="discount">Discount</label>
                                                 <div class="col-sm-12 col-md-7">
                                                     <input type="text" class="form-control" id="discount" placeholder="%">
                                                 </div>
                                             </div>
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="pajak">Pajak</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
-                                                </div>
-                                            </div>
+                                           
                                             <hr>
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4" for="pajak">Total</label>
@@ -147,7 +169,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <input type="button" id="bt" value="Submit Data" class="btn bg-gradient-primary" />
+                                <input type="button" id="bt" value="Submit" class="btn bg-gradient-primary" />
                                     {{-- <button type="submit" class="btn bg-gradient-primary">Submit</button> --}}
                                 </div>
                             </form>

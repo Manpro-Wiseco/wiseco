@@ -245,14 +245,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-body">
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="other-cost">Biaya
-                                                    Lain</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="other-cost"
-                                                        placeholder="Rp.">
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4"
                                                     for="discount">Discount</label>
@@ -261,13 +254,7 @@
                                                         placeholder="%">
                                                 </div>
                                             </div>
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="pajak">Pajak</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="pajak"
-                                                        placeholder="Rp.">
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4" for="pajak">Total
                                                     Barang</label>
@@ -276,14 +263,7 @@
                                                         placeholder="Rp.">
                                                 </div>
                                             </div>
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="pajak">Total
-                                                    Layanan</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="pajak"
-                                                        placeholder="Rp.">
-                                                </div>
-                                            </div>
+
                                             <hr>
                                             <div class="form-grup row mb-2">
                                                 <label class="col-form-label col-6 col-md-4"
