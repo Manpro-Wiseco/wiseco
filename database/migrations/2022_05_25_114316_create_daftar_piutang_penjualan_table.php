@@ -19,9 +19,9 @@ class CreateDaftarPiutangPenjualanTable extends Migration
             $table->date('tanggal_akhir_kredit');
             $table->string('no_piutang',100);
             $table->integer('sisa_piutang');
-            $table->integer('tenor');
-            $table->integer('bunga');
-            $table->integer('beban_pembayaran');
+            $table->integer('tenor')->nullable();
+            $table->integer('bunga')->nullable();
+            $table->integer('beban_pembayaran')->nullable();
             $table->enum('status', ['PENDING','BELUM LUNAS','LUNAS'])->default('PENDING');
             $table->foreign('penjualan_id')->references('id')->on('penjualan')->onDelete('cascade');
             $table->unsignedBigInteger('penjualan_id');
