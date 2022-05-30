@@ -20,7 +20,7 @@ class AddColumnToPenjualan extends Migration
             $table->unsignedBigInteger('data_bank_id')->after('company_id');
             $table->integer('total_pembayaran')->nullable()->after('data_bank_id');
             $table->integer('sisa_pembayaran')->nullable()->after('total_pembayaran');
-            $table->enum('status_pembayaran', ['LUNAS','KREDIT'])->after('sisa_pembayaran');
+            $table->enum('status_pembayaran', ['LUNAS','KREDIT','CICILAN'])->after('sisa_pembayaran');
             // $table->softDeletes()->after('updated_at');
         });
     }

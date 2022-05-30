@@ -43,17 +43,17 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/ticket/list', [\App\Http\Controllers\Admin\AdminTicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/view/{id}', [\App\Http\Controllers\Admin\AdminTicketController::class, 'view'])->name('ticket.view');
     Route::get('/ticket/update', [\App\Http\Controllers\Admin\AdminTicketController::class, 'update'])->name('ticket.update');
-    Route::resource('/ticket', \App\Http\Controllers\Admin\AdminTicketController::class);
+    // Route::resource('/ticket', \App\Http\Controllers\Admin\AdminTicketController::class);
 
-    Route::get('/ticket_response/store', [\App\Http\Controllers\Admin\AdminTicketResponseController::class, 'store'])->name('ticket_response.store');
+    // Route::get('/ticket_response/store', [\App\Http\Controllers\Admin\AdminTicketResponseController::class, 'store'])->name('ticket_response.store');
     Route::resource('/ticket_response', \App\Http\Controllers\Admin\AdminTicketResponseController::class);
 
     Route::get('/ticketcategory/list', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'list'])->name('ticketcategory.list');
     Route::get('/ticketcategory/update', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'update'])->name('ticketcategory.update');
-    Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
+    // Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
 
     // Admin Profile
-    Route::get('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');
+    // Route::get('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');
     Route::resource('/profile', \App\Http\Controllers\Admin\AdminProfileController::class);
 });
 
@@ -150,6 +150,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/destroy/{id}', [\App\Http\Controllers\Penjualan\PenawaranHargaController::class, 'destroy'])->name('destroy');
             Route::get('/list', [\App\Http\Controllers\User\Penjualan\FakturPenjualanController::class, 'list'])->name('list');
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\DataProdukController::class, 'export'])->name('export');
+            Route::get('/get-faktur/{type}/{id}', [\App\Http\Controllers\User\Penjualan\FakturPenjualanController::class, 'getFaktur'])->name('get-faktur-penjualan');
         });
 
         // Retur Penjualan
@@ -171,9 +172,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/create', [PiutangController::class, 'create'])->name('create');
             Route::post('/store', [PiutangController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [PiutangController::class, 'edit'])->name('edit');
-            //Route::post('/update/{id}', [PiutangController::class, 'update'])->name('update');
+            Route::post('/update/{id}', [PiutangController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [PiutangController::class, 'destroy'])->name('destroy');
             Route::get('/list', [PiutangController::class, 'list'])->name('list');
+            Route::get('/list-history/{id}', [PiutangController::class, 'listHistory'])->name('list-history');
+            Route::get('/get-data/{id}', [PiutangController::class, 'getData'])->name('get-data');
+            Route::get('/get-data-detail/{id}', [PiutangController::class, 'getDataDetail'])->name('get-data-detail');
+            Route::post('/save-data-bayar/{id}', [PiutangController::class, 'storeDetailBayar'])->name('store-data-detail');
             //Route::get('/export', [PiutangController::class, 'export'])->name('export');
         });
     });
@@ -308,10 +313,10 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     // Data Lainnya - Ticket
     Route::get('/ticket/list', [\App\Http\Controllers\User\TicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/view/{id}', [\App\Http\Controllers\User\TicketController::class, 'view'])->name('ticket.view');
-    Route::get('/ticket/update', [\App\Http\Controllers\User\TicketController::class, 'update'])->name('ticket.update');
+    // Route::get('/ticket/update', [\App\Http\Controllers\User\TicketController::class, 'update'])->name('ticket.update');
     Route::resource('/ticket', \App\Http\Controllers\User\TicketController::class);
 
-    Route::get('/ticket_response/store', [\App\Http\Controllers\User\TicketResponseController::class, 'store'])->name('ticket_response.store');
+    // Route::get('/ticket_response/store', [\App\Http\Controllers\User\TicketResponseController::class, 'store'])->name('ticket_response.store');
     Route::resource('/ticket_response', \App\Http\Controllers\User\TicketResponseController::class);
 
     // Data Lainnya - Data Warehouse

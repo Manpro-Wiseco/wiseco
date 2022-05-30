@@ -150,7 +150,7 @@ class PesananPenjualanController extends Controller
         $detailOrder = $request->items;
         // print_r($detailOrder[0]);
         DB::transaction(function () use ($data, $detailOrder, $id) {
-            ItemPenjualan::where('penjualan_id', $id)->delete();
+            ItemPenjualan::where('pesanan_penjualan_id', $id)->delete();
             $pesanan = PesananPenjualan::findOrFail($id);
             $pesanan->update($data);
 
@@ -178,16 +178,18 @@ class PesananPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        // print_r($data->penjualan->pengiriman->count());
-        $data = PesananPenjualan::with('penjualan.pengiriman', 'penjualan.retur')->first();
-        if ($data->penjualan->pengiriman->count() > 0 || $data->penjualan->retur->count() > 0) {
-            return redirect()->back()->with('fail', 'Data dipakai pada tabel lain!');
+        $data = PesananPenjualan::where('id', $id)->first();
+        if ($data->penjualan) {
+            $penjualan = Penjualan::where('id', $data->penjualan->id)->first();
+            if ($penjualan->pengiriman || $penjualan->retur || $penjualan->piutang) {
+                return redirect()->back()->with('fail', 'Gagal Menghapus Data, data digunakan pada tabel lain!');
+            }
+            // dd($penjualan->pengiriman ? 'True' : 'False');
         }
-        
+        // dd('dont have penjualan');
         ItemPenjualan::where('pesanan_penjualan_id', $id)->delete();
         $order = PesananPenjualan::findOrFail($id);
         $order->delete();
-
         return redirect()->back()->with('success', 'Berhasil Menghapus Data!');
     }
 

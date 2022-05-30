@@ -30,6 +30,12 @@ class Penjualan extends Model
         return $this->belongsTo(PesananPenjualan::class, 'pesanan_id', 'id' );
     }
 
+    public function bank()
+    {
+        return $this->belongsTo(DataBank::class, 'data_bank_id', 'id' );
+    }
+
+
     public function pengiriman()
     {
         return $this->hasOne(PengirimanBarang::class, 'penjualan_id', 'id');
@@ -38,6 +44,16 @@ class Penjualan extends Model
     public function retur()
     {
         return $this->hasOne(ReturPenjualan::class, 'penjualan_id', 'id');
+    }
+
+    public function piutang()
+    {
+        return $this->hasOne(ReturPenjualan::class, 'penjualan_id', 'id');
+    }
+
+    public function faktur()
+    {
+        return $this->hasMany(FakturPenjualan::class, 'penjualan_id', 'id');
     }
 
     

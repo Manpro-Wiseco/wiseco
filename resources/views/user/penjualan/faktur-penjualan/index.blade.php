@@ -22,7 +22,7 @@
                         className: 'align-middle text-center'
                     },
                     {
-                        data: 'no_faktur',
+                        data: 'no_penjualan',
                         name: 'no_faktur',
                         className: 'align-middle text-center'
                     },
@@ -68,9 +68,9 @@
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between pb-0">
                             <h3>Faktur Penjualan</h3>
-                            <a href="{{ route('penjualan.faktur-penjualan.create') }}" class="btn bg-gradient-primary">
+                            {{-- <a href="{{ route('penjualan.faktur-penjualan.create') }}" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square"></i>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-3">
