@@ -166,8 +166,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
 
-         //daftar piutang
-         Route::prefix('daftar-piutang')->name('daftar-piutang.')->group(function () {
+        //daftar piutang
+        Route::prefix('daftar-piutang')->name('daftar-piutang.')->group(function () {
             Route::get('/', [PiutangController::class, 'index'])->name('index');
             Route::get('/create', [PiutangController::class, 'create'])->name('create');
             Route::post('/store', [PiutangController::class, 'store'])->name('store');
@@ -288,8 +288,13 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::resource('/fund-transfer', App\Http\Controllers\User\PengelolaanKas\FundTransferController::class);
     });
 
-    // Report
-    Route::get('/pelaporan', [\App\Http\Controllers\User\PelaporanController::class, 'index'])->name('pelaporan');
+    // Report / Pelaporan
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\Pelaporan\HomeController::class, 'index'])->name('index');
+
+        // Laporan - Keuangan
+        Route::get('/keuangan', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'index'])->name('keuangan.index');
+    });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
     Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
     Route::get('/laporan-pembelian', [\App\Http\Controllers\User\LaporanPembelian::class, 'index'])->name('laporan-pembelian');
