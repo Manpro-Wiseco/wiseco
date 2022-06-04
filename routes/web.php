@@ -293,7 +293,11 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::get('/', [\App\Http\Controllers\User\Pelaporan\HomeController::class, 'index'])->name('index');
 
         // Laporan - Keuangan
-        Route::get('/keuangan', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'index'])->name('keuangan.index');
+        Route::prefix('keuangan')->name('keuangan.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'index'])->name('index');
+            Route::post('/pengeluaran', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pengeluaran'])->name('pengeluaran');
+            Route::post('/pemasukan', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pemasukan'])->name('pemasukan');
+        });
     });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
     Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
