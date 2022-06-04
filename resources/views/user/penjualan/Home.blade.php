@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.pesanan-penjualan.index')}}">
-                        <div class="card bg-gradient-info">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Pesanan Penjualan</h4>
@@ -46,7 +46,7 @@
 
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.penjualan.index')}}">
-                        <div class="card bg-gradient-secondary">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Penjualan</h4>
@@ -69,7 +69,7 @@
             
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.pengiriman-barang.index')}}">
-                        <div class="card bg-gradient-warning">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Pengiriman Barang</h4>
@@ -112,7 +112,7 @@
 
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.retur-penjualan.index')}}">
-                        <div class="card bg-gradient-dark">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Retur Penjualan</h4>
@@ -135,7 +135,7 @@
             
                 <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('penjualan.daftar-piutang.index')}}">
-                        <div class="card bg-gradient-danger">
+                        <div class="card bg-gradient-primary">
                             <div class="card-body pt-3">
                                 <div class="text-center">
                                     <h4 class="text-white text-capitalize font-weight-bold">Daftar Piutang Usaha</h4>

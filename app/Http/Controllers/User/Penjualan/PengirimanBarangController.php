@@ -60,8 +60,7 @@ class PengirimanBarangController extends Controller
     public function create()
     {
         $dataPenjualan = Penjualan::currentCompany()->where([
-            ['status_pembayaran','=', 1], //lunas
-            ['status','=',1], //draft
+            ['status', '=', 1], //draft
             ])
             ->get();
         return view('user.penjualan.pengiriman-barang.create', compact('dataPenjualan'));
@@ -165,6 +164,7 @@ class PengirimanBarangController extends Controller
     public function destroy($id)
     {
         $order = PengirimanBarang::findOrFail($id);
+        Penjualan::findOrFail($order->penjualan->id)->update(['status' => 'DRAFT']);
         $order->delete();
 
         return redirect()->back()->with('success', 'Berhasil Menghapus Data!');

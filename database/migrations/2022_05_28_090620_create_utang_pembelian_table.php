@@ -18,7 +18,6 @@ class CreateUtangPembelianTable extends Migration
             $table->date('tanggal');
             $table->unsignedBigInteger('faktur_pembelian_id');
             $table->foreign('faktur_pembelian_id')->references('id')->on('faktur_pembelians');
-            $table->unsignedBigInteger('faktur_pembelian_id');
             $table->integer('jumlah_barang');
             $table->integer('harga_barang');
             $table->integer('subtotal');

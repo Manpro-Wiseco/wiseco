@@ -44,7 +44,7 @@
                                                     {{ $data->no_penjualan }} - {{ $data->nama_pelanggan }}</option>
                                             @endforeach
                                         </select>
-                                        @error('phone')
+                                        @error('penjualan_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

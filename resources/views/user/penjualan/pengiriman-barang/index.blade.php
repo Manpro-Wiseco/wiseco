@@ -109,18 +109,20 @@
             var tanggal = $("#tanggal_pengiriman").val();
             var deskripsi = $("#deskripsi").val();
             var penjualan = $("#penjualan_id").val();
-            var token = $('meta[name="csrf-token"]').attr('content'); ;
+            var token = $('meta[name="csrf-token"]').attr('content');
             
             $.ajax({
-                url: `${window.url}/penjualan/pengiriman-barang/update/${id}`,
                 type: "POST",
+                url: `${window.url}/penjualan/pengiriman-barang/update/${id}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     kurir: kurir,
                     tanggal_pengiriman: tanggal,
                     deskripsi: deskripsi,
                     status: status,
                     penjualan_id: penjualan,
-                    _token: token
                 },
                 dataType: 'json',
                 success: function (data) {

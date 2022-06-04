@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\FakturPenjualan;
 use App\Models\Expense;
+use App\Models\Penjualan;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dotenv\Util\Str;
+use Illuminate\Support\Facades\Auth;
 
 class FakturPenjualanController extends Controller
 {
@@ -26,18 +30,18 @@ class FakturPenjualanController extends Controller
 
     public function list(Request $request)
     {
-        $data = FakturPenjualan::latest()->get();
+        $data = Penjualan::where('status', '!=', 'DRAFT')->latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $urlEdit = route('penjualan.faktur-penjualan.edit', $row->id);
-                $urlDelete = route('penjualan.faktur-penjualan.destroy', $row->id);
-                $actionBtn = '<a href="' . $urlEdit . '" class="btn bg-gradient-info btn-small">
-                        <i class="fas fa-edit"></i>
+                $urlStream = route('penjualan.faktur-penjualan.get-faktur-penjualan', ['type' => 'stream', 'id' => $row->id]);
+                $urlDownload = route('penjualan.faktur-penjualan.get-faktur-penjualan', ['type' => 'download', 'id' => $row->id]);
+                $actionBtn = '<a href="' . $urlDownload . '" class="btn bg-gradient-info btn-small">
+                        <i class="fas fa-print"></i>
                     </a>
-                    <button class="btn bg-gradient-danger btn-small" type="button">
-                        <i class="fas fa-trash"></i>
-                    </button>';
+                    <a href="' . $urlStream . '" class="btn bg-gradient-info btn-small" type="button" id="lihat-detail">
+                        <i class="fas fa-eye"></i>
+                    </a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
@@ -52,8 +56,8 @@ class FakturPenjualanController extends Controller
      */
     public function create()
     {
-        $dataContacts = DataContact::currentCompany()->get();
-        return view('user.penjualan.faktur-penjualan.create', compact('dataContacts'));
+        // $dataContacts = DataContact::currentCompany()->get();
+        // return view('user.penjualan.faktur-penjualan.create', compact('dataContacts'));
     }
 
     /**
@@ -135,5 +139,46 @@ class FakturPenjualanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getFaktur($type, $id)
+    {
+
+        $data_details = Penjualan::with('pesanan.item','pesanan.pelanggan')->findOrFail($id);
+        $data = [
+            'logo' => asset('assets/img/logo-ct.png'),
+            'name_apps' => 'WISECO',
+        ];
+
+        // $faktur_check = FakturPenjualan::where('penjualan_id', $id)->exists();
+        // if ($faktur_check) {
+        //     DB::transaction(function () use ($data_saved) {
+        //         FakturPenjualan::where();
+        //     });  
+        //     dd('Ada');
+        // }else{
+        //     $data_saved = [
+        //         'penjualan_id' => $id,
+        //         'company_id' => session()->get('company')->id,
+        //         'user_pencetak' => Auth::user()->name,
+        //         'status' => 'DICETAK',
+        //         'jumlah_dicetak' => 1,
+        //         'no_faktur' => Str::random(10),
+        //     ];
+        //     DB::transaction(function () use ($data_saved) {
+        //         FakturPenjualan::create($data_saved);
+        //     });  
+        //     // dd('tidak ada');
+        // }
+
+        $pdf = PDF::loadView('user.penjualan.faktur-penjualan.fakturPDF', ['data_details'=>$data_details, 'data' => $data, 'pelanggan' => $data_details->pesanan->pelanggan]);
+
+        if ($type == 'stream') {
+            return $pdf->stream(Carbon::now()->format('Y-m-d').'-faktur-penjualan.pdf-'.$data_details->no_penjualan);
+        }
+
+        if ($type == 'download') {
+            return $pdf->download(Carbon::now()->format('Y-m-d').'-faktur-penjualan-'.$data_details->no_penjualan.'.pdf');
+        }
     }
 }
