@@ -46,7 +46,7 @@
                     </a>
                 </div>
 
-                <div class="col-md-4 mb-5">
+                {{-- <div class="col-md-4 mb-5">
                     <a class="link" href="{{route('inventory.pindah-gudang.index')}}">
                         <div class="card bg-gradient-primary">
                             <div class="card-body p-3">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> --}}
 
                 {{-- Fitur ini tidak diprioritaskan --}}
                 {{-- <div class="col-md-4 mb-5">
