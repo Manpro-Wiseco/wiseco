@@ -217,18 +217,19 @@ class PesananPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id )
     {
-        // DB::transaction(function () use ($id) {
-        //     $pembelian = PesananPembelian::find($id);
-        //     foreach ($pembelian->items as $key => $item) {
-        //         $data_item = Item::find($item->id);
-        //         $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
-        //         $data_item->save();
-        //     }
-        //     $pembelian->items()->detach();
-        //     $pembelian->delete();
-        // });
+         DB::transaction(function () use ($id) {
+             $pembelian = PesananPembelian::find($id);
+             foreach ($pembelian->items as $key => $item) {
+                 $data_item = Item::find($item->id);
+                 $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
+                 $data_item->save();
+             }
+             $pembelian->items()->detach();
+             $pembelian->delete();
+         });
+        
         return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data pesanan pembelian!']);
     }
 }

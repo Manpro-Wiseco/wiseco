@@ -74,18 +74,18 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="form-label mt-4">No. Pesanan</label>
+                                        <label class="form-label mt-4">No. Retur Pesanan</label>
                                         <input type="text"
                                             class="form-control @error('no_pesanan') is-invalid @enderror"
                                             id="no_pesanan" name="no_pesanan" value="{{ old('no_pesanan') }}"
-                                            placeholder="No. Pesanan" required>
+                                            placeholder="No. Retur Pesanan" required>
                                         @error('no_pesanan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <label class="form-label mt-4">Deskripsi</label>
                                         <input type="text" class="form-control @error('deskripsi') is-invalid @enderror"
                                             id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}"

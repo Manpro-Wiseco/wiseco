@@ -135,7 +135,7 @@
                                                 Tanggal</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">
-                                                No Pesanan</th>
+                                                No Retur Pesanan</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Pemasok</th>

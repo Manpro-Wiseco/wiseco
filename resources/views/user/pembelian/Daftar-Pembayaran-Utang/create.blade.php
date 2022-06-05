@@ -108,12 +108,6 @@
                                                     <input type="text" class="form-control" id="pajak" placeholder="Rp.">
                                                 </div>
                                             </div>
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="pajak">Uang Muka</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="pajak" placeholder="Rp.">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

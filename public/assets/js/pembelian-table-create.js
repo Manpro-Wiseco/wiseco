@@ -201,6 +201,7 @@ addRowBtn.addEventListener("click", function (e) {
                     "Rp " + parseInt(e.target.value) * parseInt(price);
                 subtotalInput.value =
                     parseInt(e.target.value) * parseInt(price);
+                
             });
         } else if (cell == 2) {
             let input = document.createElement("p");
@@ -243,3 +244,4 @@ addRowBtn.addEventListener("click", function (e) {
 });
 
 createTable();
+

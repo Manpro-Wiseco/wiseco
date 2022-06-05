@@ -246,23 +246,15 @@
                                     <div class="col-md-7">
                                         <div class="card-body">
                                             
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4"
-                                                    for="discount">Discount</label>
+                                           <!-- <div class="form-grup row mb-2">
+                                                <label class="col-form-label col-6 col-md-4" for="biaya-lain">Biaya
+                                                    Lain</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="discount"
-                                                        placeholder="%">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="pajak">Total
-                                                    Barang</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="pajak"
+                                                    <input type="text" class="form-control" id="biaya-lain"
                                                         placeholder="Rp.">
                                                 </div>
                                             </div>
+                                        -->
 
                                             <hr>
                                             <div class="form-grup row mb-2">

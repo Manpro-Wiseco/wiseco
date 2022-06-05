@@ -35,22 +35,17 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">No. Pesanan</label>
-                                        <select name="data_contact_id" id="data_contact_id"
-                                            class="form-control @error('data_contact_id') is-invalid @enderror"
-                                            required>
+                                        <select name="no_pesanan" id="no_pesanan"
+                                            class="form-control @error('no_pesanan') is-invalid @enderror"
+                                            required disabled>
                                             <option>-  Pilih No.Pesanan  -</option>
-                                            @foreach ($dataContacts as $contact)
-                                                <option value="{{ $contact->id }}"
-                                                    @if (old('data_contact_id') == $contact->id) selected @endif>
-                                                    {{ $contact->name }} - {{ $contact->status }}</option>
-                                            @endforeach
                                         </select>
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div> 
+                                    </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Jenis</label>
                                         <select name="unitItem" id="unitItem" class="form-control">
@@ -119,13 +114,6 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-body">
-                                            
-                                            <div class="form-grup row mb-2">
-                                                <label class="col-form-label col-6 col-md-4" for="discount">Discount</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" id="discount" placeholder="%">
-                                                </div>
-                                            </div>
                                             
                                             <hr>
                                             <div class="form-grup row mb-2">
