@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\User\Pelaporan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classification;
+use App\Models\DataAccount;
 use App\Models\Expense;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class KeuanganController extends Controller
 {
@@ -144,5 +147,21 @@ class KeuanganController extends Controller
         $pdf = PDF::loadView('user.pelaporan.keuangan.pemasukan-pdf', compact('data', 'data_request'));
         return $pdf->stream(Carbon::now()->format('Y-m-d') . '-jurnal-pengeluaran.pdf');
         // return view('user.pelaporan.keuangan.pemasukan-pdf', compact('data', 'data_request'));
+    }
+
+    public function data_accounts(Request $request)
+    {
+        $request->validate([
+            'is_cash' => 'required'
+        ]);
+        if ($request->is_cash == 1) {
+            $data = DataAccount::with(['dataBank', 'subclassification'])->where('is_cash', 1)->get();
+        } elseif ($request->is_cash == 2) {
+            $data = DataAccount::with(['dataBank', 'subclassification'])->get();
+        } else {
+            $data = DataAccount::where('is_cash', 0)->get();
+        }
+        $pdf = PDF::loadView('user.pelaporan.keuangan.data-accounts-pdf', compact('data'));
+        return $pdf->stream(Carbon::now()->format('Y-m-d') . '-data-accounts.pdf');
     }
 }

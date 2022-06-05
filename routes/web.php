@@ -297,6 +297,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'index'])->name('index');
             Route::post('/pengeluaran', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pengeluaran'])->name('pengeluaran');
             Route::post('/pemasukan', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pemasukan'])->name('pemasukan');
+            Route::post('/data-accounts', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'data_accounts'])->name('data_accounts');
         });
     });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
@@ -313,6 +314,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/data-contact/data', [\App\Http\Controllers\User\DataContactController::class, 'data'])->name('data-contact.data');
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
     // Data Lainnya - Classification
+    Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');
+    Route::get('/classification/data', [\App\Http\Controllers\User\ClassificationController::class, 'data'])->name('classification.data');
     Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');
     Route::resource('/classification', \App\Http\Controllers\User\ClassificationController::class);
     // Data Lainnya - Subclassification
