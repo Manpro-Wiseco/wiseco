@@ -344,7 +344,7 @@
                         <div class="card p-2 m-2 border rounded-3 bg-gradient-primary">
                             <div class="card">
                                 <h6>Nilai Penjualan</h6>
-                                <h5 class="text">Rp.0</h5>
+                                <h5 class="text">{{$totalPenjualan}}</h5>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -352,7 +352,7 @@
                                 <div class="card border p-1 bg-gradient-primary">
                                     <div class="card mt-1">
                                         <h6>Total Transaksi</h6>
-                                        <h6>0</h6>
+                                        <h6>{{$totalTransPenjualan}}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -360,7 +360,7 @@
                                 <div class="card border p-1 bg-gradient-primary">
                                     <div class="card mt-1">
                                         <h6>Total Pelanggan</h6>
-                                        <h6>0</h6>
+                                        <h6>{{$jumlahCustomer}}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +368,7 @@
                         <div class="card p-2 m-2 border rounded-3 bg-gradient-primary">
                             <div class="card">
                                 <h6>Produk Terjual</h6>
-                                <h4 class="text">0</h4>
+                                <h4 class="text">{{$jumlahDijual}}</h4>
                             </div>
                         </div>
                     </div>
@@ -381,7 +381,7 @@
                     <div class="card p-2 m-2 border rounded-3 bg-gradient-primary">
                         <div class="card">
                             <h6>Nilai Pembelian</h6>
-                            <h5 class="text">Rp.0</h5>
+                            <h5 class="text">{{$totalPembelian}}</h5>
                         </div>
                     </div>
                     <div class="row m-1">
@@ -389,7 +389,7 @@
                             <div class="card border p-1 bg-gradient-primary">
                                 <div class="card mt-1">
                                     <h6>Total Transaksi</h6>
-                                    <h6>0</h6>
+                                    <h6>{{$totalTransaksi}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -397,15 +397,15 @@
                             <div class="card border p-1 bg-gradient-primary">
                                 <div class="card mt-1">
                                     <h6>Total Pemasok</h6>
-                                    <h6>0</h6>
+                                    <h6>{{$jumlahSupplier}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card p-2 m-2 border rounded-3 bg-gradient-primary">
                         <div class="card">
-                            <h6>Produk Dibeli</h6>
-                            <h4 class="text">0</h4>
+                            <h6>Jumlah Produk Dibeli</h6>
+                            <h4 class="text">{{$jumlahDibeli}}</h4>
                         </div>
                     </div>
                 </div>
