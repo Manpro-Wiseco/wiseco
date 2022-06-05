@@ -305,6 +305,7 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'index'])->name('index');
             Route::post('/pesanan', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'pesanan'])->name('pesanan');
             Route::post('/pengiriman', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'pengiriman'])->name('pengiriman');
+            Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'retur'])->name('retur');
         });
     });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');

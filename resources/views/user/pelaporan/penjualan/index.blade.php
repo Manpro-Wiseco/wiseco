@@ -56,6 +56,31 @@
                 $("#custom-tanggal-pengiriman").html('')
             }
         });
+        $("#tanggal-retur").on("select2:select", function(e) {
+            var data = e.params.data;
+            console.log("DATA", data)
+            console.log(data.id === "custom");
+            if (data.id === "custom") {
+                $("#custom-tanggal-retur").append(`
+                    <div class="col-md-12 mt-4">
+                        <label class="form-label">Dari Tanggal</label>
+                        <input type="date" name="dari_tanggal" id="dari_tanggal"
+                            class="form-control @error('dari_tanggal') is-invalid @enderror" required>
+                        <div class="dari_tanggal-error">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <label class="form-label">Hingga Tanggal</label>
+                        <input type="date" name="hingga_tanggal" id="hingga_tanggal"
+                            class="form-control @error('hingga_tanggal') is-invalid @enderror" required>
+                        <div class="hingga_tanggal-error">
+                        </div>
+                    </div>
+                `)
+            } else {
+                $("#custom-tanggal-retur").html('')
+            }
+        });
     </script>
 @endpush
 
@@ -112,18 +137,8 @@
                                             <div class="d-flex px-3 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <button class="btn btn-default btn-sm mb-0 text-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#modal-account">Laporan
-                                                        Faktur Penjualan</button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle text-left text-sm">
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <button class="btn btn-default btn-sm mb-0 text-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#modal-account">Laporan
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modal-retur-penjualan">Laporan
                                                         Retur Penjualan</button>
                                                 </div>
                                             </div>
@@ -207,6 +222,47 @@
                                 </div>
                             </div>
                             <div id="custom-tanggal-pengiriman">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-retur-penjualan" tabindex="-1" role="dialog"
+        aria-labelledby="modal-retur-penjualanLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-retur-penjualanLabel">Retur Penjualan</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('laporan.penjualan.retur') }}" method="POST" target="_blank">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mt-4">
+                                <label class="form-label">Tanggal</label>
+                                <select name="tanggal" id="tanggal-retur"
+                                    class="form-control tanggal @error('tanggal') is-invalid @enderror" required>
+                                    <option value="today">Hari Ini</option>
+                                    <option value="week">Minggu Ini</option>
+                                    <option value="month">Bulan Ini</option>
+                                    <option value="year">Tahun Ini</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                                <div class="tanggal-error">
+                                </div>
+                            </div>
+                            <div id="custom-tanggal-retur">
 
                             </div>
                         </div>
