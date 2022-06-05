@@ -148,7 +148,7 @@
         </div>
         <div id="project">
             <div><span>DATE</span>
-                {{ (($data_request['tanggal'] === 'custom' ? $data_request['dari_tanggal'] . ' - ' . $data_request['hingga_tanggal'] : $data_request['tanggal'] === 'year') ? \Carbon\Carbon::now()->format('Y') : $data_request['tanggal'] === 'month') ? \Carbon\Carbon::now()->format('F') : \Carbon\Carbon::now()->format('Y-m-d') }}
+                {{ $tanggal }}
             </div>
         </div>
     </header>

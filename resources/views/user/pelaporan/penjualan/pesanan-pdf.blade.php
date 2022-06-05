@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Detail Jurnal Pengeluaran</title>
+    <title>Detail Jurnal Pesanan Penjualan</title>
     <style>
         .clearfix:after {
             content: "";
@@ -143,13 +143,8 @@
 
 <body>
     <header class="clearfix">
-        <h1>Detail Jurnal Pengeluaran</h1>
+        <h1>Detail Pesanan Penjualan</h1>
         <div id="company" class="clearfix">
-            {{-- <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div><a href="mailto:</a></div> --}}
         </div>
         <div id="project">
             <div><span>DATE</span>
@@ -161,34 +156,31 @@
         <table>
             <thead>
                 <tr>
-                    <th class="service">Tanggal</th>
-                    <th class="desc">Deskripsi</th>
-                    <th>Detail</th>
+                    <th class="service">Pelanggan</th>
+                    <th class="desc">Tanggal</th>
+                    <th>No. Pesanan</th>
+                    <th>Jumlah Barang</th>
+                    <th>Diskon</th>
+                    <th>Lainnya</th>
+                    <th>Potongan</th>
+                    <th>Pajak</th>
                     <th>Total</th>
-                    <th>Via</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $expense)
+                @foreach ($data as $pesanan)
                     <tr>
-                        <td rowspan="">{{ $expense->created_at->format('Y-m-d') }}</td>
-                        <td rowspan="">{{ $expense->description }}</td>
+                        <td rowspan="">{{ $pesanan->pelanggan->name }}</td>
+                        <td rowspan="">{{ $pesanan->created_at->format('Y-m-d') }}</td>
+                        <td rowspan="">{{ $pesanan->no_pesanan }}</td>
+                        <td rowspan="">{{ $pesanan->item_count }}</td>
+                        <td rowspan="">{{ $pesanan->discount . '%' }}</td>
+                        <td rowspan="">{{ 'Rp ' . number_format($pesanan->other_cost, 2, ',', '.') }}</td>
+                        <td rowspan="">{{ 'Rp ' . number_format($pesanan->potongan, 2, ',', '.') }}</td>
+                        <td rowspan="">{{ 'Rp ' . number_format($pesanan->pajak, 2, ',', '.') }}</td>
                         <td>
-                            <!-- nested row -->
-                            <table>
-                                @foreach ($expense->dataAccounts as $dataAccount)
-                                    <tr>
-                                        <td>{{ $dataAccount->name }}</td>
-                                        <td>{{ 'Rp ' . number_format($dataAccount->pivot->amount, 2, ',', '.') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
+                            {{ 'Rp ' . number_format($pesanan->total, 2, ',', '.') }}
                         </td>
-                        <td>
-                            {{ 'Rp ' . number_format($expense->total, 2, ',', '.') }}
-                        </td>
-                        <td>{{ $expense->fromAccount->name }}</td>
                     </tr>
                 @endforeach
             </tbody>
