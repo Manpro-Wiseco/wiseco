@@ -43,17 +43,17 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/ticket/list', [\App\Http\Controllers\Admin\AdminTicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/view/{id}', [\App\Http\Controllers\Admin\AdminTicketController::class, 'view'])->name('ticket.view');
     Route::get('/ticket/update', [\App\Http\Controllers\Admin\AdminTicketController::class, 'update'])->name('ticket.update');
-    // Route::resource('/ticket', \App\Http\Controllers\Admin\AdminTicketController::class);
+    Route::resource('/ticket', \App\Http\Controllers\Admin\AdminTicketController::class);
 
-    // Route::get('/ticket_response/store', [\App\Http\Controllers\Admin\AdminTicketResponseController::class, 'store'])->name('ticket_response.store');
+    Route::get('/ticket_response/store', [\App\Http\Controllers\Admin\AdminTicketResponseController::class, 'store'])->name('ticket_response.store');
     Route::resource('/ticket_response', \App\Http\Controllers\Admin\AdminTicketResponseController::class);
 
     Route::get('/ticketcategory/list', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'list'])->name('ticketcategory.list');
     Route::get('/ticketcategory/update', [\App\Http\Controllers\Admin\AdminTicketCategoryController::class, 'update'])->name('ticketcategory.update');
-    // Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
+    Route::resource('/ticketcategory', \App\Http\Controllers\Admin\AdminTicketCategoryController::class);
 
     // Admin Profile
-    // Route::get('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');
     Route::resource('/profile', \App\Http\Controllers\Admin\AdminProfileController::class);
 });
 

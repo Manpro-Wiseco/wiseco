@@ -68,7 +68,7 @@
                     </div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <input type="submit" value="Log Out" class=" btn bg-gradient-primary p-2">
+                        <button type="submit" class=" btn bg-gradient-primary p-2" style="text-transform: lowercase;"><small>Log Out</small></button>
                     </form>
                 </a>
             </li>

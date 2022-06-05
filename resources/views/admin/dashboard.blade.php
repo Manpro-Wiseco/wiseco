@@ -103,9 +103,9 @@
     <div class="col-xl-12 col-sm-6">
         <div class="card mb-3">
             <div class="card-body p-3">
-                <div class="chart">
+                {{-- <div class="chart">
                     <canvas id="myChart" class="chart-canvas" height="100px"></canvas>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

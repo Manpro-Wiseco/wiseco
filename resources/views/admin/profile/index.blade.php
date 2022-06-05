@@ -78,7 +78,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-sm-6 mb-xl-0">
                                 <label for="name">Nama</label>
-                                <input name="name" type="text" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$profil->name}}" />
+                                <input name="name" type="text" id="name" class="border form-control @error('name') is-invalid @enderror" value="{{$profil->name}}" />
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-xl-6 col-sm-6 mb-xl-0">
                                 <label for="inputEmail4">Email</label>
-                                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{$profil->email}}" />
+                                <input name="email" type="email" class="border form-control @error('email') is-invalid @enderror" id="email" value="{{$profil->email}}" />
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -95,7 +95,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4"><small>Simpan</small></button>
+                        <button type="submit" class="btn btn-primary mt-4" style="text-transform: lowercase;"><small>Simpan</small></button>
                     </form>
                     <hr class="my-4" />
                     <form>
@@ -104,23 +104,23 @@
                             <div class="col-xl-6 col-sm-6 mb-xl-0">
                                 <div class="form-group">
                                     <label for="inputPassword4">Sandi Lama</label>
-                                    <input type="password" class="form-control" id="inputPassword5" />
+                                    <input type="password" class="border form-control" id="inputPassword5" />
                                     <input style="margin-top:4px;" class="d-inline-block form-check-input" type="checkbox" onclick="myFunction()"><small> Show password</small>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-sm-6 mb-xl-0">
                                 <div class="form-group">
                                     <label for="inputPassword5">Sandi Baru</label>
-                                    <input type="password" class="form-control" id="inputPassword6" />
+                                    <input type="password" class="border form-control" id="inputPassword6" />
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword6">Konfirmasi Sandi</label>
-                                    <input type="password" class="form-control" id="inputPassword7" />
+                                    <input type="password" class="border form-control" id="inputPassword7" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xl-6 col-sm-6 mb-xl-0">
-                                    <button type="submit" class="btn btn-primary mt-4"><small>Ubah Sandi</small></button>
+                                    <button type="submit" class="btn btn-primary mt-4" style="text-transform: lowercase;"><small>Ubah Sandi</small></button>
                                 </div>
                             </div>
                         </div>
