@@ -34,7 +34,7 @@ class ChartPembelianScript extends Component
         ->groupBy('tanggal')
         ->whereMonth('tanggal',$bulan)
         ->whereYear('tanggal',$tahun)
-        ->where('status','Diterima')
+        ->where('status','Open')
         ->where('company_id',session()->get('company')->id)
         ->get();
 
