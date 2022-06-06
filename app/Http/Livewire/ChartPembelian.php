@@ -19,8 +19,8 @@ class ChartPembelian extends Component
             $pembelian = PenerimaanBarang::select(DB::raw('count(*) as count, tanggal'))
             ->groupBy('tanggal')
             ->whereMonth('tanggal',$bulan)
-            ->whereYear('tanggal',$tahun)
-            ->where('status','Diterima')
+            ->whereYear('tanggal',$tahsun)
+            ->where('status','Open')
             ->where('company_id',session()->get('company')->id)
             ->get();
 
