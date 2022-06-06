@@ -74,11 +74,11 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="form-label mt-4">No. Retur Pesanan</label>
+                                        <label class="form-label mt-4">No. Pesanan</label>
                                         <input type="text"
                                             class="form-control @error('no_pesanan') is-invalid @enderror"
                                             id="no_pesanan" name="no_pesanan" value="{{ old('no_pesanan') }}"
-                                            placeholder="No. Retur Pesanan" required>
+                                            placeholder="No. Pesanan" required>
                                         @error('no_pesanan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

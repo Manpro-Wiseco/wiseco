@@ -86,7 +86,7 @@
                             success: function(response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    `Data pembelian dengan no_pesanan ${no_pesanan} berhasil terhapus.`,
+                                    `Data retur pembelian dengan no_pesanan ${no_pesanan} berhasil terhapus.`,
                                     'success'
                                 )
                                 reload_table(null, true)
