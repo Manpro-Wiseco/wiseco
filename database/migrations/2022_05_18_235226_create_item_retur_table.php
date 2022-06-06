@@ -17,8 +17,8 @@ class CreateItemReturTable extends Migration
             $table->id();
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('pembelian_id')->references('id')->on('pesanan_pembelians');
-            $table->unsignedBigInteger('pembelian_id');
+            $table->foreign('retur_pembelian_id')->references('id')->on('retur_pembelians');
+            $table->unsignedBigInteger('retur_pembelian_id');
             $table->integer('jumlah_barang');
             $table->integer('harga_barang');
             $table->integer('subtotal');

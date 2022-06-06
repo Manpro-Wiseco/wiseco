@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('assets/js/table-row-penawaran-harga.js') }}"></script>
+    <script src="{{ asset('assets/js/pembelian-table-create.js') }}"></script>
 @endpush
 <x-template-layout>
     <section class="content">

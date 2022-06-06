@@ -23,6 +23,6 @@ class ReturPembelian extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'item_pembelian', 'pembelian_id', 'item_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
+        return $this->belongsToMany(Item::class, 'item_retur', 'item_retur_id', 'item_id')->withPivot(['id', 'jumlah_barang', 'harga_barang', 'subtotal']);
     }
 }

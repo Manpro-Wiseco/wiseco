@@ -19,6 +19,8 @@ class CreateReturPembeliansTable extends Migration
             $table->integer('no_pesanan');
             $table->unsignedBigInteger('data_contact_id');
             $table->foreign('data_contact_id')->references('id')->on('data_contact');
+           // $table->unsignedBigInteger('item_retur_id');
+           // $table->foreign('item_retur_id')->references('id')->on('item_retur');
             $table->string('deskripsi');
             $table->integer('total');
             $table->enum('status', ['DITERIMA','DITOLAK','DRAFT']);

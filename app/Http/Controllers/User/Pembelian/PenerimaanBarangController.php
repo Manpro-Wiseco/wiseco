@@ -149,7 +149,9 @@ class PenerimaanBarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = PenerimaanBarang::with(['dataContact'])->findOrFail($id);
+        $dataContacts = DataContact::currentCompany()->status('Supplier')->get();
+        return view('user.pembelian.penerimaan-barang.edit', compact('data', 'dataContacts'));
     }
 
     /**
@@ -172,6 +174,17 @@ class PenerimaanBarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::transaction(function () use ($id) {
+            $penerimaan = Penerimaanbarang::find($id);
+            foreach ($penerimaan->items as $key => $item) {
+                $data_item = Item::find($item->id);
+                $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
+                $data_item->save();
+            }
+            $penerimaan->items()->detach();
+            $penerimaan->delete();
+        });
+       
+       return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data penerimaan barang!']);
     }
 }

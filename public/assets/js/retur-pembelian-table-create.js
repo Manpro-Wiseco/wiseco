@@ -76,6 +76,7 @@ submitBtn.addEventListener("click", function (e) {
     let deskripsi = document.getElementById("deskripsi").value;
     let tanggal = document.getElementById("tanggal").value;
     let no_pesanan = document.getElementById("no_pesanan").value;
+    //let pembelian_id = document.getElementById("pembelian_id").value;
 
     console.log(arrValues);
     $.ajax({
@@ -201,6 +202,7 @@ addRowBtn.addEventListener("click", function (e) {
                     "Rp " + parseInt(e.target.value) * parseInt(price);
                 subtotalInput.value =
                     parseInt(e.target.value) * parseInt(price);
+                
             });
         } else if (cell == 2) {
             let input = document.createElement("p");
@@ -243,3 +245,4 @@ addRowBtn.addEventListener("click", function (e) {
 });
 
 createTable();
+
