@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Pembelian;
 use App\Http\Controllers\Controller;
 use App\Models\DataContact;
 use App\Models\ReturPembelian;
+use App\Models\Expense;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
@@ -182,7 +183,7 @@ class ReturPembelianController extends Controller
         $data = Arr::except($request->all(), 'detail');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
         $detail = $request->detail;
-        $retur = ReturPembelian::find($id);
+        $pembelian = ReturPembelian::find($id);
 
         // create new array with item_id value as a key with array of amount, jumlah_barang, harga_barang as pair of key and value
         $new_array = array_reduce($detail, function ($result, $item) {
@@ -195,15 +196,15 @@ class ReturPembelianController extends Controller
             ];
             return $result;
         }, []);
-        DB::transaction(function () use ($data, $retur, $new_array, $detail) {
-            $retur->update([
+        DB::transaction(function () use ($data, $pembelian, $new_array, $detail) {
+            $pembelian->update([
                 'tanggal' => $data['tanggal'],
                 'no_pesanan' => $data['no_pesanan'],
                 'data_contact_id' => $data['data_contact_id'],
                 'total' => $data['total'],
                 'deskripsi' => $data['deskripsi'],
             ]);
-            $retur->items()->sync($new_array);
+            $pembelian->items()->sync($new_array);
             // Get items table by id
             // foreach ($detail as $key => $value) {
             //     $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
@@ -214,7 +215,7 @@ class ReturPembelianController extends Controller
             //     ]);
             // }
         });
-        return response()->json(['data' => ['retur' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data retur pembelian!']);
+        return response()->json(['data' => ['pembelian' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data retur pembelian!']);
     }
     
 
