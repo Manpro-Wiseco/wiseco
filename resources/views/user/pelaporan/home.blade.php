@@ -65,22 +65,6 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 mb-5">
-                <a href="{{ route('pengelolaan-kas.data-account.index') }}">
-                    <div class="card bg-gradient-primary">
-                        <div class="card-body p-3">
-                            <div class="text-center">
-                                <h4 class="text-white text-capitalize font-weight-bold">
-                                    Laporan Lainnya</h4>
-                                <i class="text-white fas fa-th-list fa-5x my-3"></i>
-                                <p class="text-white">
-                                    Draft Laporan Lainnya.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
     </section>
 </x-template-layout>
