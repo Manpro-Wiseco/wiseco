@@ -16,4 +16,9 @@ class Classification extends Model
     {
         return $this->hasMany(Subclassification::class);
     }
+
+    public function dataAccounts()
+    {
+        return $this->hasManyThrough(DataAccount::class, Subclassification::class);
+    }
 }

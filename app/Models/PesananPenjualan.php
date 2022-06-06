@@ -15,7 +15,7 @@ class PesananPenjualan extends Model
 
     protected static function booted()
     {
-        static::deleted(function($pesanan) {
+        static::deleted(function ($pesanan) {
             $pesanan->penjualan()->delete();
             $pesanan->item()->delete();
         });
@@ -25,7 +25,7 @@ class PesananPenjualan extends Model
     {
         return $query->where('company_id', '=', session()->get('company')->id);
     }
-    
+
     public function pelanggan()
     {
         return $this->belongsTo(DataContact::class);
@@ -45,5 +45,4 @@ class PesananPenjualan extends Model
     {
         return $this->hasOne(penjualan::class, 'pesanan_id', 'id');
     }
-    
 }
