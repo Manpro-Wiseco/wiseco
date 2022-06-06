@@ -50,7 +50,7 @@
                 </a>
             </div>
             <div class="col-md-4 mb-5">
-                <a href="{{ route('pengelolaan-kas.data-account.index') }}">
+                <a href="{{ route('laporan.produk.index') }}">
                     <div class="card bg-gradient-primary">
                         <div class="card-body p-3">
                             <div class="text-center">

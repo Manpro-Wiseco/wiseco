@@ -307,6 +307,17 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::post('/pengiriman', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'pengiriman'])->name('pengiriman');
             Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'retur'])->name('retur');
         });
+
+        // Laporan - Produk
+        Route::prefix('produk')->name('produk.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'index'])->name('index');
+            Route::post('/daftar-produk', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk'])->name('produk');
+            Route::post('/produk-terjual', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk_jual'])->name('produk_jual');
+            Route::post('/produk-dibeli', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk_beli'])->name('produk_beli');
+
+            Route::post('/stok-opname', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'stok_opname'])->name('stok_opname');
+            Route::post('/pindah-gudang', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'pindah_gudang'])->name('pindah_gudang');
+        });
     });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
     Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
