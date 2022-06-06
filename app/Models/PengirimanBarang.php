@@ -15,7 +15,7 @@ class PengirimanBarang extends Model
 
     protected static function booted()
     {
-        static::deleted(function($account) {
+        static::deleted(function ($account) {
             // $account->services()->delete();
         });
     }

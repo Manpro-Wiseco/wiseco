@@ -27,4 +27,9 @@ class ReturPenjualan extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function scopeCurrentCompany($query)
+    {
+        return $query->where('company_id', '=', session()->get('company')->id);
+    }
 }

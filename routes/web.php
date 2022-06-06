@@ -166,8 +166,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             //Route::get('/export', [\App\Http\Controllers\User\Inventory\ReturPenjualanController::class, 'export'])->name('export');
         });
 
-         //daftar piutang
-         Route::prefix('daftar-piutang')->name('daftar-piutang.')->group(function () {
+        //daftar piutang
+        Route::prefix('daftar-piutang')->name('daftar-piutang.')->group(function () {
             Route::get('/', [PiutangController::class, 'index'])->name('index');
             Route::get('/create', [PiutangController::class, 'create'])->name('create');
             Route::post('/store', [PiutangController::class, 'store'])->name('store');
@@ -282,8 +282,45 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
         Route::resource('/fund-transfer', App\Http\Controllers\User\PengelolaanKas\FundTransferController::class);
     });
 
-    // Report
-    Route::get('/pelaporan', [\App\Http\Controllers\User\PelaporanController::class, 'index'])->name('pelaporan');
+    // Report / Pelaporan
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\Pelaporan\HomeController::class, 'index'])->name('index');
+
+        // Laporan - Keuangan
+        Route::prefix('keuangan')->name('keuangan.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'index'])->name('index');
+            Route::post('/pengeluaran', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pengeluaran'])->name('pengeluaran');
+            Route::post('/pemasukan', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'pemasukan'])->name('pemasukan');
+            Route::post('/data-accounts', [\App\Http\Controllers\User\Pelaporan\KeuanganController::class, 'data_accounts'])->name('data_accounts');
+        });
+
+        // Laporan - Penjualan
+        Route::prefix('penjualan')->name('penjualan.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'index'])->name('index');
+            Route::post('/pesanan', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'pesanan'])->name('pesanan');
+            Route::post('/pengiriman', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'pengiriman'])->name('pengiriman');
+            Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'retur'])->name('retur');
+        });
+
+        // Laporan - Pembelian
+        Route::prefix('pembelian')->name('pembelian.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'index'])->name('index');
+            Route::post('/pesanan', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'pesanan'])->name('pesanan');
+            Route::post('/penerimaan', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'penerimaan'])->name('penerimaan');
+            Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'retur'])->name('retur');
+        });
+
+        // Laporan - Produk
+        Route::prefix('produk')->name('produk.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'index'])->name('index');
+            Route::post('/daftar-produk', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk'])->name('produk');
+            Route::post('/produk-terjual', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk_jual'])->name('produk_jual');
+            Route::post('/produk-dibeli', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'produk_beli'])->name('produk_beli');
+
+            Route::post('/stok-opname', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'stok_opname'])->name('stok_opname');
+            Route::post('/pindah-gudang', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'pindah_gudang'])->name('pindah_gudang');
+        });
+    });
     Route::get('/laporan-keuangan', [\App\Http\Controllers\User\KeuanganController::class, 'index'])->name('laporan-keuangan');
     Route::get('/laporan-penjualan', [\App\Http\Controllers\User\LaporanPenjualan::class, 'index'])->name('laporan-penjualan');
     Route::get('/laporan-pembelian', [\App\Http\Controllers\User\LaporanPembelian::class, 'index'])->name('laporan-pembelian');
@@ -298,6 +335,8 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
     Route::get('/data-contact/data', [\App\Http\Controllers\User\DataContactController::class, 'data'])->name('data-contact.data');
     Route::resource('/data-contact', \App\Http\Controllers\User\DataContactController::class);
     // Data Lainnya - Classification
+    Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');
+    Route::get('/classification/data', [\App\Http\Controllers\User\ClassificationController::class, 'data'])->name('classification.data');
     Route::get('/classification/list', [\App\Http\Controllers\User\ClassificationController::class, 'list'])->name('classification.list');
     Route::resource('/classification', \App\Http\Controllers\User\ClassificationController::class);
     // Data Lainnya - Subclassification

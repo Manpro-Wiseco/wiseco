@@ -40,6 +40,17 @@ class ClassificationController extends Controller
             ->make(true);
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Classification::all();
+        } else {
+            $data = Classification::where('name', 'like', '%' . $search . '%')->get();
+        }
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
