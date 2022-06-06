@@ -308,6 +308,14 @@ Route::middleware(['auth', 'role:user', 'company-session'])->group(function () {
             Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PenjualanController::class, 'retur'])->name('retur');
         });
 
+        // Laporan - Pembelian
+        Route::prefix('pembelian')->name('pembelian.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'index'])->name('index');
+            Route::post('/pesanan', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'pesanan'])->name('pesanan');
+            Route::post('/penerimaan', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'penerimaan'])->name('penerimaan');
+            Route::post('/retur', [\App\Http\Controllers\User\Pelaporan\PembelianController::class, 'retur'])->name('retur');
+        });
+
         // Laporan - Produk
         Route::prefix('produk')->name('produk.')->group(function () {
             Route::get('/', [\App\Http\Controllers\User\Pelaporan\ProdukController::class, 'index'])->name('index');
