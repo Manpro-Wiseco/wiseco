@@ -18,16 +18,11 @@
                             <div class="row">
                                 <div class="text-center">
                                     <div class="numbers">
-                                        <div class="dropdown">
-                                            <button class="btn bg-gradient-primary dropdown-toggle m-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Tampilkan
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="javascript:;">Hari Ini</a></li>
-                                                <li><a class="dropdown-item" href="javascript:;">Bulan Ini</a></li>
-                                                <li><a class="dropdown-item" href="javascript:;">Tahun Ini</a></li>
-                                            </ul>
-                                        </div>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected value="1">Hari Ini</option>
+                                            <option value="2">Minggu Ini</option>
+                                            <option value="3">Bulan Ini</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
