@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label mt-4">Status</label>
-                                <select name="status" id="status" class="text-center form-control border @error('status') is-invalid @enderror" required>
+                                <select name="status" id="status" class="text-center form-select border @error('status') is-invalid @enderror" required>
                                     <option value="" disabled selected>Status</option>
                                     <option value="open">open</option>
                                     <option value="close">close</option>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label mt-4">Kategori</label>
-                                <select class="text-center border form-control @error('ticket_category_id') is-invalid @enderror" name=" ticket_category" required id="ticket_category_id">
+                                <select class="text-center border form-select @error('ticket_category_id') is-invalid @enderror" name=" ticket_category" required id="ticket_category_id">
                                     <option value="" disabled selected>Kategori Tiket</option>
                                     @foreach($categories as $category_)
                                     <option value="{{ $category_->id }}"><?php echo htmlspecialchars_decode($category_->category); ?></option>
