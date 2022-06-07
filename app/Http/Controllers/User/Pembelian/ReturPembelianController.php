@@ -103,7 +103,7 @@ class ReturPembelianController extends Controller
         $detail = $request->detail;
         // dd($data);
         DB::transaction(function () use ($data, $detail) {
-            $retur = ReturPembelian::create([
+            $retur_pembelians = ReturPembelian::create([
                 'tanggal' => $data['tanggal'],
                 'no_pesanan' => $data['no_pesanan'],
                 'data_contact_id' => $data['data_contact_id'],
@@ -113,8 +113,8 @@ class ReturPembelianController extends Controller
             ]);
             foreach ($detail as $key => $value) {
                 DB::table('item_retur')->insert([
-                    "item_retur_id" => $item_retur->id,
-                    //"pembelian_id" => $pembelian->id,
+                    //"item_retur_id" => $item_retur->id,
+                    "retur_pembelian_id" => $retur_pembelians->id,
                     //"pembelian_id" => $value["pembelian_id"],
                     "item_id" => $value["data_produk_id"],
                     "jumlah_barang" => $value["jumlah_barang"],
@@ -185,7 +185,7 @@ class ReturPembelianController extends Controller
         $data = Arr::except($request->all(), 'detail');
         $data = Arr::add($data, 'company_id', session()->get('company')->id);
         $detail = $request->detail;
-        $retur = ReturPembelian::find($id);
+        $retur_pembelians = ReturPembelian::find($id);
 
         // create new array with item_id value as a key with array of amount, jumlah_barang, harga_barang as pair of key and value
         $new_array = array_reduce($detail, function ($result, $item) {
@@ -198,15 +198,15 @@ class ReturPembelianController extends Controller
             ];
             return $result;
         }, []);
-        DB::transaction(function () use ($data, $retur, $new_array, $detail) {
-            $retur->update([
+        DB::transaction(function () use ($data, $retur_pembelians, $new_array, $detail) {
+            $retur_pembelians->update([
                 'tanggal' => $data['tanggal'],
                 'no_pesanan' => $data['no_pesanan'],
                 'data_contact_id' => $data['data_contact_id'],
                 'total' => $data['total'],
                 'deskripsi' => $data['deskripsi'],
             ]);
-            $retur->items()->sync($new_array);
+            $retur_pembelians->items()->sync($new_array);
             // Get items table by id
             // foreach ($detail as $key => $value) {
             //     $item = DB::table('items')->where('id', $value["data_produk_id"])->first();
@@ -217,7 +217,7 @@ class ReturPembelianController extends Controller
             //     ]);
             // }
         });
-        return response()->json(['data' => ['retur' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data retur pembelian!']);
+        return response()->json(['data' => ['retur_pembelians' => $data, 'detail' => $detail], 'status' => TRUE, 'message' => 'Berhasil mengubah data retur pembelian!']);
     }
     
 
@@ -230,14 +230,14 @@ class ReturPembelianController extends Controller
     public function destroy($id)
     {
         DB::transaction(function () use ($id) {
-            $retur = returPembelian::find($id);
-            foreach ($retur->items as $key => $item) {
+            $retur_pembelians = returPembelian::find($id);
+            foreach ($retur_pembelians->items as $key => $item) {
                 $data_item = Item::find($item->id);
                 $data_item->stockItem = $data_item->stockItem - $item->jumlah_barang;
                 $data_item->save();
             }
-            $retur->items()->detach();
-            $retur->delete();
+            $retur_pembelians->items()->detach();
+            $retur_pembelians->delete();
         });
        
        return response()->json(['status' => TRUE, 'message' => 'Berhasil menghapus data retur pembelian!']);
