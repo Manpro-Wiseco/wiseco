@@ -9,8 +9,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('user.pembelian.home');
+        return view('user.pembelian.index');
     }
 }
-
-
